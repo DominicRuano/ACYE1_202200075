@@ -1,19 +1,4 @@
 
-AbrirArchivo MACRO nombreArchivo, modo, handle
-    mov ah, 3Dh      ; Función para abrir archivo
-    mov al, modo     ; Modo de apertura
-    lea dx, nombreArchivo ; Nombre del archivo
-    int 21h          ; Llamar a la interrupción DOS
-    mov handle, ax   ; Guardar el identificador del archivo
-ENDM
-
-CerrarArchivo MACRO handle
-    mov ah, 3Eh      ; Función para cerrar archivo
-    mov bx, handle   ; Identificador del archivo
-    int 21h          ; Llamar a la interrupción DOS
-ENDM
-
-
 ObtenerMov MACRO
     ObtenerFila Sfila
     ObtenerColumna Scolumna
@@ -343,14 +328,6 @@ ENDM
     ; Metodo Principal (Main)
     Main PROC
         Menu:
-            AbrirArchivo nombreDB, 0, fileHandle
-
-            mov ah, 3Fh
-            mov cx, 250      ; Número máximo de bytes a leer
-            lea dx, dataTXT
-            int 21h
-
-            CerrarArchivo fileHandle
 
             LimpiarConsola
             ImprimirCadenas mensajeInicio
@@ -373,12 +350,7 @@ ENDM
 
         ImprimirTablero:
             LimpiarConsola
-            getNombre Jugador
-
-            obtenerOpcion opcion
-            getMinSeg horaSTRInicio
-
-            LlenarTablero
+            getNombre Jugador            
             
             CMP opcion, 121
             JE NombreCorrecto
@@ -386,6 +358,10 @@ ENDM
             JMP ImprimirTablero
 
         NombreCorrecto:
+            LlenarTablero
+            obtenerOpcion opcion
+            getMinSeg horaSTRInicio
+
             LimpiarConsola
             ImprimirTableroJuego Jugador
             ImprimirCadenas salto
