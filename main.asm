@@ -389,7 +389,7 @@ ENDM
 
             LimpiarConsola
             PrintTableroYEncabezado Ia, tableroAux
-            ImprimirCadenas PrecionePara3cContinuar
+            ImprimirCadenas PrecioneParaContinuar
             obtenerOpcion opcion
 
             JMP Jugar
