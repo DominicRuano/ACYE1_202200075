@@ -1,4 +1,18 @@
 
+CopiarTablero MACRO tableroOR, tableroCopy
+    MOV si, 0h
+
+InicioCopiaTablero:
+    mov AL, tableroOR[si]
+    mov tableroCopy[si], AL
+    INC SI
+
+    CMP Si, 40h
+    JNE InicioCopiaTablero
+
+    mov [tableroCopy + si], "$"
+ENDM
+
 ObtenerMov MACRO
     ObtenerFila Sfila
     ObtenerColumna Scolumna
@@ -66,7 +80,6 @@ convertirDigito MACRO digito
     add digito, '0'  ; Convertir el dígito numérico a ASCII ('0' = 48 en ASCII)
 ENDM
 
-; Macro para imprimir la hora guardada como string
 convertirHoraASCII MACRO hora, minutos, buffer
     ; Convertir y almacenar la hora
     mov al, hora         ; Cargar la hora
@@ -143,9 +156,7 @@ obtenerString MACRO regBuffer, maxLength
         mov byte ptr [regBuffer + si], "$"
 ENDM
 
-
-ImprimirTableroJuego MACRO player
-    LOCAL fila, columna
+PrintTableroYEncabezado MACRO player, tab
     ImprimirCadenas espacio
     ImprimirCadenas Jugador
     ImprimirCadenas Tencabezado2
@@ -153,6 +164,12 @@ ImprimirTableroJuego MACRO player
     ImprimirCadenas Tencabezado3
     ImprimirCadenas horaSTRInicio
     ImprimirCadenas salto
+
+    ImprimirTableroJuego tab
+ENDM
+
+ImprimirTableroJuego MACRO params
+    LOCAL fila, columna
 
     MOV BX, 0 ; Indice del indicador de filas -> Inicia en 0
     XOR SI, SI ; Indice para el tablero -> Inicia en 0
@@ -170,7 +187,7 @@ ImprimirTableroJuego MACRO player
         INT 21h
 
         columna:
-            MOV DL, tablero[SI] ; Caracter del tablero
+            MOV DL, params[SI] ; Caracter del tablero
             INT 21h
 
             MOV DL, 124 ; Caracter |
@@ -301,6 +318,7 @@ ENDM
     indicadorColumnas db "  A B C D E F G H", "$"
     indicadorFilas db "12345678", "$"
     tablero db 64 dup(32) ; ROW-MAJOR O COLUMN-MAJOR
+    tableroAux db 64 dup(32)
     nombre db ' Por favor, ingrese su nombre: $'
     nombre2 db " El nombre: ", "$"
     nombre3 db " Es correcto? [y/n] ", "$"
@@ -360,20 +378,21 @@ ENDM
 
         NombreCorrecto:
             LlenarTablero
-            obtenerOpcion opcion
+            CopiarTablero tablero, tableroAux
             getMinSeg horaSTRInicio
 
+        Jugar:
             LimpiarConsola
-            ImprimirTableroJuego Jugador
+            PrintTableroYEncabezado Jugador, tablero
             ImprimirCadenas salto
             ObtenerMov
 
             LimpiarConsola
-            ImprimirTableroJuego Ia
-            ImprimirCadenas PrecioneParaContinuar
-            ;obtenerOpcion opcion
+            PrintTableroYEncabezado Ia, tableroAux
+            ImprimirCadenas PrecionePara3cContinuar
+            obtenerOpcion opcion
 
-            JMP NombreCorrecto
+            JMP Jugar
 
 
         ImprimirPuntajes:
