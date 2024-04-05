@@ -350,7 +350,8 @@ ENDM
 
         ImprimirTablero:
             LimpiarConsola
-            getNombre Jugador            
+            getNombre Jugador
+            obtenerOpcion opcion            
             
             CMP opcion, 121
             JE NombreCorrecto
@@ -370,7 +371,7 @@ ENDM
             LimpiarConsola
             ImprimirTableroJuego Ia
             ImprimirCadenas PrecioneParaContinuar
-            obtenerOpcion opcion
+            ;obtenerOpcion opcion
 
             JMP NombreCorrecto
 
