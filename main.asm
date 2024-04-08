@@ -23,14 +23,20 @@ INCLUDE macros.ASM
     Icolumna db " Ingrese la Columna: ", "$"
     PrecioneParaContinuar db 10, 13, " Precione cualquier tecla para continuar...  ", "$"
     Puntajes db " Nombre del Jugador | Tiempo ", "$"
+    Variable db 10,13, "Var = ", "$"
     nombreDB db "ejemplo.txt", 00h
     fileHandle dw ?
     Jugador db 15 dup("$")
-    minuto db 1 dup("$")          ; Se usa para la funcion getMinSeg
-    segundos db 1 dup("$")        ; Se usa para la funcion getMinSeg
-    Sfila db 1 dup("$")
+    hora db 2 dup("$")            ; Se usa para la funcion getMinSeg
+    horaFn db 2 dup("$")         ; Se usa para la funcion getMinSeg
+    minuto db 2 dup("$")          ; Se usa para la funcion getMinSeg
+    minutosFn db 2 dup("$")       ; Se usa para la funcion getMinSeg
+    segundos db 2 dup("$")        ; Se usa para la funcion getMinSeg
+    segundosFn db 2 dup("$")      ; Se usa para la funcion getMinSeg
+    Sfila db 2 dup("$")
     Scolumna db 1 dup("$")
     horaSTRInicio db 5 dup(0)
+    holaSTRFinal db 5 dup(0)
     ;horaSTRFinal db 5 dup(0)
     dataTXT db 256 dup("$")
     bytesRead dw ?

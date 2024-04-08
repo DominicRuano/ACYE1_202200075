@@ -89,18 +89,20 @@ MACROImprimirTablero MACRO
 NombreCorrecto:
     LlenarTablero
     CopiarTablero tablero, tableroAux
-    getMinSeg horaSTRInicio
+    getMinSeg horaSTRInicio, hora, minuto, segundos
 
 Jugar:
     LimpiarConsola
+    getMinSeg2 horaSTRInicio
     PrintTableroYEncabezado Jugador, tablero
     ImprimirCadenas salto
     ObtenerMov
 
     LimpiarConsola
+    getMinSeg2 horaSTRInicio
     PrintTableroYEncabezado Ia, tableroAux
-    ImprimirCadenas PrecioneParaContinuar
-    obtenerOpcion opcion
+    ImprimirCadenas salto
+    ObtenerMov
 
     JMP Jugar
 ENDM
@@ -147,6 +149,7 @@ ObtenerMov MACRO
 ENDM
 
 ObtenerFila MACRO valor
+    LOCAL inicioDeFila
     inicioDeFila:
         ImprimirCadenas salto       ; imprime ingrese fila
         ImprimirCadenas Ifila
@@ -160,6 +163,7 @@ ObtenerFila MACRO valor
 ENDM
 
 ObtenerColumna MACRO valor
+    LOCAL InicioColumna
     InicioColumna:
         ImprimirCadenas salto       ; imprime ingrese columna
         ImprimirCadenas Icolumna
@@ -190,14 +194,21 @@ getNombre MACRO params
     ImprimirCadenas nombre3
 ENDM
 
-getMinSeg MACRO STR
-    guardarHora minuto, segundos
-    convertirHoraASCII minuto, segundos, STR
+getMinSeg2 MACRO STR
+    compararHora
+    convertirHoraASCII minuto, segundos, holaSTRFinal
 ENDM
 
-guardarHora MACRO minutos, segundos
+getMinSeg MACRO STR, hora, min , segs
+    guardarHora hora,  min, segs
+    convertirHoraASCII min, segs, STR
+ENDM
+
+guardarHora MACRO hora, minutos, segundos
     mov ah, 2Ch       ; Servicio para obtener la hora actual
     int 21h           ; Llamar a la interrupción DOS
+    mov [hora], ch ; Guardar hora
+    mov [hora + 1], "$"
     mov [minutos], cl ; Guardar minutos
     mov [minutos + 1], "$"
     mov [segundos], dh ; Guardar minutos
@@ -235,7 +246,23 @@ convertirHoraASCII MACRO hora, minutos, buffer
     mov byte ptr [buffer + 5], '$'
 ENDM
 
-compararHora MACRO horaGuardada, minutosGuardados, destino
+compararHora MACRO
+    mov ah, 2Ch       ; Servicio para obtener la hora actual
+    int 21h           ; Llamar a la interrupción DOS
+    mov [horaFn], ch ; Guardar hora
+    mov [horaFn + 1], "$"
+    mov [minutosFn], cl ; Guardar minutos
+    mov [minutosFn + 1], "$"
+    mov [segundosFn], dh ; Guardar minutos
+    mov [segundosFn + 1], "$"
+
+    mov al, segundosFn
+    cmp ah, segundos
+    SUB al, ah
+
+    ;ImprimirCadenas segundosFn
+
+
 
 ENDM
 
