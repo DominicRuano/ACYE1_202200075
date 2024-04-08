@@ -1,5 +1,5 @@
 
-MACROImprimirReportes MACRO params
+MACROImprimirReportes MACRO
     
 ENDM
 
@@ -11,13 +11,69 @@ MACROImprimirPuntajes MACRO
     ImprimirCadenas salto
 
     ImprimirCadenas tab
-    ImprimirCadenas tab
-    ImprimirCadenas tab
 
     ImprimirCadenas Puntajes
+    ImprimirCadenas salto
+
+    AbrirArchivo
+    ;EscribirArchivo
+    CerrarArchivo
+
     ImprimirCadenas dataTXT
+
     ImprimirCadenas PrecioneParaContinuar
     obtenerOpcion opcion
+ENDM
+
+AbrirArchivo MACRO
+    mov ah, 3Dh  ; Función 3Dh: Abrir archivo existente
+    mov al, 0    ; Modo de acceso: lectura
+    lea dx, nombreDB  ; Nombre del archivo
+    int 21h      ; Llamar a DOS
+    jc file_not_found  ; Saltar si el archivo no se encuentra
+
+    ; El archivo existe, leer su contenido
+    mov filehandle, ax  ; Guardar manejador de archivo
+    jmp read_file
+
+file_not_found:
+    ; Crear el archivo si no existe
+    mov ah, 3Ch  ; Función 3Ch: Crear archivo
+    xor cx, cx   ; Atributos de archivo: normal
+    lea dx, nombreDB  ; Nombre del archivo
+    int 21h      ; Llamar a DOS
+    mov filehandle, ax  ; Guardar manejador de archivo
+
+read_file:
+    ; Leer el contenido del archivo en el buffer
+    mov ah, 3Fh  ; Función 3Fh: Leer de archivo
+    mov bx, filehandle  ; Manejador de archivo
+    lea dx, dataTXT      ; Buffer para leer el contenido
+    mov cx, sizeof dataTXT  ; Tamaño del buffer
+    int 21h      ; Llamar a DOS
+    mov bytesRead, ax  ; Guardar el número de bytes leídos
+ENDM
+
+;AbrirArchivo MACRO
+;    mov ah, 3Ch  ; Función 3Ch: Crear archivo
+;    xor cx, cx   ; Atributos de archivo: normal
+;    lea dx, nombreDB  ; Nombre del archivo
+;    int 21h      ; Llamar a DOS
+;    mov filehandle, ax  ; Guardar manejador de archivo
+;ENDM
+
+EscribirArchivo MACRO params
+    mov ah, 40h  ; Función 40h: Escribir en archivo
+    mov bx, filehandle  ; Manejador de archivo
+    lea dx, params     ; Mensaje a escribir
+    mov cx, lengthof params  ; Número de bytes a escribir
+    int 21h      ; Llamar a DOS
+ENDM
+
+CerrarArchivo MACRO
+    mov ah, 3Eh  ; Función 3Eh: Cerrar archivo
+    mov bx, filehandle  ; Manejador de archivo
+    int 21h      ; Llamar a DOS
 ENDM
 
 MACROImprimirTablero MACRO 

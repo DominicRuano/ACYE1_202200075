@@ -23,7 +23,8 @@ INCLUDE macros.ASM
     Icolumna db " Ingrese la Columna: ", "$"
     PrecioneParaContinuar db 10, 13, " Precione cualquier tecla para continuar...  ", "$"
     Puntajes db " Nombre del Jugador | Tiempo ", "$"
-    nombreDB db "data.txt", 00h
+    nombreDB db "ejemplo.txt", 00h
+    fileHandle dw ?
     Jugador db 15 dup("$")
     minuto db 1 dup("$")          ; Se usa para la funcion getMinSeg
     segundos db 1 dup("$")        ; Se usa para la funcion getMinSeg
@@ -31,8 +32,8 @@ INCLUDE macros.ASM
     Scolumna db 1 dup("$")
     horaSTRInicio db 5 dup(0)
     ;horaSTRFinal db 5 dup(0)
-    fileHandle dw 0
     dataTXT db 256 dup("$")
+    bytesRead dw ?
 .CODE
     MOV AX, @data
     MOV DS, AX
