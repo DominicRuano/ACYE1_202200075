@@ -93,13 +93,13 @@ NombreCorrecto:
 
 Jugar:
     LimpiarConsola
-    getMinSeg2 horaSTRInicio
+    getMinSeg2 horaSTRInicio, hora, minuto, segundos
     PrintTableroYEncabezado Jugador, tablero
     ImprimirCadenas salto
     ObtenerMov
 
     LimpiarConsola
-    getMinSeg2 horaSTRInicio
+    getMinSeg2 horaSTRInicio, hora, minuto, segundos
     PrintTableroYEncabezado Ia, tableroAux
     ImprimirCadenas salto
     ObtenerMov
@@ -194,9 +194,9 @@ getNombre MACRO params
     ImprimirCadenas nombre3
 ENDM
 
-getMinSeg2 MACRO STR
-    compararHora
-    convertirHoraASCII minuto, segundos, holaSTRFinal
+getMinSeg2 MACRO STR, hora, mins, segs
+    compararHora hora, mins, segs
+    convertirHoraASCII minutosFn, segundosFn, horaSTRInicio
 ENDM
 
 getMinSeg MACRO STR, hora, min , segs
@@ -246,23 +246,23 @@ convertirHoraASCII MACRO hora, minutos, buffer
     mov byte ptr [buffer + 5], '$'
 ENDM
 
-compararHora MACRO
+compararHora MACRO horaInicial, minutosInicial, segundosInicial
     mov ah, 2Ch       ; Servicio para obtener la hora actual
     int 21h           ; Llamar a la interrupción DOS
-    mov [horaFn], ch ; Guardar hora
+    mov al, ch        ; Hora actual
+    sub al, [horaInicial]   ; Restar hora inicial
+    mov [horaFn], al  ; Guardar diferencia de horas
     mov [horaFn + 1], "$"
-    mov [minutosFn], cl ; Guardar minutos
+
+    mov al, cl        ; Minutos actuales
+    sub al, [minutosInicial]   ; Restar minutos iniciales
+    mov [minutosFn], al  ; Guardar diferencia de minutos
     mov [minutosFn + 1], "$"
-    mov [segundosFn], dh ; Guardar minutos
+
+    mov al, dh        ; Segundos actuales
+    sub al, [segundosInicial]   ; Restar segundos iniciales
+    mov [segundosFn], al  ; Guardar diferencia de segundos
     mov [segundosFn + 1], "$"
-
-    mov al, segundosFn
-    cmp ah, segundos
-    SUB al, ah
-
-    ;ImprimirCadenas segundosFn
-
-
 
 ENDM
 

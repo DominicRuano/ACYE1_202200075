@@ -6,6 +6,7 @@ INCLUDE macros.ASM
     salto db 10, 13, "$" ; \n
     espacio db " ", "$"
     tab db "    ", "$"
+    dosPuntos db ": ", "$"
     mensajeInicio db " Universidad De San Carlos De Guatemala", 10, 13, " Facultad De Ingenieria", 10, 13, " ECYS", "$"
     mensajeMenu db 10, 13, 10, 13, " 1. Nuevo Juego", 10, 13, " 2. Puntajes", 10, 13, " 3. Reportes", 10, 13, " 4. Salir", 10, 13, " >> Ingrese Una Opcion: ", "$"
     opcion db 1 dup(32)
@@ -33,10 +34,13 @@ INCLUDE macros.ASM
     minutosFn db 2 dup("$")       ; Se usa para la funcion getMinSeg
     segundos db 2 dup("$")        ; Se usa para la funcion getMinSeg
     segundosFn db 2 dup("$")      ; Se usa para la funcion getMinSeg
+    horaSTRInicio db 6 dup("$")
+    cadenaHora BYTE 3 DUP('$')
+    cadenaMinutos BYTE 3 DUP('$')
+    cadenaSegundos BYTE 3 DUP('$')
+    mensaje BYTE 9 DUP('$')
     Sfila db 2 dup("$")
     Scolumna db 1 dup("$")
-    horaSTRInicio db 5 dup(0)
-    holaSTRFinal db 5 dup(0)
     ;horaSTRFinal db 5 dup(0)
     dataTXT db 256 dup("$")
     bytesRead dw ?
