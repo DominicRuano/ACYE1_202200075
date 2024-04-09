@@ -26,6 +26,16 @@ INCLUDE macros.ASM
     Puntajes db " Nombre del Jugador | Tiempo ", "$"
     Variable db 10,13, "Var = ", "$"
     nombreDB db "ejemplo.txt", 00h
+    nombreRP db "reporte.html", 00h
+    encabezado db "<!DOCTYPE html>", 10, 13, "<html>", 10, 13, "<head>", 10, 13, "<title>Reporte</title>", 10, 13, "</head>", 10, 13, "<body>", 10, 13, "<h1>Reporte</h1>",10, 13
+    DatosHTML db "<p><strong>Nombre del Curso:</strong> Arquitectura de computadores y ensambladores 1</p>", 10, 13, "<p><strong>Sección:</strong> A</p>", 10, 13, "<p><strong>Nombre del Estudiante:</strong> Dominic Juan Pablo Ruano Perez</p>", 10, 13, "<p><strong>Carnet:</strong> 202200075</p>", 10, 13
+    FechaDatosHTML db "<p><strong>Fecha actual: </strong>"
+    FechaDatosHTML2 db "</p>", 10, 13
+    DatosHTML2 db "<h2>Puntaje de Jugadores</h2>"
+
+    FinHTML db "</body>", 10, 13, "</html>"
+    horaHTML db 20 dup("$")
+    temp db 1 dup("$")
     fileHandle dw ?
     Jugador db 15 dup("$")
     hora db 2 dup("$")            ; Se usa para la funcion getMinSeg
@@ -42,6 +52,7 @@ INCLUDE macros.ASM
     Sfila db 2 dup("$")
     Scolumna db 1 dup("$")
     ;horaSTRFinal db 5 dup(0)
+    data2TXT db 256 dup("$")
     dataTXT db 256 dup("$")
     bytesRead dw ?
 .CODE

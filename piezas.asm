@@ -1,0 +1,3 @@
+GetPieza MACRO 
+    
+ENDM

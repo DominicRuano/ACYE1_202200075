@@ -1,6 +1,37 @@
 
-MACROImprimirReportes MACRO
+EndGame MACRO params
+    LimpiarConsola
+ENDM
+
+ImpFechaHTML MACRO temp, salidaSTR
+    ; Obtener la fecha actual
+    mov ah, 2Ah       ; Servicio para obtener la fecha actual
+    int 21h           ; Llamar a la interrupción DOS
+    add dl, 30h       ; Convertir el día a ASCII
+    add dh, 30h       ; Convertir el mes a ASCII
+    mov [salidaSTR], dl     ; Guardar día
+    mov [salidaSTR + 1], 47
+    mov [salidaSTR + 2], dh     ; Guardar mes
+    mov [salidaSTR + 3], 47
+
     
+
+    mov [salidaSTR + 4], "20"     ; Guardar año
+    mov [salidaSTR + 5], "24"     ; Guardar año
+    mov [salidaSTR + 6], 32
+
+    EscribirArchivo salidaSTR
+ENDM
+
+MACROImprimirReportes MACRO
+    AbrirArchivo2
+    EscribirArchivo encabezado
+    EscribirArchivo DatosHTML
+    EscribirArchivo FechaDatosHTML
+    ImpFechaHTML temp, horaHTML
+    EscribirArchivo FechaDatosHTML2
+    EscribirArchivo FinHTML
+    CerrarArchivo
 ENDM
 
 MACROImprimirPuntajes MACRO 
@@ -25,7 +56,8 @@ MACROImprimirPuntajes MACRO
     obtenerOpcion opcion
 ENDM
 
-AbrirArchivo MACRO
+AbrirArchivo MACRO 
+LOCAL file_not_found, read_file
     mov ah, 3Dh  ; Función 3Dh: Abrir archivo existente
     mov al, 0    ; Modo de acceso: lectura
     lea dx, nombreDB  ; Nombre del archivo
@@ -52,6 +84,14 @@ read_file:
     mov cx, sizeof dataTXT  ; Tamaño del buffer
     int 21h      ; Llamar a DOS
     mov bytesRead, ax  ; Guardar el número de bytes leídos
+ENDM
+
+AbrirArchivo2 MACRO 
+    mov ah, 3Ch  ; Función 3Ch: Crear archivo
+    xor cx, cx   ; Atributos de archivo: normal
+    lea dx, nombreRP  ; Nombre del archivo
+    int 21h      ; Llamar a DOS
+    mov filehandle, ax  ; Guardar manejador de archivo
 ENDM
 
 ;AbrirArchivo MACRO
@@ -149,17 +189,34 @@ ObtenerMov MACRO
 ENDM
 
 ObtenerFila MACRO valor
-    LOCAL inicioDeFila
+    LOCAL inicioDeFila, fin, winp, winI
     inicioDeFila:
         ImprimirCadenas salto       ; imprime ingrese fila
         ImprimirCadenas Ifila
         obtenerOpcion valor
+
+        cmp valor, 119
+        JE winP
+
+        cmp valor, 87
+        JE winI
 
         CMP valor, 49
         JB inicioDeFila
 
         CMP valor, 56
         JA inicioDeFila
+
+        jmp fin
+
+    winP:
+    EndGame Jugador
+    jmp fin
+
+    winI:
+    EndGame IA
+
+    fin:
 ENDM
 
 ObtenerColumna MACRO valor
