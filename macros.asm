@@ -372,23 +372,45 @@ convertirHoraASCII MACRO hora, minutos, buffer
 ENDM
 
 compararHora MACRO horaInicial, minutosInicial, segundosInicial
+LOCAL fin, ret1, ret2, ret3, NegativeResult1, NegativeResult2, NegativeResult3
     mov ah, 2Ch       ; Servicio para obtener la hora actual
     int 21h           ; Llamar a la interrupción DOS
     mov al, ch        ; Hora actual
     sub al, [horaInicial]   ; Restar hora inicial
+    js NegativeResult1
+ret1:
     mov [horaFn], al  ; Guardar diferencia de horas
     mov [horaFn + 1], "$"
 
     mov al, cl        ; Minutos actuales
     sub al, [minutosInicial]   ; Restar minutos iniciales
+    js NegativeResult2
+ret2:
     mov [minutosFn], al  ; Guardar diferencia de minutos
     mov [minutosFn + 1], "$"
 
     mov al, dh        ; Segundos actuales
     sub al, [segundosInicial]   ; Restar segundos iniciales
+    js NegativeResult3
+ret3:
     mov [segundosFn], al  ; Guardar diferencia de segundos
     mov [segundosFn + 1], "$"
+    jmp fin
 
+NegativeResult1:
+    not al
+    jmp ret1
+
+NegativeResult2:
+    not al
+    jmp ret2
+
+NegativeResult3:
+    not al
+    jmp ret3
+
+
+fin:
 ENDM
 
 LimpiarConsola MACRO
