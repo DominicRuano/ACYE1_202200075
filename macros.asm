@@ -1,3 +1,28 @@
+
+CleanName MACRO
+LOCAL inicio, fin, change
+    xor ax, ax
+    xor bx, bx
+
+    mov ax, 0Eh
+    mov si, 00h
+
+inicio:
+    cmp si, ax
+    je fin
+    cmp Jugador[si], 32
+    jne change
+    inc si
+    jmp inicio
+
+change:
+    mov Jugador[si], " "
+    inc si
+    jmp inicio
+
+fin:
+ENDM
+
 borrarDBTEXT MACRO
     xor si, si
     xor bx, bx
@@ -307,6 +332,7 @@ ENDM
 
 MACROImprimirTablero MACRO 
     LimpiarConsola
+    CleanName
     getNombre Jugador
     obtenerOpcion opcion            
     
