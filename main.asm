@@ -5,6 +5,7 @@ INCLUDE macros.ASM
 .DATA
     salto db 10, 13, "$" ; \n
     salto2 db 10, "$" ; \n
+    salto3 db 13, "$" ; \n
     espacio db " ", "$"
     tab db "    ", "$"
     dosPuntos db ": ", "$"
@@ -34,14 +35,14 @@ INCLUDE macros.ASM
     Variable db 10,13, "Var = ", "$"
     nombreDB db "DB.txt", 00h
     nombreRP db "reporte.html", 00h
-    encabezado db "<!DOCTYPE html>", 10, 13, "<html>", 10, 13, "<head>", 10, 13, "<title>Reporte</title>", 10, 13, "</head>", 10, 13, "<body>", 10, 13, "<h1>Reporte</h1>",10, 13,10
+    encabezado db "<!DOCTYPE html>", 10, 13, "<html>", 10, 13, "<head> <meta charset=UTF-8>", 10, 13, "<title>Reporte</title>", 10, 13, "</head>", 10, 13, "<body>", 10, 13, "<h1>Reporte</h1>",10, 13,10
     DatosHTML db "<p><strong>Nombre del Curso:</strong> Arquitectura de computadores y ensambladores 1</p>", 13, "<p><strong>Sección:</strong> A</p>", 13, "<p><strong>Nombre del Estudiante:</strong> Dominic Juan Pablo Ruano Perez</p>", 13, "<p><strong>Carnet:</strong> 202200075</p>", 10, 13
     FechaDatosHTML db "<p><strong>Fecha actual: </strong> "
     FechaDatosHTML2 db "</p>", 10, 13, 10
     DatosHTML2 db "<h2>Puntaje de Jugadores</h2> ", 10, 13, 10
-    DatosHTML3 db "<table border=1>", 13, "<tr>", 13, "    <th><strong>Nombre         | Tiempo</strong> </th>", 13, "</tr>", 10, 13
-    DatosHTML4 db "<tr>", 13, "    <td> "
-    DatosHTML5 db "</td>", 13, "</tr>", 13, "</table>", 10, 13, 10
+    DatosHTML3 db "<table border=1>", 13, "<tr>", 13, "    <th><pre>Nombre        | Tiempo </pre></th>", 13, "</tr>", 10, 13
+    DatosHTML4 db "<tr>", 13, "    <td> <pre> "
+    DatosHTML5 db "</pre></td>", 13, "</tr>", 13, "</table>", 10, 13, 10
 
     FinHTML db "</body>", 10, 13, "</html> "
     horaHTML db 20 dup("$")
