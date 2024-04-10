@@ -1,3 +1,31 @@
+borrarDBTEXT MACRO
+    xor si, si
+    xor bx, bx
+
+    mov bl, "<"
+
+inicio:
+    cmp si, 100h
+    je fin
+    cmp dataTXT[si], bl
+    je change
+    inc si
+    jmp inicio
+
+change:
+    mov dataTXT[si], 32
+    inc si
+    mov dataTXT[si], 32
+    inc si
+    mov dataTXT[si], 32
+    inc si
+    mov dataTXT[si], 32
+    inc si
+    jmp inicio
+
+fin:
+    Addtextoanterior
+ENDM
 
 Addtextoanterior MACRO
 LOCAL inicio, fin
@@ -41,6 +69,7 @@ LOCAL inicio, valido, fin
     EscribirArchivo barra
     getMinSeg2 horaSTRInicio, hora, minuto, segundos
     EscribirArchivo horaSTRInicio
+    EscribirArchivo barra2
     EscribirArchivo temp
     CerrarArchivo
 
@@ -146,12 +175,18 @@ ENDM
 MACROImprimirReportes MACRO
     LimpiarConsola
 
+    AbrirArchivo
     AbrirArchivo2
     EscribirArchivo encabezado
     EscribirArchivo DatosHTML
     EscribirArchivo FechaDatosHTML
     ImpFechaHTML temp, horaHTML
     EscribirArchivo FechaDatosHTML2
+    EscribirArchivo DatosHTML2
+    EscribirArchivo DatosHTML3
+    EscribirArchivo DatosHTML4
+    Addtextoanterior
+    EscribirArchivo DatosHTML5
     EscribirArchivo FinHTML
     CerrarArchivo
 
@@ -176,16 +211,18 @@ MACROImprimirPuntajes MACRO
     ImprimirCadenas salto
     ImprimirCadenas salto
 
-    ImprimirCadenas tab
+    ImprimirCadenas espacio
 
     ImprimirCadenas Puntajes
     ImprimirCadenas salto
 
     AbrirArchivo
-    ;EscribirArchivo
+    borrarDBTEXT
     CerrarArchivo
 
     ImprimirCadenas dataTXT
+
+    ImprimirCadenas salto
 
     ImprimirCadenas PrecioneParaContinuar
     obtenerOpcion opcion
