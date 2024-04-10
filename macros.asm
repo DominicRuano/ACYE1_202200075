@@ -5,20 +5,88 @@ ENDM
 
 ImpFechaHTML MACRO temp, salidaSTR
     ; Obtener la fecha actual
-    mov ah, 2Ah       ; Servicio para obtener la fecha actual
-    int 21h           ; Llamar a la interrupción DOS
-    add dl, 30h       ; Convertir el día a ASCII
-    add dh, 30h       ; Convertir el mes a ASCII
-    mov [salidaSTR], dl     ; Guardar día
-    mov [salidaSTR + 1], 47
-    mov [salidaSTR + 2], dh     ; Guardar mes
-    mov [salidaSTR + 3], 47
+    mov ah, 2Ah                 ; Servicio para obtener la fecha actual
+    int 21h                     ; Llamar a la interrupción DOS
 
+    xor ax, ax
+    mov bl, 0ah
+
+    mov al, dl
+    div bl
+    add al, 30h
+    add ah, 30h
+    mov [salidaSTR], al         ; Guardar decena día
+    mov [salidaSTR + 1], ah     ; Guardar unidad día
+    mov [salidaSTR + 2], 47
+
+    xor ax, ax
+
+    mov al, dh
+    div bl
+    add al, 30h
+    add ah, 30h
+    mov [salidaSTR + 3], al     ; Guardar decena mes
+    mov [salidaSTR + 4], ah     ; Guardar unidad mes
+    mov [salidaSTR + 5], 47
+
+    mov ax, cx 
+    mov dx, 0h
+    div bx
+    add dl, 30h
+    mov [salidaSTR + 9], dl     ; Guardar unidades año
     
+    div bl
+    add ah, 30h
+    mov [salidaSTR + 8], ah     ; Guardar decenas año
+    xor ah,ah
 
-    mov [salidaSTR + 4], "20"     ; Guardar año
-    mov [salidaSTR + 5], "24"     ; Guardar año
-    mov [salidaSTR + 6], 32
+    div bl
+    add ah, 30h
+    mov [salidaSTR + 7], ah     ; Guardar centenas año
+    xor ah,ah
+
+    div bl
+    add ah, 30h
+    mov [salidaSTR + 6], ah     ; Guardar millares año
+    xor ah,ah
+
+    mov [salidaSTR + 10], 32
+
+    mov ah, 2Ch       ; Servicio para obtener la hora actual
+    int 21h           ; Llamar a la interrupción DOS
+
+    mov bl, 0ah
+    xor ax, ax
+    mov al, ch        ; Hora actual
+    div bl
+    add al, 30h
+    add ah, 30h
+    mov [salidaSTR + 11], al ; Guardar hora
+    mov [salidaSTR + 12], ah
+
+    mov [salidaSTR + 13], 58 ; Caracter ':'
+
+    xor ax, ax
+    mov al, cl        ; Minutos actuales
+    div bl
+    add al, 30h
+    add ah, 30h
+    mov [salidaSTR + 14], al ; Guardar minutos
+    mov [salidaSTR + 15], ah 
+
+    mov [salidaSTR + 16], 58 ; Caracter ':'
+
+    xor ax, ax
+    mov al, dh        ; Segundos actuales
+    div bl
+    add al, 30h
+    add ah, 30h
+    mov [salidaSTR + 17], al ; Guardar segundos
+    mov [salidaSTR + 18], ah
+    mov [segundos], dh ; Guardar minutos
+
+
+
 
     EscribirArchivo salidaSTR
 ENDM

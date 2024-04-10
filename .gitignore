@@ -1,4 +1,5 @@
 pruebas.asm
+MAIN.EXE
 *.txt
 *.OBJ
-MAIN.EXE
+*.HTML

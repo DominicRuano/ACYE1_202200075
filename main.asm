@@ -34,7 +34,7 @@ INCLUDE macros.ASM
     DatosHTML2 db "<h2>Puntaje de Jugadores</h2>"
 
     FinHTML db "</body>", 10, 13, "</html>"
-    horaHTML db 20 dup("$")
+    horaHTML db 19 dup("$")
     temp db 1 dup("$")
     fileHandle dw ?
     Jugador db 15 dup("$")
