@@ -4,9 +4,11 @@ INCLUDE macros.ASM
 .STACK 64h
 .DATA
     salto db 10, 13, "$" ; \n
+    salto2 db 10, "$" ; \n
     espacio db " ", "$"
     tab db "    ", "$"
     dosPuntos db ": ", "$"
+    barra db "| ", "$"
     mensajeInicio db " Universidad De San Carlos De Guatemala", 10, 13, " Facultad De Ingenieria", 10, 13, " ECYS", "$"
     mensajeMenu db 10, 13, 10, 13, " 1. Nuevo Juego", 10, 13, " 2. Puntajes", 10, 13, " 3. Reportes", 10, 13, " 4. Salir", 10, 13, " >> Ingrese Una Opcion: ", "$"
     opcion db 1 dup(32)
@@ -15,7 +17,8 @@ INCLUDE macros.ASM
     nombre db ' Por favor, ingrese su nombre: $'
     nombre2 db " El nombre: ", "$"
     nombre3 db " Es correcto? [y/n] ", "$"
-    Ia db "IA", "$"
+    Ia db "IA             "
+    IA2 db 1 dup("$")
     Tencabezado2 db "   vz   IA     Turno:  ", "$"
     Tencabezado3 db "   Tiempo: ", "$"
     Ifila db " Ingrese la fila: ", "$"
@@ -28,19 +31,20 @@ INCLUDE macros.ASM
     ErrorC db "Ingrese una columna Valida.", "$"
     Puntajes db " Nombre del Jugador | Tiempo ", "$"
     Variable db 10,13, "Var = ", "$"
-    nombreDB db "ejemplo.txt", 00h
+    nombreDB db "DB.txt", 00h
     nombreRP db "reporte.html", 00h
     encabezado db "<!DOCTYPE html>", 10, 13, "<html>", 10, 13, "<head>", 10, 13, "<title>Reporte</title>", 10, 13, "</head>", 10, 13, "<body>", 10, 13, "<h1>Reporte</h1>",10, 13
     DatosHTML db "<p><strong>Nombre del Curso:</strong> Arquitectura de computadores y ensambladores 1</p>", 10, 13, "<p><strong>Sección:</strong> A</p>", 10, 13, "<p><strong>Nombre del Estudiante:</strong> Dominic Juan Pablo Ruano Perez</p>", 10, 13, "<p><strong>Carnet:</strong> 202200075</p>", 10, 13
-    FechaDatosHTML db "<p><strong>Fecha actual: </strong>"
+    FechaDatosHTML db "<p><strong>Fecha actual: </strong> "
     FechaDatosHTML2 db "</p>", 10, 13
-    DatosHTML2 db "<h2>Puntaje de Jugadores</h2>"
+    DatosHTML2 db "<h2>Puntaje de Jugadores</h2> "
 
-    FinHTML db "</body>", 10, 13, "</html>"
-    horaHTML db 19 dup("$")
-    temp db 1 dup("$")
+    FinHTML db "</body>", 10, 13, "</html> "
+    horaHTML db 20 dup("$")
+    temp db 2 dup("$")
     fileHandle dw ?
-    Jugador db 15 dup("$")
+    Jugador db 15 dup(32)
+    Jugador2 db 1 dup("$")
     hora db 2 dup("$")            ; Se usa para la funcion getMinSeg
     horaFn db 2 dup("$")         ; Se usa para la funcion getMinSeg
     minuto db 2 dup("$")          ; Se usa para la funcion getMinSeg
@@ -57,6 +61,7 @@ INCLUDE macros.ASM
     ;horaSTRFinal db 5 dup(0)
     data2TXT db 256 dup("$")
     dataTXT db 256 dup("$")
+    espacio2 db 1 dup("$")
     bytesRead dw ?
     tablero db 64 dup(32) ; ROW-MAJOR O COLUMN-MAJOR
     tableroAux db 64 dup(32)

@@ -1,5 +1,27 @@
 
+Addtextoanterior MACRO
+LOCAL inicio, fin
+    xor si, si
+    xor bx, bx
+
+    mov si, 00h
+    mov bl, "$"
+
+inicio:
+    cmp si, 100h
+    je fin
+    mov bh, dataTXT[si]
+    cmp bh, bl
+    je fin
+    inc si
+    jmp inicio
+
+fin:
+    EscribirArchivo2 dataTXT, si
+ENDM
+
 EndGame MACRO params
+LOCAL inicio, valido, fin
     LimpiarConsola
     ImprimirCadenas salto
     ImprimirCadenas salto
@@ -10,6 +32,17 @@ EndGame MACRO params
     ImprimirCadenas Win
     ImprimirCadenas params
     ImprimirCadenas Win2
+
+    AbrirArchivo
+    AbrirArchivo3
+    Addtextoanterior
+    EscribirArchivo salto
+    EscribirArchivo params
+    EscribirArchivo barra
+    getMinSeg2 horaSTRInicio, hora, minuto, segundos
+    EscribirArchivo horaSTRInicio
+    EscribirArchivo temp
+    CerrarArchivo
 
     ImprimirCadenas salto
     ImprimirCadenas salto
@@ -196,6 +229,14 @@ AbrirArchivo2 MACRO
     mov filehandle, ax  ; Guardar manejador de archivo
 ENDM
 
+AbrirArchivo3 MACRO 
+    mov ah, 3Ch  ; Función 3Ch: Crear archivo
+    xor cx, cx   ; Atributos de archivo: normal
+    lea dx, nombreDB  ; Nombre del archivo
+    int 21h      ; Llamar a DOS
+    mov filehandle, ax  ; Guardar manejador de archivo
+ENDM
+
 ;AbrirArchivo MACRO
 ;    mov ah, 3Ch  ; Función 3Ch: Crear archivo
 ;    xor cx, cx   ; Atributos de archivo: normal
@@ -209,6 +250,15 @@ EscribirArchivo MACRO params
     mov bx, filehandle  ; Manejador de archivo
     lea dx, params     ; Mensaje a escribir
     mov cx, lengthof params  ; Número de bytes a escribir
+    dec cx       ; Excluir el carácter de fin de cadena
+    int 21h      ; Llamar a DOS
+ENDM
+
+EscribirArchivo2 MACRO params, params2
+    mov ah, 40h  ; Función 40h: Escribir en archivo
+    mov bx, filehandle  ; Manejador de archivo
+    lea dx, params     ; Mensaje a escribir
+    mov cx, params2 ; Número de bytes a escribir
     int 21h      ; Llamar a DOS
 ENDM
 
@@ -517,7 +567,7 @@ obtenerString MACRO regBuffer, maxLength
 
     end_read:
         ; Agregar el carácter de fin de cadena
-        mov byte ptr [regBuffer + si], "$"
+        ;mov byte ptr [regBuffer + si], "$"
 ENDM
 
 PrintTableroYEncabezado MACRO player, tab
