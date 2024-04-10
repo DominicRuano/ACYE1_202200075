@@ -12,8 +12,6 @@ INCLUDE macros.ASM
     opcion db 1 dup(32)
     indicadorColumnas db "  A B C D E F G H", "$"
     indicadorFilas db "12345678", "$"
-    tablero db 64 dup(32) ; ROW-MAJOR O COLUMN-MAJOR
-    tableroAux db 64 dup(32)
     nombre db ' Por favor, ingrese su nombre: $'
     nombre2 db " El nombre: ", "$"
     nombre3 db " Es correcto? [y/n] ", "$"
@@ -23,6 +21,11 @@ INCLUDE macros.ASM
     Ifila db " Ingrese la fila: ", "$"
     Icolumna db " Ingrese la Columna: ", "$"
     PrecioneParaContinuar db 10, 13, " Precione cualquier tecla para continuar...  ", "$"
+    Win db "El jugador ", "$"
+    Win2 db " ha ganado", "$"
+    HTMLMSG db "Reporte HTML Generado Correctamente", "$"
+    ErrorF db "Ingrese una fila Valida.", "$"
+    ErrorC db "Ingrese una columna Valida.", "$"
     Puntajes db " Nombre del Jugador | Tiempo ", "$"
     Variable db 10,13, "Var = ", "$"
     nombreDB db "ejemplo.txt", 00h
@@ -55,6 +58,8 @@ INCLUDE macros.ASM
     data2TXT db 256 dup("$")
     dataTXT db 256 dup("$")
     bytesRead dw ?
+    tablero db 64 dup(32) ; ROW-MAJOR O COLUMN-MAJOR
+    tableroAux db 64 dup(32)
 .CODE
     MOV AX, @data
     MOV DS, AX

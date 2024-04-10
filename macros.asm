@@ -1,6 +1,25 @@
 
 EndGame MACRO params
     LimpiarConsola
+    ImprimirCadenas salto
+    ImprimirCadenas salto
+    ImprimirCadenas salto
+
+    ImprimirCadenas tab
+    ImprimirCadenas tab
+    ImprimirCadenas Win
+    ImprimirCadenas params
+    ImprimirCadenas Win2
+
+    ImprimirCadenas salto
+    ImprimirCadenas salto
+    ImprimirCadenas salto
+
+    ImprimirCadenas tab
+    ImprimirCadenas tab
+
+    PrecioneCualquierTecla
+    jmp endJugar
 ENDM
 
 ImpFechaHTML MACRO temp, salidaSTR
@@ -92,6 +111,8 @@ ImpFechaHTML MACRO temp, salidaSTR
 ENDM
 
 MACROImprimirReportes MACRO
+    LimpiarConsola
+
     AbrirArchivo2
     EscribirArchivo encabezado
     EscribirArchivo DatosHTML
@@ -100,6 +121,19 @@ MACROImprimirReportes MACRO
     EscribirArchivo FechaDatosHTML2
     EscribirArchivo FinHTML
     CerrarArchivo
+
+    ImprimirCadenas salto
+    ImprimirCadenas salto
+    ImprimirCadenas salto
+    ImprimirCadenas tab
+    ImprimirCadenas tab
+    ImprimirCadenas tab
+    ImprimirCadenas HTMLMSG
+
+    ImprimirCadenas salto
+    ImprimirCadenas salto
+
+    PrecioneCualquierTecla
 ENDM
 
 MACROImprimirPuntajes MACRO 
@@ -213,6 +247,7 @@ Jugar:
     ObtenerMov
 
     JMP Jugar
+endJugar:
 ENDM
 
 MACROMenu MACRO
@@ -257,7 +292,12 @@ ObtenerMov MACRO
 ENDM
 
 ObtenerFila MACRO valor
-    LOCAL inicioDeFila, fin, winp, winI
+    LOCAL inicioDeFila, fin, winp, winI, valorERR
+    jmp inicioDeFila
+    valorERR:
+        ImprimirCadenas salto
+        ImprimirCadenas ErrorF
+
     inicioDeFila:
         ImprimirCadenas salto       ; imprime ingrese fila
         ImprimirCadenas Ifila
@@ -270,10 +310,10 @@ ObtenerFila MACRO valor
         JE winI
 
         CMP valor, 49
-        JB inicioDeFila
+        JB valorERR
 
         CMP valor, 56
-        JA inicioDeFila
+        JA valorERR
 
         jmp fin
 
@@ -288,17 +328,39 @@ ObtenerFila MACRO valor
 ENDM
 
 ObtenerColumna MACRO valor
-    LOCAL InicioColumna
+    LOCAL InicioColumna, fin, winp, winI, valorERR
+    jmp InicioColumna
+    valorERR:
+        ImprimirCadenas salto
+        ImprimirCadenas ErrorC
+
     InicioColumna:
         ImprimirCadenas salto       ; imprime ingrese columna
         ImprimirCadenas Icolumna
         obtenerOpcion valor
 
+        cmp valor, 119
+        JE winP
+
+        cmp valor, 87
+        JE winI
+
         CMP valor, 97
-        JB InicioColumna
+        JB valorERR
 
         CMP valor, 104
-        JA InicioColumna
+        JA valorERR
+
+        jmp fin
+
+    winP:
+    EndGame Jugador
+    jmp fin
+
+    winI:
+    EndGame IA
+
+    fin:
 ENDM
 
 PrecioneCualquierTecla MACRO
