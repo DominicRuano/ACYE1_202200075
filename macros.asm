@@ -39,7 +39,6 @@ MovToInt MACRO fila, columna, destino
 
 ENDM
 
-;esto aun no esta terminado
 validarMOV MACRO 
 LOCAL fin, JugadorTurno, IaTurno
     xor ax, ax
@@ -407,14 +406,6 @@ AbrirArchivo3 MACRO
     mov filehandle, ax  ; Guardar manejador de archivo
 ENDM
 
-;AbrirArchivo MACRO
-;    mov ah, 3Ch  ; Función 3Ch: Crear archivo
-;    xor cx, cx   ; Atributos de archivo: normal
-;    lea dx, nombreDB  ; Nombre del archivo
-;    int 21h      ; Llamar a DOS
-;    mov filehandle, ax  ; Guardar manejador de archivo
-;ENDM
-
 EscribirArchivo MACRO params
     mov ah, 40h  ; Función 40h: Escribir en archivo
     mov bx, filehandle  ; Manejador de archivo
@@ -625,7 +616,7 @@ ENDM
 
 getMinSeg MACRO STR, hora, min , segs
     guardarHora hora,  min, segs
-    convertirHoraASCII min, segs, STR
+    ;convertirHoraASCII min, segs, STR
 ENDM
 
 guardarHora MACRO hora, minutos, segundos
@@ -674,40 +665,45 @@ compararHora MACRO horaInicial, minutosInicial, segundosInicial
 LOCAL fin, ret1, ret2, ret3, NegativeResult1, NegativeResult2, NegativeResult3
     mov ah, 2Ch       ; Servicio para obtener la hora actual
     int 21h           ; Llamar a la interrupción DOS
-    mov al, ch        ; Hora actual
-    sub al, [horaInicial]   ; Restar hora inicial
-    js NegativeResult1
-ret1:
-    mov [horaFn], al  ; Guardar diferencia de horas
-    mov [horaFn + 1], "$"
+    
+    xor ax, ax
+    mov al, cl
+    mov bl, 3ch
+    
+    mul bl
+    mov dl, dh
+    xor dh, dh
+    add ax, dx  
+    
+    mov si, ax
 
-    mov al, cl        ; Minutos actuales
-    sub al, [minutosInicial]   ; Restar minutos iniciales
-    js NegativeResult2
-ret2:
+    xor ax, ax
+    xor bx, bx
+    xor cx, cx
+    xor dx, dx
+
+    mov dl, minutosInicial[0]
+    mov dh, segundosInicial[0]
+
+    mov al, dl
+    mov bl, 3ch
+    mul bl
+    mov dl, dh
+    xor dh, dh
+    add al, dl
+
+    sub si, ax
+
+    mov ax, si
+
+    xor dx,dx
+    div bx
+
     mov [minutosFn], al  ; Guardar diferencia de minutos
     mov [minutosFn + 1], "$"
 
-    mov al, dh        ; Segundos actuales
-    sub al, [segundosInicial]   ; Restar segundos iniciales
-    js NegativeResult3
-ret3:
-    mov [segundosFn], al  ; Guardar diferencia de segundos
+    mov [segundosFn], dl  ; Guardar diferencia de segundos
     mov [segundosFn + 1], "$"
-    jmp fin
-
-NegativeResult1:
-    not al
-    jmp ret1
-
-NegativeResult2:
-    not al
-    jmp ret2
-
-NegativeResult3:
-    not al
-    jmp ret3
-
 
 fin:
 ENDM
