@@ -41,17 +41,49 @@ ENDM
 
 ;esto aun no esta terminado
 validarMOV MACRO 
-LOCAL fin
-    MovToInt
-
-
-    cmp Turno[1], 0
+LOCAL fin, JugadorTurno, IaTurno
+    xor ax, ax
+    mov al, IndexTab
+    mov si, ax
+    cmp Turno[0], 0
     je JugadorTurno
     jmp IaTurno
 
 JugadorTurno:
+    cmp tablero[si], 80   ; si la posicion inicial es un peon
+    je fin
+    cmp tablero[si], 84   ; si la posicion inicial es una torre
+    je fin
+    cmp tablero[si], 67   ; si la posicion inicial es un caballo
+    je fin
+    cmp tablero[si], 65   ; si la posicion inicial es un alfil
+    je fin
+    cmp tablero[si], 82   ; si la posicion inicial es una reina
+    je fin
+    cmp tablero[si], 42   ; si la posicion inicial es un rey
+    je fin
+    
+    ImprimirCadenas ErrorMovJ
+    PrecioneCualquierTecla
+    jmp TurnoJugador
 
 IaTurno:
+    cmp tablero[si], 112   ; si la posicion inicial es un peon
+    je fin
+    cmp tablero[si], 116   ; si la posicion inicial es una torre
+    je fin
+    cmp tablero[si], 99   ; si la posicion inicial es un caballo
+    je fin
+    cmp tablero[si], 97   ; si la posicion inicial es un alfil
+    je fin
+    cmp tablero[si], 114   ; si la posicion inicial es una reina
+    je fin
+    cmp tablero[si], 35   ; si la posicion inicial es un rey
+    je fin
+    
+    ImprimirCadenas ErrorMovI
+    PrecioneCualquierTecla
+    jmp TurnoIA
 
 
 fin:
@@ -61,16 +93,16 @@ CambioTurno MACRO
 LOCAL TurnoIA, fin
     xor ax, ax
 
-    mov al, Turno[1]
+    mov al, Turno[0]
 
     cmp al, 0
     je TurnoIA
 
-    mov Turno[1], 0     ; 0 = Jugador
+    mov Turno[0], 0     ; 0 = Jugador
     jmp fin
 
 TurnoIA:
-    mov Turno[1], 1     ; 1 = IA
+    mov Turno[0], 1     ; 1 = IA
 
 fin:
 ENDM
@@ -421,26 +453,31 @@ NombreCorrecto:
     LlenarTablero
     CopiarTablero tablero, tableroAux
     getMinSeg horaSTRInicio, hora, minuto, segundos
-    CambioTurno         ; Por la forma de la macro tiene que cambiar a turno de IA antes de entrar al tablero. (NO BORRAR)
 
 Jugar:
-    LimpiarConsola
-    CambioTurno
     getMinSeg2 horaSTRInicio, hora, minuto, segundos
+    CambioTurno
+
+TurnoJugador:
+    LimpiarConsola
     PrintTableroYEncabezado Jugador, tablero
     ImprimirCadenas salto
 
     ObtenerMov Sfila, Scolumna, IndexTab
+    validarMOV
     ObtenerMov Ffila, Fcolumna, IndexTab2
     MakeMovimiento tablero
 
-    LimpiarConsola
-    CambioTurno
     getMinSeg2 horaSTRInicio, hora, minuto, segundos
+    CambioTurno
+
+TurnoIA:
+    LimpiarConsola
     PrintTableroYEncabezado Ia, tablero
     ImprimirCadenas salto
     
     ObtenerMov Sfila, Scolumna, IndexTab
+    validarMOV
     ObtenerMov Ffila, Fcolumna, IndexTab2
     MakeMovimiento tablero
 

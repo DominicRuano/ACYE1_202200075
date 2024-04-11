@@ -31,6 +31,8 @@ INCLUDE macros.ASM
     HTMLMSG db "Reporte HTML Generado Correctamente", "$"
     ErrorF db ">>   Ingrese una fila Valida.", "$"
     ErrorC db ">>   Ingrese una columna Valida.", "$"
+    ErrorMovJ db 10, 13, ">>   Ingrese una posicion Valida para el jugador.", "$"
+    ErrorMovI db 10, 13, ">>   Ingrese una posicion Valida para la IA.", "$"
     Puntajes db " Nombre      | Tiempo ", "$"
     Variable db 10,13, "Var = ", "$"
     nombreDB db "DB.txt", 00h
@@ -47,7 +49,7 @@ INCLUDE macros.ASM
     horaHTML db 20 dup("$")
     temp db 2 dup("$")
     Turno db 2 dup("$")
-    cosa db "apuntador -->"
+    ;cosa db "apuntador -->"
     IndexTab db 1 dup(32)
     separador db 1 dup("$")
     IndexTab2 db 1 dup(32)
