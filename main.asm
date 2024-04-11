@@ -23,14 +23,14 @@ INCLUDE macros.ASM
     IA2 db 1 dup("$")
     Tencabezado2 db "   vz   IA     Turno:  ", "$"
     Tencabezado3 db "   Tiempo: ", "$"
-    Ifila db " Ingrese la fila: ", "$"
-    Icolumna db " Ingrese la Columna: ", "$"
+    Ifila db "> Ingrese la fila: ", "$"
+    Icolumna db "> Ingrese la Columna: ", "$"
     PrecioneParaContinuar db 10, 13, " Precione cualquier tecla para continuar...  ", "$"
     Win db "El jugador ", "$"
     Win2 db " ha ganado", "$"
     HTMLMSG db "Reporte HTML Generado Correctamente", "$"
-    ErrorF db "Ingrese una fila Valida.", "$"
-    ErrorC db "Ingrese una columna Valida.", "$"
+    ErrorF db ">>   Ingrese una fila Valida.", "$"
+    ErrorC db ">>   Ingrese una columna Valida.", "$"
     Puntajes db " Nombre      | Tiempo ", "$"
     Variable db 10,13, "Var = ", "$"
     nombreDB db "DB.txt", 00h
@@ -43,10 +43,16 @@ INCLUDE macros.ASM
     DatosHTML3 db "<table border=1>", 13, "<tr>", 13, "    <th><pre>Nombre        | Tiempo </pre></th>", 13, "</tr>", 10, 13
     DatosHTML4 db "<tr>", 13, "    <td> <pre> "
     DatosHTML5 db "</pre></td>", 13, "</tr>", 13, "</table>", 10, 13, 10
-
     FinHTML db "</body>", 10, 13, "</html> "
     horaHTML db 20 dup("$")
     temp db 2 dup("$")
+    Turno db 2 dup("$")
+    cosa db "apuntador -->"
+    IndexTab db 1 dup(32)
+    separador db 1 dup("$")
+    IndexTab2 db 1 dup(32)
+    separador2 db 1 dup("$")
+    CharTab db 2 dup("$")
     fileHandle dw ?
     Jugador db 15 dup(32)
     Jugador2 db 1 dup("$")
@@ -61,8 +67,10 @@ INCLUDE macros.ASM
     cadenaMinutos BYTE 3 DUP('$')
     cadenaSegundos BYTE 3 DUP('$')
     mensaje BYTE 9 DUP('$')
-    Sfila db 2 dup("$")
+    Sfila db 1 dup("$")
     Scolumna db 1 dup("$")
+    Ffila db 1 dup("$")
+    Fcolumna db 1 dup("$")
     ;horaSTRFinal db 5 dup(0)
     data2TXT db 256 dup("$")
     dataTXT db 256 dup("$")

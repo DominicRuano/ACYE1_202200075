@@ -1,4 +1,80 @@
 
+MakeMovimiento MACRO tab
+    xor ax, ax
+    xor bx, bx
+
+    mov al, IndexTab        ; copio la posicion inicial de la pieza a al
+    mov si, ax
+    mov bl, tab[si]         ; copio el char en tablero de la posicion inicial a bl
+
+    mov tab[si], 32         ; pongo un espacio en blanco en la posicion inicial del tablero
+
+    mov al, IndexTab2       ; copio la posicion final de la pieza a al
+    mov si, ax 
+    mov tab[si], bl         ; copio el char en bl a la posicion final del tablero
+ENDM
+
+MovToInt MACRO fila, columna, destino
+    xor ax, ax
+    xor bx, bx
+
+    mov bl, fila       ; copio fila a bl
+    mov bh, columna    ; copio columna a bh
+
+    sub bl, 48          ; convierto fila a numero hexadecimal
+    sub bh, 96          ; convierto columna a numero hexadecimal
+
+    dec bl              ; resto 1 a fila, (fila - 1)
+    mov al, bl          
+    mov bl, 8h
+
+    mul bl              ; multiplico fila por 8, (fila - 1)*8
+
+    add al, bh          ; sumo columna columna, (fila - 1)*8 + columna
+    dec al
+
+    xor ah, ah          ; limpio ah
+    mov si, ax          ; copio posicion final a si
+    mov destino, al    ; copio posicion final a IndexTab
+
+ENDM
+
+;esto aun no esta terminado
+validarMOV MACRO 
+LOCAL fin
+    MovToInt
+
+
+    cmp Turno[1], 0
+    je JugadorTurno
+    jmp IaTurno
+
+JugadorTurno:
+
+IaTurno:
+
+
+fin:
+ENDM
+
+CambioTurno MACRO
+LOCAL TurnoIA, fin
+    xor ax, ax
+
+    mov al, Turno[1]
+
+    cmp al, 0
+    je TurnoIA
+
+    mov Turno[1], 0     ; 0 = Jugador
+    jmp fin
+
+TurnoIA:
+    mov Turno[1], 1     ; 1 = IA
+
+fin:
+ENDM
+
 CleanName MACRO
 LOCAL inicio, fin, change
     xor ax, ax
@@ -345,19 +421,28 @@ NombreCorrecto:
     LlenarTablero
     CopiarTablero tablero, tableroAux
     getMinSeg horaSTRInicio, hora, minuto, segundos
+    CambioTurno         ; Por la forma de la macro tiene que cambiar a turno de IA antes de entrar al tablero. (NO BORRAR)
 
 Jugar:
     LimpiarConsola
+    CambioTurno
     getMinSeg2 horaSTRInicio, hora, minuto, segundos
     PrintTableroYEncabezado Jugador, tablero
     ImprimirCadenas salto
-    ObtenerMov
+
+    ObtenerMov Sfila, Scolumna, IndexTab
+    ObtenerMov Ffila, Fcolumna, IndexTab2
+    MakeMovimiento tablero
 
     LimpiarConsola
+    CambioTurno
     getMinSeg2 horaSTRInicio, hora, minuto, segundos
-    PrintTableroYEncabezado Ia, tableroAux
+    PrintTableroYEncabezado Ia, tablero
     ImprimirCadenas salto
-    ObtenerMov
+    
+    ObtenerMov Sfila, Scolumna, IndexTab
+    ObtenerMov Ffila, Fcolumna, IndexTab2
+    MakeMovimiento tablero
 
     JMP Jugar
 endJugar:
@@ -386,6 +471,7 @@ MACROMenu MACRO
 ENDM
 
 CopiarTablero MACRO tableroOR, tableroCopy
+LOCAL InicioCopiaTablero, tableroCopy, tableroOR
     MOV si, 0h
 
 InicioCopiaTablero:
@@ -399,9 +485,10 @@ InicioCopiaTablero:
     mov [tableroCopy + si], "$"
 ENDM
 
-ObtenerMov MACRO
-    ObtenerFila Sfila
-    ObtenerColumna Scolumna
+ObtenerMov MACRO fila, columna, destino
+    ObtenerFila fila
+    ObtenerColumna columna
+    MovToInt fila, columna, destino
 ENDM
 
 ObtenerFila MACRO valor
