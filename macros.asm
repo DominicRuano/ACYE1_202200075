@@ -1,4 +1,18 @@
 
+ClearTAb MACRO
+LOCAL start, fin
+
+    mov si, 0h
+start:
+    mov tablero[si], 32
+    cmp si, 40h
+    je fin
+    inc si
+    jmp start
+
+fin: 
+ENDM
+
 MakeMovimiento MACRO tab
     xor ax, ax
     xor bx, bx
@@ -441,6 +455,7 @@ MACROImprimirTablero MACRO
     JMP ImprimirTablero
 
 NombreCorrecto:
+    clearTAb
     LlenarTablero
     CopiarTablero tablero, tableroAux
     getMinSeg horaSTRInicio, hora, minuto, segundos
