@@ -6,6 +6,7 @@ INCLUDE macros.ASM
 salto db 10,13, "$"
 Prueba db 10 ,13, "Hola mundo", 10 ,13, "$"
 opcion db 1 dup(?)
+IngreseOpcion db "Ingrese una opcion: ", "$"
 
 colorNegroTexto db 00h ; Negro sobre negro
 colorAzulTexto db 01h ; Azul sobre negro
@@ -24,10 +25,10 @@ colorMagentaClaroTexto db 0Dh ; Magenta claro sobre negro
 colorAmarilloTexto db 0Eh ; Amarillo sobre negro
 colorBlancoTexto db 0Fh ; Blanco sobre negro
 
-MSGMenu1 db "  ____  ____  ____  ____  _________  ____  ____  ____  ____  ____  ____  ____ ", 10 ,13, "$"
-MSGMenu2 db " ||M ||||e ||||n ||||u ||||       ||||I ||||n ||||i ||||c ||||i ||||a ||||l ||", 10 ,13, "$"
-MSGMenu3 db " ||__||||__||||__||||__||||_______||||__||||__||||__||||__||||__||||__||||__||", 10 ,13, "$"
-MSGMenu4 db " |/__\||/__\||/__\||/__\||/_______\||/__\||/__\||/__\||/__\||/__\||/__\||/__\|", 10 ,13, "$"
+MSGMenu1 db "     ____  ____  ____  ____        ____  ____  ____  ____  ____  ____  ____ ", 10 ,13, "$"
+MSGMenu2 db "    ||M ||||e ||||n ||||u ||      ||I ||||n ||||i ||||c ||||i ||||a ||||l ||", 10 ,13, "$"
+MSGMenu3 db "    ||__||||__||||__||||__||      ||__||||__||||__||||__||||__||||__||||__||", 10 ,13, "$"
+MSGMenu4 db "    |/__\||/__\||/__\||/__\|      |/__\||/__\||/__\||/__\||/__\||/__\||/__\|", 10 ,13, "$"
 
 MSG1OP1 db "                    ___       __                ___  __   __ ", 10 ,13, "$"
 MSG1OP2 db "    |    |\ | |  | |__  \  / /  \       | |  | |__  / _` /  \", 10 ,13, "$"
@@ -45,7 +46,6 @@ MSG4OP1 db "           __               __  ", 10 ,13, "$"
 MSG4OP2 db "  |__|    /__`  /\  |    | |__) ", 10 ,13, "$"
 MSG4OP3 db "     |.   .__/ /~~\ |___ | |  \ ", 10 ,13, "$"
 
-IngreseOpcion db "Ingrese una opcion: ", "$"
 .CODE
     MOV AX, @data
     MOV DS, AX
