@@ -7,6 +7,7 @@ salto db 10,13, "$"
 Prueba db 10 ,13, "Hola mundo", 10 ,13, "$"
 opcion db 1 dup(?)
 IngreseOpcion db "Ingrese una opcion: ", "$"
+PParaContinuar db "                   Presione Cualquier tecla para continuar...", "$"
 
 colorNegroTexto db 00h ; Negro sobre negro
 colorAzulTexto db 01h ; Azul sobre negro
@@ -72,7 +73,10 @@ MSG4NG2 db " / _ \     (  _ \(  __)/ __)(  _ \(  __)/ ___) / _\ (  _ \",10, 13, 
 MSG4NG3 db "(__  ( _    )   / ) _)( (_ \ )   / ) _) \___ \/    \ )   /",10, 13, "$"
 MSG4NG4 db "  (__/(_)  (__\_)(____)\___/(__\_)(____)(____/\_/\_/(__\_)",10, 13, "$"
 
-
+REPORTE1 db "  ____________________________________________________________________________", 10, 13, "$"
+REPORTE2 db "  | Fecha  | Hora   | Jugador1 | Jugador2 | Resultados | Ganador  | Perdedor |", 10, 13, "$"
+REPORTE3 db "  |--------|--------|----------|----------|------------|----------|----------|", 10, 13, "$"
+REPORTE4 db "  |__________________________________________________________________________|", 10, 13, "$"
 
 .CODE
     MOV AX, @data
@@ -132,8 +136,11 @@ MSG4NG4 db "  (__/(_)  (__\_)(____)\___/(__\_)(____)(____/\_/\_/(__\_)",10, 13, 
                 
                 REPORTES:
                     LimpiarConsola
-                    ImprimirCadenasColor IngreseOpcion, colorAmarilloTexto
-                    obtenerOpcion opcion
+                    ImprimirCadenasColor REPORTE1, colorAmarilloTexto
+                    ImprimirCadenasColor REPORTE2, colorAmarilloTexto
+                    ImprimirCadenasColor REPORTE3, colorAmarilloTexto
+                    ImprimirCadenasColor REPORTE4, colorAmarilloTexto
+                    PresioneTeclaParaContinuar
                     JMP NuevoJuevo
 
 

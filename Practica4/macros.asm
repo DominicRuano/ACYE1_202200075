@@ -142,3 +142,10 @@ ImprimirCadenasColor MACRO registroPrint, color
     POP BX          ; Restaurar el registro BX
     POP AX          ; Restaurar el registro AX
 ENDM
+
+PresioneTeclaParaContinuar MACRO 
+    ImprimirCadenas salto
+    ImprimirCadenas salto
+    ImprimirCadenasColor PParaContinuar, colorCianTexto
+    obtenerOpcion opcion
+ENDM
