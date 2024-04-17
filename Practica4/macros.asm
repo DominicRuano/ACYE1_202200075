@@ -1,4 +1,44 @@
 
+ImprimirNuevoJuego MACRO
+    LimpiarConsola
+    ImprimirCadenas salto
+
+    ImprimirCadenasColor MSG0NG1, colorRojoClaroTexto
+    ImprimirCadenasColor MSG0NG2, colorRojoClaroTexto
+    ImprimirCadenasColor MSG0NG3, colorRojoClaroTexto
+    ImprimirCadenasColor MSG0NG4, colorRojoClaroTexto
+
+    ImprimirCadenas Salto
+
+    ImprimirCadenasColor MSG1NG1, colorCianClaroTexto
+    ImprimirCadenasColor MSG1NG2, colorCianClaroTexto
+    ImprimirCadenasColor MSG1NG3, colorCianClaroTexto
+    ImprimirCadenasColor MSG1NG4, colorCianClaroTexto
+
+    ;ImprimirCadenas salto
+
+    ImprimirCadenasColor MSG2NG1, colorCianClaroTexto
+    ImprimirCadenasColor MSG2NG2, colorCianClaroTexto
+    ImprimirCadenasColor MSG2NG3, colorCianClaroTexto
+    ImprimirCadenasColor MSG2NG4, colorCianClaroTexto
+
+    ;ImprimirCadenas salto
+
+    ImprimirCadenasColor MSG3NG1, colorCianClaroTexto
+    ImprimirCadenasColor MSG3NG2, colorCianClaroTexto
+    ImprimirCadenasColor MSG3NG3, colorCianClaroTexto
+    ImprimirCadenasColor MSG3NG4, colorCianClaroTexto
+
+    ;ImprimirCadenas salto
+
+    ImprimirCadenasColor MSG4NG1, colorCianClaroTexto
+    ImprimirCadenasColor MSG4NG2, colorCianClaroTexto
+    ImprimirCadenasColor MSG4NG3, colorCianClaroTexto
+    ImprimirCadenasColor MSG4NG4, colorCianClaroTexto
+
+    ImprimirCadenas salto
+ENDM
+
 ImprimirMenuInicial MACRO 
     LimpiarConsola
     ImprimirCadenas salto
@@ -31,6 +71,8 @@ ImprimirMenuInicial MACRO
     ImprimirCadenasColor MSG4OP1, colorCianTexto
     ImprimirCadenasColor MSG4OP2, colorCianTexto
     ImprimirCadenasColor MSG4OP3, colorCianTexto
+
+    ImprimirCadenas salto
 ENDM
 
 obtenerOpcion MACRO regOpcion

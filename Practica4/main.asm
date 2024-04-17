@@ -46,6 +46,34 @@ MSG4OP1 db "           __               __  ", 10 ,13, "$"
 MSG4OP2 db "  |__|    /__`  /\  |    | |__) ", 10 ,13, "$"
 MSG4OP3 db "     |.   .__/ /~~\ |___ | |  \ ", 10 ,13, "$"
 
+
+MSG0NG1 db "    _____     _             _                                       _        ",10, 13, "$"
+MSG0NG2 db "   |   __|___| |___ ___ ___|_|___ ___ ___    _ _ ___    _____ ___ _| |___    ",10, 13, "$"
+MSG0NG3 db "   |__   | -_| | -_|  _|  _| | . |   | -_|  | | |   |  |     | . | . | . |   ",10, 13, "$"
+MSG0NG4 db "   |_____|___|_|___|___|___|_|___|_|_|___|  |___|_|_|  |_|_|_|___|___|___|   ",10, 13, "$"
+
+MSG1NG1 db "  __        __    _  _  ____     ___  ____  _  _ " ,10, 13, "$"
+MSG1NG2 db " /  \      /  \  / )( \(__  )   / __)(  _ \/ )( \",10, 13, "$"
+MSG1NG3 db "(_/ / _   (_/ /  \ \/ / / _/   ( (__  ) __/) \/ (",10, 13, "$"
+MSG1NG4 db " (__)(_)   (__)   \__/ (____)   \___)(__)  \____/",10, 13, "$"
+
+MSG2NG1 db " ____        __    _  _  ____     __  ",10, 13, "$"
+MSG2NG2 db "(___ \      /  \  / )( \(__  )   /  \ ",10, 13, "$"
+MSG2NG3 db " / __/ _   (_/ /  \ \/ / / _/   (_/ / ",10, 13, "$"
+MSG2NG4 db "(____)(_)   (__)   \__/ (____)   (__) ",10, 13, "$"
+
+MSG3NG1 db " ____       ____  ____  ____   __  ____  ____  ____  ____ ",10, 13, "$"
+MSG3NG2 db "( __ \     (  _ \(  __)(  _ \ /  \(  _ \(_  _)(  __)/ ___)",10, 13, "$"
+MSG3NG3 db " (__ ( _    )   / ) _)  ) __/(  O ))   /  )(   ) _) \___ \",10, 13, "$"
+MSG3NG4 db "(____/(_)  (__\_)(____)(__)   \__/(__\_) (__) (____)(____/",10, 13, "$"
+
+MSG4NG1 db "  ___       ____  ____  ___  ____  ____  ____   __   ____ ",10, 13, "$"
+MSG4NG2 db " / _ \     (  _ \(  __)/ __)(  _ \(  __)/ ___) / _\ (  _ \",10, 13, "$"
+MSG4NG3 db "(__  ( _    )   / ) _)( (_ \ )   / ) _) \___ \/    \ )   /",10, 13, "$"
+MSG4NG4 db "  (__/(_)  (__\_)(____)\___/(__\_)(____)(____/\_/\_/(__\_)",10, 13, "$"
+
+
+
 .CODE
     MOV AX, @data
     MOV DS, AX
@@ -54,33 +82,66 @@ MSG4OP3 db "     |.   .__/ /~~\ |___ | |  \ ", 10 ,13, "$"
     Main PROC
         Menu:
             ImprimirMenuInicial
-
-            ImprimirCadenas IngreseOpcion
+            ImprimirCadenasColor IngreseOpcion, colorAmarilloTexto
             obtenerOpcion opcion
 
             CMP opcion, "1"
-            JE Opcion1
+            JE NuevoJuevo
 
             CMP opcion, "2"
-            JE Opcion2
+            JE Animacion
 
             CMP opcion, "3"
-            JE Opcion3
+            JE Informacion
 
             CMP opcion, "4"
             JE Salir
 
             JMP Menu
 
-        Opcion1:
-            JMP Menu
+            NuevoJuevo:
+                ImprimirNuevoJuego
+                ImprimirCadenasColor IngreseOpcion, colorAmarilloTexto
+                obtenerOpcion opcion
 
-        Opcion2:
-            JMP Menu
-        
-        Opcion3:
-            JMP Menu
+                CMP opcion, "1"
+                JE JVZCPU
 
+                CMP opcion, "2"
+                JE JVZ1
+
+                CMP opcion, "3"
+                JE REPORTES
+
+                CMP opcion, "4"
+                JE Menu
+
+                JMP NuevoJuevo
+                
+                JVZCPU:
+                    LimpiarConsola
+                    ImprimirCadenasColor IngreseOpcion, colorAmarilloTexto
+                    obtenerOpcion opcion
+                    JMP NuevoJuevo
+                
+                JVZ1:
+                    LimpiarConsola
+                    ImprimirCadenasColor IngreseOpcion, colorAmarilloTexto
+                    obtenerOpcion opcion
+                    JMP NuevoJuevo
+                
+                REPORTES:
+                    LimpiarConsola
+                    ImprimirCadenasColor IngreseOpcion, colorAmarilloTexto
+                    obtenerOpcion opcion
+                    JMP NuevoJuevo
+
+
+            Animacion:
+                JMP Menu
+            
+            Informacion:
+                JMP Menu
 
         Salir:
             ImprimirCadenas salto
