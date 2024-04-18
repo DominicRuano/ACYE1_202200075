@@ -1,4 +1,45 @@
 
+ImprimirInformacion MACRO 
+    ImprimirCadenasColor Info11, colorRojoTexto
+    ImprimirCadenasColor Info12, colorRojoTexto
+    ImprimirCadenasColor Info13, colorRojoTexto
+    ImprimirCadenasColor Info14, colorRojoTexto
+    ImprimirCadenasColor Info15, colorRojoTexto
+    ImprimirCadenasColor Info16, colorRojoTexto
+
+    ImprimirCadenas salto
+
+    ImprimirCadenasColor Info21, colorVerdeClaroTexto
+    ImprimirCadenasColor Info22, colorVerdeClaroTexto
+    ImprimirCadenasColor Info23, colorVerdeClaroTexto
+
+    ImprimirCadenasColor Info32, colorVerdeClaroTexto
+
+    ImprimirCadenasColor Info41, colorVerdeClaroTexto
+    ImprimirCadenasColor Info42, colorVerdeClaroTexto
+
+    ImprimirCadenasColor Info51, colorVerdeClaroTexto
+    ImprimirCadenasColor Info52, colorVerdeClaroTexto
+    ImprimirCadenasColor Info53, colorVerdeClaroTexto
+    ImprimirCadenasColor Info54, colorVerdeClaroTexto
+
+    ImprimirCadenasColor Info61, colorVerdeClaroTexto
+    ImprimirCadenasColor Info62, colorVerdeClaroTexto
+
+    ImprimirCadenasColor Info71, colorVerdeClaroTexto
+    ImprimirCadenasColor Info72, colorVerdeClaroTexto
+    ImprimirCadenasColor Info73, colorVerdeClaroTexto
+
+ENDM
+
+ImprimirReporte MACRO
+    ImprimirCadenasColor REPORTE1, colorAmarilloTexto
+    ImprimirCadenasColor REPORTE2, colorAmarilloTexto
+    ImprimirCadenasColor REPORTE3, colorAmarilloTexto
+    ImprimirCadenasColor REPORTE4, colorAmarilloTexto
+    PresioneTeclaParaContinuar
+ENDM
+
 ImprimirNuevoJuego MACRO
     LimpiarConsola
     ImprimirCadenas salto
