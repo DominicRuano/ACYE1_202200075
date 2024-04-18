@@ -4,10 +4,21 @@ INCLUDE macros.ASM
 .STACK 64h
 .DATA
 salto db 10,13, "$"
+espacio db " ", "$"
 Prueba db 10 ,13, "Hola mundo", 10 ,13, "$"
 opcion db 1 dup(?)
 IngreseOpcion db "Ingrese una opcion: ", "$"
 PParaContinuar db "                   Presione Cualquier tecla para continuar...", "$"
+IngreseNameP1 db "Ingrese el nombre del Jugador 1: ", "$"
+IngreseNameP2 db "Ingrese el nombre del Jugador 2: ", "$" 
+OpcionYN1 db "El nombre: ", "$"
+OpcionYN2 db "es correcto? (y/n): ", "$"
+Jugador1 db 16 dup(32)
+Espacio1 db "$"
+Jugador2 db 16 dup(32)
+Espacio2 db "$"
+IA db "IA", "$"
+
 
 colorNegroTexto db 00h ; Negro sobre negro
 colorAzulTexto db 01h ; Azul sobre negro
@@ -162,14 +173,13 @@ Info83 db " +-+-+-+-+-+-+-+-+-+", 10, 13, "$"
                 
                 JVZCPU:
                     LimpiarConsola
-                    ImprimirCadenasColor IngreseOpcion, colorAmarilloTexto
-                    obtenerOpcion opcion
+                    GetName IngreseNameP1, Jugador1
                     JMP NuevoJuevo
                 
                 JVZ1:
                     LimpiarConsola
-                    ImprimirCadenasColor IngreseOpcion, colorAmarilloTexto
-                    obtenerOpcion opcion
+                    GetName IngreseNameP1, Jugador1
+                    GetName IngreseNameP2, Jugador2
                     JMP NuevoJuevo
                 
                 REPORTES:

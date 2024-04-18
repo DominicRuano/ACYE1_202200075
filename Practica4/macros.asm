@@ -1,4 +1,44 @@
 
+GetName MACRO String, Player
+LOCAL Start, end
+Start:
+    LimpiarConsola
+    CleanNameVars
+    ImprimirCadenas salto
+
+    ImprimirCadenasColor String, colorAmarilloTexto
+    obtenerString Player, 15
+    
+    ImprimirCadenas salto
+
+    ImprimirCadenasColor OpcionYN1, colorMagentaTexto
+    ImprimirCadenasColor Player, colorMagentaTexto
+    ImprimirCadenasColor OpcionYN2, colorMagentaTexto
+    obtenerOpcion opcion
+
+    CMP opcion, 'y'
+    JE end
+
+    CMP opcion, 'Y'
+    JE end
+
+    JMP Start
+
+end:
+ENDM
+
+CleanNameVars MACRO
+LOCAL Inicio
+    mov si, 0h
+Inicio:
+    mov Jugador1[si], 32
+    mov Jugador2[si], 32
+    inc si
+
+    cmp si, 0fh
+    jne Inicio
+ENDM
+
 ImprimirInformacion MACRO 
     ImprimirCadenasColor Info11, colorRojoTexto
     ImprimirCadenasColor Info12, colorRojoTexto
@@ -124,8 +164,17 @@ obtenerOpcion MACRO regOpcion
 ENDM
 
 obtenerString MACRO regBuffer, maxLength
+LOCAL read_char_loop, end_read
     ; Inicializar índice y contador de longitud
     xor si, si
+
+    ; Establecer el color de la letra para la pantalla
+    MOV AH, 09h     ; Función de BIOS para escribir carácter y atributo
+    MOV AL, ' '     ; Carácter a escribir (espacio en este caso)
+    MOV BH, 0       ; Página de video (usualmente 0)
+    MOV BL, colorRojoTexto   ; Color del texto (4 bits de fondo, 4 bits de texto)
+    MOV CX, lengthof regBuffer       ; Número de veces que se escribe el carácter
+    INT 10h         ; Interrupción de video
 
     ; Bucle para leer caracteres
     read_char_loop:
