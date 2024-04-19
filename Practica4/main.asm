@@ -316,22 +316,49 @@ String4 db 00h, 00h, 00h, 00h, 00h
                 JVZCPU:
                     LimpiarConsola
                     ;GetName IngreseNameP1, Jugador1
-                    ;PrintTablero
-                    ;Sleep 4bh
+                    PrintTablero
+                    Sleep 4bh
                     JMP NuevoJuevo
                 
                 JVZ1:
+                    ;CleanTab
                     LimpiarConsola
                     ;GetName IngreseNameP1, Jugador1
                     ;GetName IngreseNameP2, Jugador2
+                    TurnoJ1:
+                        LimpiarConsola
+                        PrintTablero
+                        ImprimirCadenas espacio20
+                        obtenerMovNum PosX
+                        obtenerMovDP opcion
+                        obtenerMovNum PosY
+                        xor ax, ax
+                        mov Al, PosX
+                        sub al, 30h
+                        dec al
+                        mov bl, 03h
+                        mul bl          ; Pos = PosX * 3
+                        add al, PosY    ; Pos = (PosX * 3) + PosY
+                        mov si, ax
+                        mov Tablero[si], "x"
 
-                    LimpiarConsola
-                    
-                    PrintTablero
-                    ImprimirCadenas espacio20
-                    obtenerMovNum PosX
-                    obtenerMovDP opcion
-                    obtenerMovNum PosY
+                    Turnoj2:
+                        LimpiarConsola
+                        PrintTablero
+                        ImprimirCadenas espacio20
+                        obtenerMovNum PosX
+                        obtenerMovDP opcion
+                        obtenerMovNum PosY
+                        xor ah, ah
+                        mov Al, PosX
+                        dec al
+                        mov bl, 03h
+                        mul bl          ; Pos = PosX * 3
+                        add al, PosY    ; Pos = Pos = (PosX * 3) + PosY
+                        mov si, ax
+                        mov Tablero[si], "o"
+
+                        ;jmp TurnoJ1
 
 
                     Sleep 1eh

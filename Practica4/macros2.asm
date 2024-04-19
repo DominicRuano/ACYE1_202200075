@@ -11,7 +11,22 @@ Start:
     jne Start
 ENDM
 
+ChangeTurno MACRO
+Local cambio, fin
+    cmp Turno, "0"
+    je cambio
+
+    mov Turno, "0"
+    jmp fin
+
+cambio:
+    mov Turno, "1"
+    jmp fin
+fin:
+ENDM
+
 PrintTablero MACRO 
+Local Inicio, fin, equis, circulo, equis1, equis2, equis3, equis4, equis5, equis6, equis7, equis8, equis9, circulo1, circulo2, circulo3, circulo4, circulo5, circulo6, circulo7, circulo8, circulo9
     mov ax, 13h
     int 10h                 ; Establecer modo gráfico 13h
 
@@ -54,6 +69,211 @@ PrintTablero MACRO
     DrawSprite String3, 060h, 00h, 30h, 08h
     DrawSprite String4, 092h, 00h, 05h, 08h
 
+    mov si, 0h
+Inicio:
+    cmp si, 08h
+    ja fin
+
+    cmp Tablero[si], "o" ;51
+    je circulo
+
+    cmp Tablero[si], "x"
+    je equis
+
+    inc si
+
+
+    jmp Inicio
+
+circulo:
+    mov ax, si
+    inc si
+
+    cmp ax, 00h
+    je circulo1
+
+    cmp ax, 01h
+    je circulo2
+
+    cmp ax, 02h
+    je circulo3
+
+    cmp ax, 03h
+    je circulo4
+
+    cmp ax, 04h
+    je circulo5
+
+    cmp ax, 05h
+    je circulo6
+
+    cmp ax, 06h
+    je circulo7
+
+    cmp ax, 07h
+    je circulo8
+
+    cmp ax, 08h
+    jmp circulo9
+
+circulo1:
+    DrawSprite barrao_uno, 08h, 10h, 8h, 8h
+    DrawSprite barrao_dos, 08h, 18h, 8h, 8h
+    DrawSprite barrao_tres, 10h, 10h, 8h, 8h
+    DrawSprite barrao_cuatro, 10h, 18h, 8h, 8h
+    jmp Inicio
+
+circulo2:
+    DrawSprite barrao_uno, 20h, 10h, 8h, 8h
+    DrawSprite barrao_dos, 20h, 18h, 8h, 8h
+    DrawSprite barrao_tres, 28h, 10h, 8h, 8h
+    DrawSprite barrao_cuatro, 28h, 18h, 8h, 8h
+    jmp Inicio
+
+circulo3:
+    DrawSprite barrao_uno, 38h, 10h, 8h, 8h
+    DrawSprite barrao_dos, 38h, 18h, 8h, 8h
+    DrawSprite barrao_tres, 40h, 10h, 8h, 8h
+    DrawSprite barrao_cuatro, 40h, 18h, 8h, 8h
+    jmp Inicio
+
+circulo4:
+    DrawSprite barrao_uno, 08h, 28h, 8h, 8h
+    DrawSprite barrao_dos, 08h, 30h, 8h, 8h
+    DrawSprite barrao_tres, 10h, 28h, 8h, 8h
+    DrawSprite barrao_cuatro, 10h, 30h, 8h, 8h
+    jmp Inicio
+
+circulo5:
+    DrawSprite barrao_uno, 20h, 28h, 8h, 8h
+    DrawSprite barrao_dos, 20h, 30h, 8h, 8h
+    DrawSprite barrao_tres, 28h, 28h, 8h, 8h
+    DrawSprite barrao_cuatro, 28h, 30h, 8h, 8h
+    jmp Inicio
+
+circulo6:
+    DrawSprite barrao_uno, 38h, 28h, 8h, 8h
+    DrawSprite barrao_dos, 38h, 30h, 8h, 8h
+    DrawSprite barrao_tres, 40h, 28h, 8h, 8h
+    DrawSprite barrao_cuatro, 40h, 30h, 8h, 8h
+    jmp Inicio
+
+circulo7:
+    DrawSprite barrao_uno, 08h, 40h, 8h, 8h
+    DrawSprite barrao_dos, 08h, 48h, 8h, 8h
+    DrawSprite barrao_tres, 10h, 40h, 8h, 8h
+    DrawSprite barrao_cuatro, 10h, 48h, 8h, 8h
+    jmp Inicio
+
+circulo8:
+    DrawSprite barrao_uno, 20h, 40h, 8h, 8h
+    DrawSprite barrao_dos, 20h, 48h, 8h, 8h
+    DrawSprite barrao_tres, 28h, 40h, 8h, 8h
+    DrawSprite barrao_cuatro, 28h, 48h, 8h, 8h
+    jmp Inicio
+
+circulo9:
+    DrawSprite barrao_uno, 38h, 40h, 8h, 8h
+    DrawSprite barrao_dos, 38h, 48h, 8h, 8h
+    DrawSprite barrao_tres, 40h, 40h, 8h, 8h
+    DrawSprite barrao_cuatro, 40h, 48h, 8h, 8h
+    jmp Inicio
+
+equis:
+    mov ax, si
+    inc si
+
+    cmp ax, 00h
+    je equis1
+
+    cmp ax, 01h
+    je equis2
+
+    cmp ax, 02h
+    je equis3
+
+    cmp ax, 03h
+    je equis4
+
+    cmp ax, 04h
+    je equis5
+
+    cmp ax, 05h
+    je equis6
+
+    cmp ax, 06h
+    je equis7
+
+    cmp ax, 07h
+    je equis8
+
+    cmp ax, 08h
+    jmp equis9
+
+equis1:
+    DrawSprite barrax_uno, 08h, 10h, 8h, 8h
+    DrawSprite barrax_dos, 08h, 18h, 8h, 8h
+    DrawSprite barrax_dos, 10h, 10h, 8h, 8h
+    DrawSprite barrax_uno, 10h, 18h, 8h, 8h
+    jmp Inicio
+
+equis2:
+    DrawSprite barrax_uno, 20h, 10h, 8h, 8h
+    DrawSprite barrax_dos, 20h, 18h, 8h, 8h
+    DrawSprite barrax_dos, 28h, 10h, 8h, 8h
+    DrawSprite barrax_uno, 28h, 18h, 8h, 8h
+    jmp Inicio
+
+equis3:
+    DrawSprite barrax_uno, 38h, 10h, 8h, 8h
+    DrawSprite barrax_dos, 38h, 18h, 8h, 8h
+    DrawSprite barrax_dos, 40h, 10h, 8h, 8h
+    DrawSprite barrax_uno, 40h, 18h, 8h, 8h
+    jmp Inicio
+
+equis4:
+    DrawSprite barrax_uno, 08h, 28h, 8h, 8h
+    DrawSprite barrax_dos, 08h, 30h, 8h, 8h
+    DrawSprite barrax_dos, 10h, 28h, 8h, 8h
+    DrawSprite barrax_uno, 10h, 30h, 8h, 8h
+    jmp Inicio
+
+equis5:
+    DrawSprite barrax_uno, 20h, 28h, 8h, 8h
+    DrawSprite barrax_dos, 20h, 30h, 8h, 8h
+    DrawSprite barrax_dos, 28h, 28h, 8h, 8h
+    DrawSprite barrax_uno, 28h, 30h, 8h, 8h
+    jmp Inicio
+
+equis6:
+    DrawSprite barrax_uno, 38h, 28h, 8h, 8h
+    DrawSprite barrax_dos, 38h, 30h, 8h, 8h
+    DrawSprite barrax_dos, 40h, 28h, 8h, 8h
+    DrawSprite barrax_uno, 40h, 30h, 8h, 8h
+    jmp Inicio
+
+equis7:
+    DrawSprite barrax_uno, 08h, 40h, 8h, 8h
+    DrawSprite barrax_dos, 08h, 48h, 8h, 8h
+    DrawSprite barrax_dos, 10h, 40h, 8h, 8h
+    DrawSprite barrax_uno, 10h, 48h, 8h, 8h
+    jmp Inicio
+
+equis8:
+    DrawSprite barrax_uno, 20h, 40h, 8h, 8h
+    DrawSprite barrax_dos, 20h, 48h, 8h, 8h
+    DrawSprite barrax_dos, 28h, 40h, 8h, 8h
+    DrawSprite barrax_uno, 28h, 48h, 8h, 8h
+    jmp Inicio
+
+equis9:
+    DrawSprite barrax_uno, 38h, 40h, 8h, 8h
+    DrawSprite barrax_dos, 38h, 48h, 8h, 8h
+    DrawSprite barrax_dos, 40h, 40h, 8h, 8h
+    DrawSprite barrax_uno, 40h, 48h, 8h, 8h
+    jmp Inicio
+
+
     ;DrawSprite barrax_uno, 08h, 10h, 8h, 8h
     ;DrawSprite barrax_dos, 08h, 18h, 8h, 8h
     ;DrawSprite barrax_dos, 10h, 10h, 8h, 8h
@@ -63,7 +283,7 @@ PrintTablero MACRO
     ;DrawSprite barrao_dos, 20h, 30h, 8h, 8h
     ;DrawSprite barrao_tres, 28h, 28h, 8h, 8h
     ;DrawSprite barrao_cuatro, 28h, 30h, 8h, 8h
-
+fin:
 ENDM
 
 Sleep MACRO params
