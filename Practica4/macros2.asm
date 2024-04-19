@@ -1,4 +1,86 @@
 
+PrintTablero MACRO 
+                    mov ax, 13h
+                    int 10h                 ; Establecer modo gráfico 13h
+                    DrawSprite wall_four, 08h, 20h, 8h, 8h
+                    DrawSprite wall_four, 10h, 20h, 8h, 8h
+                    DrawSprite wall_six, 18h, 20h, 8h, 8h
+                    DrawSprite wall_four, 20h, 20h, 8h, 8h
+                    DrawSprite wall_four, 28h, 20h, 8h, 8h
+                    DrawSprite wall_six, 30h, 20h, 8h, 8h
+                    DrawSprite wall_four, 38h, 20h, 8h, 8h
+                    DrawSprite wall_four, 40h, 20h, 8h, 8h
+
+                    DrawSprite wall_four, 08h, 38h, 8h, 8h
+                    DrawSprite wall_four, 10h, 38h, 8h, 8h
+                    DrawSprite wall_six, 18h, 38h, 8h, 8h
+                    DrawSprite wall_four, 20h, 38h, 8h, 8h
+                    DrawSprite wall_four, 28h, 38h, 8h, 8h
+                    DrawSprite wall_six, 30h, 38h, 8h, 8h
+                    DrawSprite wall_four, 38h, 38h, 8h, 8h
+                    DrawSprite wall_four, 40h, 38h, 8h, 8h
+
+                    DrawSprite wall_three, 18h, 10h, 8h, 8h
+                    DrawSprite wall_three, 18h, 18h, 8h, 8h
+                    DrawSprite wall_three, 30h, 10h, 8h, 8h
+                    DrawSprite wall_three, 30h, 18h, 8h, 8h
+
+                    DrawSprite wall_three, 18h, 28h, 8h, 8h
+                    DrawSprite wall_three, 18h, 30h, 8h, 8h
+                    DrawSprite wall_three, 30h, 28h, 8h, 8h
+                    DrawSprite wall_three, 30h, 30h, 8h, 8h
+
+                    DrawSprite wall_three, 18h, 40h, 8h, 8h
+                    DrawSprite wall_three, 18h, 48h, 8h, 8h
+                    DrawSprite wall_three, 30h, 40h, 8h, 8h
+                    DrawSprite wall_three, 30h, 48h, 8h, 8h
+
+                    ;DrawSprite barrax_uno, 08h, 10h, 8h, 8h
+                    ;DrawSprite barrax_dos, 08h, 18h, 8h, 8h
+                    ;DrawSprite barrax_dos, 10h, 10h, 8h, 8h
+                    ;DrawSprite barrax_uno, 10h, 18h, 8h, 8h
+
+                    ;DrawSprite barrao_uno, 20h, 28h, 8h, 8h
+                    ;DrawSprite barrao_dos, 20h, 30h, 8h, 8h
+                    ;DrawSprite barrao_tres, 28h, 28h, 8h, 8h
+                    ;DrawSprite barrao_cuatro, 28h, 30h, 8h, 8h
+ENDM
+
+Sleep MACRO params
+    mov cx, params ; tiempo de espera alto
+    mov dx, 0          ; tiempo de espera bajo
+    mov ah, 86h        ; función de espera del BIOS
+    int 15h            ; llama a la interrupción del BIOS
+ENDM
+
+DrawSprite MACRO sprite_ptr, x, y, width, height
+LOCAL draw_lines
+    pusha                   ; Guardar todos los registros para restaurarlos después
+    mov ax, 0A000h          ; Segmento de memoria de video para modo 13h
+    mov es, ax              ; Establece ES al segmento de memoria de video
+
+    mov si, offset sprite_ptr      ; SI apunta a los datos del sprite en la sección .data
+    mov bx, y               ; BX es la posición Y
+    mov dx, x               ; DX es la posición X
+
+    ; Calcular el offset inicial en la memoria de video
+    mov ax, 320             ; Ancho de la pantalla en píxeles
+    mul bx                  ; AX = 320 * Y
+    add ax, x              ; AX = 320 * Y + X
+    mov di, ax              ; DI = desplazamiento en el segmento de video
+
+    mov bx, height          ; BX = Altura del sprite
+draw_lines:                 ; Etiqueta para el bucle que dibuja las líneas
+    mov cx, width           ; CX = Ancho del sprite
+    rep movsb               ; Mover línea del sprite a la memoria de video
+    add di, 320             ; Saltar al inicio de la siguiente línea en el buffer de pantalla
+    sub di, width           ; Ajustar DI al inicio correcto de la siguiente línea
+    dec bx                  ; Decrementar contador de altura
+    jnz draw_lines          ; Continuar si aún quedan líneas por dibujar
+
+    popa                    ; Restaurar los registros
+ENDM
+
 GetName MACRO String, Player
 LOCAL Start, end
 Start:
