@@ -1,4 +1,15 @@
 
+CleanTab MACRO
+Local Start
+    mov si, 0h
+
+Start:
+    mov Tablero[si], 32
+    inc si
+
+    cmp si, 08h
+    jne Start
+ENDM
 
 PrintTablero MACRO 
     mov ax, 13h

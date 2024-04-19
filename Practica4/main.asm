@@ -25,8 +25,9 @@ Espacio4 db "$"
 PosY db 1 dup(32)
 Espacio5 db "$"
 IA db "IA", "$"
-Apuntaddor db "Tablero --> ", "$
+Apuntaddor db "Tablero --> ", "$"
 Tablero db 9 dup(32)
+Turno db 1 dup("0")
 
 
 colorNegroTexto db 00h ; Negro sobre negro
@@ -315,7 +316,7 @@ String4 db 00h, 00h, 00h, 00h, 00h
                 JVZCPU:
                     LimpiarConsola
                     ;GetName IngreseNameP1, Jugador1
-                    PrintTablero
+                    ;PrintTablero
                     ;Sleep 4bh
                     JMP NuevoJuevo
                 
