@@ -1,49 +1,58 @@
 
+
 PrintTablero MACRO 
-                    mov ax, 13h
-                    int 10h                 ; Establecer modo gráfico 13h
-                    DrawSprite wall_four, 08h, 20h, 8h, 8h
-                    DrawSprite wall_four, 10h, 20h, 8h, 8h
-                    DrawSprite wall_six, 18h, 20h, 8h, 8h
-                    DrawSprite wall_four, 20h, 20h, 8h, 8h
-                    DrawSprite wall_four, 28h, 20h, 8h, 8h
-                    DrawSprite wall_six, 30h, 20h, 8h, 8h
-                    DrawSprite wall_four, 38h, 20h, 8h, 8h
-                    DrawSprite wall_four, 40h, 20h, 8h, 8h
+    mov ax, 13h
+    int 10h                 ; Establecer modo gráfico 13h
 
-                    DrawSprite wall_four, 08h, 38h, 8h, 8h
-                    DrawSprite wall_four, 10h, 38h, 8h, 8h
-                    DrawSprite wall_six, 18h, 38h, 8h, 8h
-                    DrawSprite wall_four, 20h, 38h, 8h, 8h
-                    DrawSprite wall_four, 28h, 38h, 8h, 8h
-                    DrawSprite wall_six, 30h, 38h, 8h, 8h
-                    DrawSprite wall_four, 38h, 38h, 8h, 8h
-                    DrawSprite wall_four, 40h, 38h, 8h, 8h
+    DrawSprite wall_four, 08h, 20h, 8h, 8h
+    DrawSprite wall_four, 10h, 20h, 8h, 8h
+    DrawSprite wall_six, 18h, 20h, 8h, 8h
+    DrawSprite wall_four, 20h, 20h, 8h, 8h
+    DrawSprite wall_four, 28h, 20h, 8h, 8h
+    DrawSprite wall_six, 30h, 20h, 8h, 8h
+    DrawSprite wall_four, 38h, 20h, 8h, 8h
+    DrawSprite wall_four, 40h, 20h, 8h, 8h
 
-                    DrawSprite wall_three, 18h, 10h, 8h, 8h
-                    DrawSprite wall_three, 18h, 18h, 8h, 8h
-                    DrawSprite wall_three, 30h, 10h, 8h, 8h
-                    DrawSprite wall_three, 30h, 18h, 8h, 8h
+    DrawSprite wall_four, 08h, 38h, 8h, 8h
+    DrawSprite wall_four, 10h, 38h, 8h, 8h
+    DrawSprite wall_six, 18h, 38h, 8h, 8h
+    DrawSprite wall_four, 20h, 38h, 8h, 8h
+    DrawSprite wall_four, 28h, 38h, 8h, 8h
+    DrawSprite wall_six, 30h, 38h, 8h, 8h
+    DrawSprite wall_four, 38h, 38h, 8h, 8h
+    DrawSprite wall_four, 40h, 38h, 8h, 8h
 
-                    DrawSprite wall_three, 18h, 28h, 8h, 8h
-                    DrawSprite wall_three, 18h, 30h, 8h, 8h
-                    DrawSprite wall_three, 30h, 28h, 8h, 8h
-                    DrawSprite wall_three, 30h, 30h, 8h, 8h
+    DrawSprite wall_three, 18h, 10h, 8h, 8h
+    DrawSprite wall_three, 18h, 18h, 8h, 8h
+    DrawSprite wall_three, 30h, 10h, 8h, 8h
+    DrawSprite wall_three, 30h, 18h, 8h, 8h
 
-                    DrawSprite wall_three, 18h, 40h, 8h, 8h
-                    DrawSprite wall_three, 18h, 48h, 8h, 8h
-                    DrawSprite wall_three, 30h, 40h, 8h, 8h
-                    DrawSprite wall_three, 30h, 48h, 8h, 8h
+    DrawSprite wall_three, 18h, 28h, 8h, 8h
+    DrawSprite wall_three, 18h, 30h, 8h, 8h
+    DrawSprite wall_three, 30h, 28h, 8h, 8h
+    DrawSprite wall_three, 30h, 30h, 8h, 8h
 
-                    ;DrawSprite barrax_uno, 08h, 10h, 8h, 8h
-                    ;DrawSprite barrax_dos, 08h, 18h, 8h, 8h
-                    ;DrawSprite barrax_dos, 10h, 10h, 8h, 8h
-                    ;DrawSprite barrax_uno, 10h, 18h, 8h, 8h
+    DrawSprite wall_three, 18h, 40h, 8h, 8h
+    DrawSprite wall_three, 18h, 48h, 8h, 8h
+    DrawSprite wall_three, 30h, 40h, 8h, 8h
+    DrawSprite wall_three, 30h, 48h, 8h, 8h
 
-                    ;DrawSprite barrao_uno, 20h, 28h, 8h, 8h
-                    ;DrawSprite barrao_dos, 20h, 30h, 8h, 8h
-                    ;DrawSprite barrao_tres, 28h, 28h, 8h, 8h
-                    ;DrawSprite barrao_cuatro, 28h, 30h, 8h, 8h
+
+    DrawSprite String, 00h, 00h, 30h, 08h
+    DrawSprite String2, 030h, 00h, 30h, 08h
+    DrawSprite String3, 060h, 00h, 30h, 08h
+    DrawSprite String4, 092h, 00h, 05h, 08h
+
+    ;DrawSprite barrax_uno, 08h, 10h, 8h, 8h
+    ;DrawSprite barrax_dos, 08h, 18h, 8h, 8h
+    ;DrawSprite barrax_dos, 10h, 10h, 8h, 8h
+    ;DrawSprite barrax_uno, 10h, 18h, 8h, 8h
+
+    ;DrawSprite barrao_uno, 20h, 28h, 8h, 8h
+    ;DrawSprite barrao_dos, 20h, 30h, 8h, 8h
+    ;DrawSprite barrao_tres, 28h, 28h, 8h, 8h
+    ;DrawSprite barrao_cuatro, 28h, 30h, 8h, 8h
+
 ENDM
 
 Sleep MACRO params
@@ -66,7 +75,7 @@ LOCAL draw_lines
     ; Calcular el offset inicial en la memoria de video
     mov ax, 320             ; Ancho de la pantalla en píxeles
     mul bx                  ; AX = 320 * Y
-    add ax, x              ; AX = 320 * Y + X
+    add ax, x               ; AX = 320 * Y + X
     mov di, ax              ; DI = desplazamiento en el segmento de video
 
     mov bx, height          ; BX = Altura del sprite
@@ -236,6 +245,60 @@ ImprimirMenuInicial MACRO
     ImprimirCadenasColor MSG4OP3, colorCianTexto
 
     ImprimirCadenas salto
+ENDM
+
+obtenerMovDP MACRO regOpcion
+LOCAL repeat, fin
+repeat:
+        MOV AH, 08h         ; Función para leer un carácter sin eco
+        INT 21h             ; Llama a la interrupción de DOS
+
+        CMP AL, ":"         ; Compara el carácter ingresado con el carácter válido
+        JE fin              ; Si son iguales, salta a la etiqueta 1
+
+        JMP repeat          ; Si no son iguales, repite el bucle
+fin:
+    MOV regOpcion, AL     ; Almacena el carácter válido en el registro especificado
+    ImprimirCadenas regOpcion
+ENDM
+
+obtenerMovNum MACRO regOpcion
+LOCAL repeat, fin
+repeat:
+        MOV AH, 08h         ; Función para leer un carácter sin eco
+        INT 21h             ; Llama a la interrupción de DOS
+
+        CMP AL, "1"         ; Compara el carácter ingresado con el carácter válido
+        JE fin              ; Si son iguales, salta a la etiqueta 1
+
+        CMP AL, "2"         ; Compara el carácter ingresado con el carácter válido
+        JE fin              ; Si son iguales, salta a la etiqueta 1
+
+        CMP AL, "3"         ; Compara el carácter ingresado con el carácter válido
+        JE fin              ; Si son iguales, salta a la etiqueta 1
+
+        CMP AL, "4"         ; Compara el carácter ingresado con el carácter válido
+        JE fin              ; Si son iguales, salta a la etiqueta 1
+
+        CMP AL, "5"         ; Compara el carácter ingresado con el carácter válido
+        JE fin              ; Si son iguales, salta a la etiqueta 1
+
+        CMP AL, "6"         ; Compara el carácter ingresado con el carácter válido
+        JE fin              ; Si son iguales, salta a la etiqueta 1
+
+        CMP AL, "7"         ; Compara el carácter ingresado con el carácter válido
+        JE fin              ; Si son iguales, salta a la etiqueta 1
+
+        CMP AL, "8"         ; Compara el carácter ingresado con el carácter válido
+        JE fin              ; Si son iguales, salta a la etiqueta 1
+
+        CMP AL, "9"         ; Compara el carácter ingresado con el carácter válido
+        JE fin              ; Si son iguales, salta a la etiqueta 1
+
+        JMP repeat          ; Si no son iguales, repite el bucle
+fin:
+    MOV regOpcion, AL     ; Almacena el carácter válido en el registro especificado
+    ImprimirCadenas regOpcion
 ENDM
 
 obtenerOpcion MACRO regOpcion

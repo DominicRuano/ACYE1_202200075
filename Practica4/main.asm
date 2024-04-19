@@ -5,20 +5,28 @@ INCLUDE macros2.ASM
 .DATA
 salto db 10,13, "$"
 espacio db " ", "$"
+espacio20 db 10, 13, "                 ", "$"
 Prueba db 10 ,13, "Hola mundo", 10 ,13, "$"
 opcion db 1 dup(?)
+Espacio3 db "$"
 IngreseOpcion db "Ingrese una opcion: ", "$"
 PParaContinuar db "                   Presione Cualquier tecla para continuar...", "$"
 IngreseNameP1 db "Ingrese el nombre del Jugador 1: ", "$"
 IngreseNameP2 db "Ingrese el nombre del Jugador 2: ", "$" 
 OpcionYN1 db "El nombre: ", "$"
 OpcionYN2 db "es correcto? (y/n): ", "$"
-IngMovTotito db "Ingrese el movimiento: ", "$"
+IngMovTotito db "Ingrese movimiento: $"
 Jugador1 db 16 dup(32)
 Espacio1 db "$"
 Jugador2 db 16 dup(32)
 Espacio2 db "$"
+PosX db 1 dup(32)
+Espacio4 db "$"
+PosY db 1 dup(32)
+Espacio5 db "$"
 IA db "IA", "$"
+Apuntaddor db "Tablero --> ", "$
+Tablero db 9 dup(32)
 
 
 colorNegroTexto db 00h ; Negro sobre negro
@@ -36,7 +44,7 @@ colorCianClaroTexto db 0Bh ; Cian claro sobre negro
 colorRojoClaroTexto db 0Ch ; Rojo claro sobre negro
 colorMagentaClaroTexto db 0Dh ; Magenta claro sobre negro
 colorAmarilloTexto db 0Eh ; Amarillo sobre negro
-colorBlancoTexto db 0Fh ; Blanco sobre negro
+colorBlancoTexto db 0fh ; Blanco sobre negro
 
 MSGMenu1 db "     ____  ____  ____  ____        ____  ____  ____  ____  ____  ____  ____ ", 10 ,13, "$"
 MSGMenu2 db "    ||M ||||e ||||n ||||u ||      ||I ||||n ||||i ||||c ||||i ||||a ||||l ||", 10 ,13, "$"
@@ -221,6 +229,44 @@ barrao_cuatro   db     00, 00, 00, 00, 00, 00, 06, 06
                 db     06, 06, 06, 06, 06, 00, 00, 00
                 db     06, 06, 06, 00, 00, 00, 00, 00
 
+String  db 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 00h, 04h, 04h, 00h, 04h, 04h, 00h, 04h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 04h, 00h, 00h
+        db 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 04h, 00h, 04h, 04h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h
+        db 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 04h, 04h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h
+        db 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h
+        db 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 04h, 00h, 00h, 00h
+        db 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+
+String2 db 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h
+        db 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 04h, 00h, 00h, 00h, 00h
+        db 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 04h, 04h, 04h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h
+        db 04h, 04h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 04h, 04h, 04h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h
+        db 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 04h, 00h, 04h, 04h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h
+        db 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h
+        db 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+
+
+String3 db 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h
+        db 04h, 04h, 04h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h
+        db 04h, 04h, 04h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h
+        db 04h, 04h, 00h, 04h, 00h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h
+        db 04h, 04h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 00h, 04h, 04h, 00h, 00h, 00h, 00h, 04h, 04h, 04h, 04h, 00h, 00h, 00h
+        db 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+
+String4 db 00h, 00h, 00h, 00h, 00h
+        db 00h, 00h, 00h, 00h, 00h
+        db 04h, 04h, 00h, 00h, 00h
+        db 00h, 00h, 04h, 00h, 00h
+        db 00h, 00h, 04h, 00h, 00h
+        db 04h, 00h, 04h, 00h, 04h
+        db 00h, 04h, 04h, 04h, 00h
+        db 00h, 00h, 04h, 00h, 00h
+
+;, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h 25tms
 
 .CODE
     MOV AX, @data
@@ -270,22 +316,24 @@ barrao_cuatro   db     00, 00, 00, 00, 00, 00, 06, 06
                     LimpiarConsola
                     ;GetName IngreseNameP1, Jugador1
                     PrintTablero
-                    Sleep 4bh
+                    ;Sleep 4bh
                     JMP NuevoJuevo
                 
                 JVZ1:
                     LimpiarConsola
                     ;GetName IngreseNameP1, Jugador1
                     ;GetName IngreseNameP2, Jugador2
+
                     LimpiarConsola
+                    
                     PrintTablero
+                    ImprimirCadenas espacio20
+                    obtenerMovNum PosX
+                    obtenerMovDP opcion
+                    obtenerMovNum PosY
 
-                    ImprimirCadenasColor IngMovTotito, colorAmarilloTexto
-                    obtenerOpcion opcion
-                    obtenerOpcion opcion
-                    obtenerOpcion opcion
 
-                    ;Sleep 4bh
+                    Sleep 1eh
                     JMP NuevoJuevo
                 
                 REPORTES:
@@ -311,4 +359,5 @@ barrao_cuatro   db     00, 00, 00, 00, 00, 00, 06, 06
             MOV AX, 4C00h ; Interrupcion Para Terminar Programa
             INT 21h
     Main ENDP
+
 END
