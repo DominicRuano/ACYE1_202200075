@@ -1,4 +1,4 @@
-INCLUDE macros.ASM
+INCLUDE macros2.ASM
 
 .MODEL small
 .STACK 64h
