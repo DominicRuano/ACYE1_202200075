@@ -178,6 +178,7 @@ GetMov MACRO
 ENDM
 
 EscribirMov MACRO params
+Local salto1, salto2, fin
     xor ax, ax
     xor bx, bx
     
@@ -194,7 +195,29 @@ EscribirMov MACRO params
     mov ah, 0h
     mov si, ax
     mov cl, params
+
+    cmp Tablero[si], "o"
+    je salto1
+
+    cmp Tablero[si], "x"
+    je salto2
+
     mov Tablero[si], cl
+    jmp fin
+
+salto1:
+    cmp Turno, "o"
+    je Turnoj2
+
+    Jmp TurnoJ1
+
+salto2:
+    cmp Turno, "o"
+    je Turnoj2
+
+    Jmp TurnoJ1
+
+fin:
 ENDM
 
 CleanTab MACRO
