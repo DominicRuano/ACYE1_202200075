@@ -1,32 +1,230 @@
 
+NameJ2CPU MACRO
+    Mov Jugador2, "C"
+    Mov Jugador2, "P"
+    Mov Jugador2, "U"
+    Mov Jugador2, " "
+    Mov Jugador2, " "
+    Mov Jugador2, " "
+    Mov Jugador2, " "
+    Mov Jugador2, " "
+    Mov Jugador2, " "
+    Mov Jugador2, " "
+    Mov Jugador2, " "
+    Mov Jugador2, " "
+    Mov Jugador2, " "
+    Mov Jugador2, " "
+    Mov Jugador2, " "
+    
+ENDM
+
+ValidarWin MACRO
+Local empate, fin, salto1, salto2, salto3, salto4, salto5, salto6, salto7, salto8
+    xor ax, ax
+    xor bx, bx
+    xor cx, cx
+
+    dec Contador
+
+    mov al, Tablero[00h]
+    mov bl, Tablero[01h]
+    mov cl, Tablero[02h]
+
+    cmp al, bl
+    jne salto1   ; Saltar si ax no es igual a bx
+    cmp bl, cl
+    jne salto1   ; Saltar si bx no es igual a cx
+
+    EndGame Turno
+
+salto1:
+    mov al, Tablero[03h]
+    mov bl, Tablero[04h]
+    mov cl, Tablero[05h]
+
+    cmp al, bl
+    jne salto2   ; Saltar si ax no es igual a bx
+    cmp bl, cl
+    jne salto2   ; Saltar si bx no es igual a cx
+
+    EndGame Turno
+
+salto2:
+    mov al, Tablero[06h]
+    mov bl, Tablero[07h]
+    mov cl, Tablero[08h]
+
+    cmp al, bl
+    jne salto3   ; Saltar si ax no es igual a bx
+    cmp bl, cl
+    jne salto3   ; Saltar si bx no es igual a cx
+
+    EndGame Turno
+
+salto3:
+    mov al, Tablero[00h]
+    mov bl, Tablero[03h]
+    mov cl, Tablero[06h]
+
+    cmp al, bl
+    jne salto4   ; Saltar si ax no es igual a bx
+    cmp bl, cl
+    jne salto4   ; Saltar si bx no es igual a cx
+
+    EndGame Turno
+
+salto4:
+    mov al, Tablero[01h]
+    mov bl, Tablero[04h]
+    mov cl, Tablero[07h]
+
+    cmp al, bl
+    jne salto5   ; Saltar si ax no es igual a bx
+    cmp bl, cl
+    jne salto5   ; Saltar si bx no es igual a cx
+
+    EndGame Turno
+
+salto5:
+    mov al, Tablero[02h]
+    mov bl, Tablero[05h]
+    mov cl, Tablero[08h]
+
+    cmp al, bl
+    jne salto6   ; Saltar si ax no es igual a bx
+    cmp bl, cl
+    jne salto6   ; Saltar si bx no es igual a cx
+
+    EndGame Turno
+
+salto6:
+    mov al, Tablero[00h]
+    mov bl, Tablero[04h]
+    mov cl, Tablero[08h]
+
+    cmp al, bl
+    jne salto7   ; Saltar si ax no es igual a bx
+    cmp bl, cl
+    jne salto7   ; Saltar si bx no es igual a cx
+
+    EndGame Turno
+
+salto7:
+    mov al, Tablero[02h]
+    mov bl, Tablero[04h]
+    mov cl, Tablero[06h]
+
+    cmp al, bl
+    jne salto8   ; Saltar si ax no es igual a bx
+    cmp bl, cl
+    jne salto8   ; Saltar si bx no es igual a cx
+
+    EndGame Turno
+
+salto8:
+    mov cl, Contador
+    cmp cl, 0h
+    je empate
+
+    ChangeTurno
+    jmp fin
+
+empate:
+    LimpiarConsola
+    ImprimirCadenasColor WinerEmpate, colorRojoTexto
+    PresioneTeclaParaContinuar
+    jmp NuevoJuevo
+
+fin:
+ENDM
+
+EndGame MACRO params
+Local w1, w2
+    xor ax, ax
+    xor bx, bx
+
+    mov ax, 0003h
+    int 10h
+
+    mov al, params
+    cmp al, "x"
+    je w1
+    jmp w2
+
+w1:
+LimpiarConsola
+ImprimirCadenasColor Winer, colorRojoTexto
+ImprimirCadenasColor Jugador1, colorVerdeClaroTexto
+PresioneTeclaParaContinuar
+jmp NuevoJuevo
+
+w2:
+LimpiarConsola
+ImprimirCadenasColor Winer, colorRojoTexto
+ImprimirCadenasColor Jugador2, colorVerdeClaroTexto
+PresioneTeclaParaContinuar
+jmp NuevoJuevo
+
+ENDM
+
+InicializarContador MACRO
+    mov Contador, 09h
+ENDM
+
+GetMov MACRO
+    obtenerMovNum PosX
+    obtenerMovDP opcion
+    obtenerMovNum PosY
+ENDM
+
+EscribirMov MACRO params
+    xor ax, ax
+    xor bx, bx
+    
+    mov al, PosX
+    mov bl, PosY
+    sub al, 30h
+    sub bl, 30h
+
+    dec al
+    mov cl, 03h
+    mul cl
+    add al, bl
+    dec al
+    mov ah, 0h
+    mov si, ax
+    mov cl, params
+    mov Tablero[si], cl
+ENDM
+
 CleanTab MACRO
-Local Start
-    mov si, 0h
-
-Start:
-    mov Tablero[si], 32
-    inc si
-
-    cmp si, 08h
-    jne Start
+    mov Tablero[00h], 1
+    mov Tablero[01h], 2
+    mov Tablero[02h], 3
+    mov Tablero[03h], 4
+    mov Tablero[04h], 5
+    mov Tablero[05h], 6
+    mov Tablero[06h], 7
+    mov Tablero[07h], 8
+    mov Tablero[08h], 9
 ENDM
 
 ChangeTurno MACRO
 Local cambio, fin
-    cmp Turno, "0"
+    cmp Turno, "o"
     je cambio
 
-    mov Turno, "0"
+    mov Turno, "o"
     jmp fin
 
 cambio:
-    mov Turno, "1"
+    mov Turno, "x"
     jmp fin
 fin:
 ENDM
 
 PrintTablero MACRO 
-Local Inicio, fin, equis, circulo, equis1, equis2, equis3, equis4, equis5, equis6, equis7, equis8, equis9, circulo1, circulo2, circulo3, circulo4, circulo5, circulo6, circulo7, circulo8, circulo9
+Local Inicio, fin, equis, circulo, equis1, equis2, equis3, equis4, equis5, equis6, equis7, equis8, equis9, circulo1, circulo2, circulo3, circulo4, circulo5, circulo6, circulo7, circulo8, circulo9, val1, val2, val3
     mov ax, 13h
     int 10h                 ; Establecer modo gráfico 13h
 
@@ -69,6 +267,25 @@ Local Inicio, fin, equis, circulo, equis1, equis2, equis3, equis4, equis5, equis
     DrawSprite String3, 060h, 00h, 30h, 08h
     DrawSprite String4, 092h, 00h, 05h, 08h
 
+    cmp Turno, "o"
+    je val1
+
+    jmp val2
+
+val1:
+    DrawSprite barrao_uno, 68h, 28h, 8h, 8h
+    DrawSprite barrao_dos, 68h, 30h, 8h, 8h
+    DrawSprite barrao_tres, 70h, 28h, 8h, 8h
+    DrawSprite barrao_cuatro, 70h, 30h, 8h, 8h
+    jmp val3
+
+val2:
+    DrawSprite barrax_uno, 68h, 28h, 8h, 8h
+    DrawSprite barrax_dos, 68h, 30h, 8h, 8h
+    DrawSprite barrax_dos, 70h, 28h, 8h, 8h
+    DrawSprite barrax_uno, 70h, 30h, 8h, 8h
+
+val3:
     mov si, 0h
 Inicio:
     cmp si, 08h
@@ -325,7 +542,7 @@ GetName MACRO String, Player
 LOCAL Start, end
 Start:
     LimpiarConsola
-    CleanNameVars
+    CleanNameVar Player
     ImprimirCadenas salto
 
     ImprimirCadenasColor String, colorAmarilloTexto
@@ -349,12 +566,11 @@ Start:
 end:
 ENDM
 
-CleanNameVars MACRO
+CleanNameVar MACRO params
 LOCAL Inicio
     mov si, 0h
 Inicio:
-    mov Jugador1[si], 32
-    mov Jugador2[si], 32
+    mov params[si], 32
     inc si
 
     cmp si, 0fh
@@ -508,24 +724,6 @@ repeat:
         CMP AL, "3"         ; Compara el carácter ingresado con el carácter válido
         JE fin              ; Si son iguales, salta a la etiqueta 1
 
-        CMP AL, "4"         ; Compara el carácter ingresado con el carácter válido
-        JE fin              ; Si son iguales, salta a la etiqueta 1
-
-        CMP AL, "5"         ; Compara el carácter ingresado con el carácter válido
-        JE fin              ; Si son iguales, salta a la etiqueta 1
-
-        CMP AL, "6"         ; Compara el carácter ingresado con el carácter válido
-        JE fin              ; Si son iguales, salta a la etiqueta 1
-
-        CMP AL, "7"         ; Compara el carácter ingresado con el carácter válido
-        JE fin              ; Si son iguales, salta a la etiqueta 1
-
-        CMP AL, "8"         ; Compara el carácter ingresado con el carácter válido
-        JE fin              ; Si son iguales, salta a la etiqueta 1
-
-        CMP AL, "9"         ; Compara el carácter ingresado con el carácter válido
-        JE fin              ; Si son iguales, salta a la etiqueta 1
-
         JMP repeat          ; Si no son iguales, repite el bucle
 fin:
     MOV regOpcion, AL     ; Almacena el carácter válido en el registro especificado
@@ -615,3 +813,4 @@ PresioneTeclaParaContinuar MACRO
     ImprimirCadenasColor PParaContinuar, colorCianTexto
     obtenerOpcion opcion
 ENDM
+

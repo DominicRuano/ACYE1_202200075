@@ -16,6 +16,8 @@ IngreseNameP2 db "Ingrese el nombre del Jugador 2: ", "$"
 OpcionYN1 db "El nombre: ", "$"
 OpcionYN2 db "es correcto? (y/n): ", "$"
 IngMovTotito db "Ingrese movimiento: $"
+Winer db "Ganador: ", "$"
+WinerEmpate db "Ganador: Empate", "$"
 Jugador1 db 16 dup(32)
 Espacio1 db "$"
 Jugador2 db 16 dup(32)
@@ -27,7 +29,8 @@ Espacio5 db "$"
 IA db "IA", "$"
 Apuntaddor db "Tablero --> ", "$"
 Tablero db 9 dup(32)
-Turno db 1 dup("0")
+Turno db 1 dup("o")
+Contador db 1 dup(9)
 
 
 colorNegroTexto db 00h ; Negro sobre negro
@@ -314,62 +317,40 @@ String4 db 00h, 00h, 00h, 00h, 00h
                 JMP NuevoJuevo
                 
                 JVZCPU:
-                    LimpiarConsola
-                    ;GetName IngreseNameP1, Jugador1
-                    PrintTablero
-                    Sleep 4bh
-                    JMP NuevoJuevo
+                    jmp NuevoJuevo
                 
                 JVZ1:
-                    ;CleanTab
+                    CleanTab
+                    mov Turno, "x"
+                    InicializarContador
                     LimpiarConsola
-                    ;GetName IngreseNameP1, Jugador1
-                    ;GetName IngreseNameP2, Jugador2
+                    GetName IngreseNameP1, Jugador1
+                    GetName IngreseNameP2, Jugador2
                     TurnoJ1:
                         LimpiarConsola
                         PrintTablero
                         ImprimirCadenas espacio20
-                        obtenerMovNum PosX
-                        obtenerMovDP opcion
-                        obtenerMovNum PosY
-                        xor ax, ax
-                        mov Al, PosX
-                        sub al, 30h
-                        dec al
-                        mov bl, 03h
-                        mul bl          ; Pos = PosX * 3
-                        add al, PosY    ; Pos = (PosX * 3) + PosY
-                        mov si, ax
-                        mov Tablero[si], "x"
+                        GetMov
+                        EscribirMov Turno
+                        Sleep 1eh
+                        ValidarWin
 
                     Turnoj2:
                         LimpiarConsola
                         PrintTablero
                         ImprimirCadenas espacio20
-                        obtenerMovNum PosX
-                        obtenerMovDP opcion
-                        obtenerMovNum PosY
-                        xor ah, ah
-                        mov Al, PosX
-                        dec al
-                        mov bl, 03h
-                        mul bl          ; Pos = PosX * 3
-                        add al, PosY    ; Pos = Pos = (PosX * 3) + PosY
-                        mov si, ax
-                        mov Tablero[si], "o"
+                        GetMov
+                        EscribirMov Turno
+                        Sleep 1eh
+                        ValidarWin
+                        
+                        jmp TurnoJ1
 
-                        ;jmp TurnoJ1
-
-
-                    Sleep 1eh
-                    JMP NuevoJuevo
-                
                 REPORTES:
                     LimpiarConsola
                     ;Sleep 4bh
                     ImprimirReporte
                     JMP NuevoJuevo
-
 
             Animacion:
                 LimpiarConsola
