@@ -137,17 +137,6 @@ Local w1, w2
     xor ax, ax
     xor bx, bx
 
-    mov ax, 0003h
-    int 10h
-
-    mov al, params
-    cmp al, "x"
-    je w1
-    jmp w2
-
-w1:
-    LimpiarConsola
-
     AbrirArchivo
     AbrirArchivo3
     Addtextoanterior
@@ -160,19 +149,20 @@ w1:
     EscribirArchivo Barra
     EscribirArchivo Jugador2
     EscribirArchivo Barra
-    EscribirArchivo espacio
-    EscribirArchivo espacio
-    EscribirArchivo espacio
-    EscribirArchivo espacio
-    EscribirArchivo espacio
-    EscribirArchivo espacio
-    EscribirArchivo espacio
-    EscribirArchivo espacio
-    EscribirArchivo espacio
-    EscribirArchivo espacio
-    EscribirArchivo espacio
-    EscribirArchivo espacio
+    EscribirArchivo espacio11
     EscribirArchivo Barra
+
+    mov ax, 0003h
+    int 10h
+
+    mov al, params
+    cmp al, "x"
+    je w1
+    jmp w2
+
+w1:
+    LimpiarConsola
+
     EscribirArchivo Jugador1
     EscribirArchivo Barra
     EscribirArchivo Jugador2
@@ -188,37 +178,12 @@ w1:
 w2:
     LimpiarConsola
 
-    ;AbrirArchivo
-    ;AbrirArchivo3
-    ;Addtextoanterior
-    ;EscribirArchivo espacio
-    ;EscribirArchivo espacio
-    ;EscribirArchivo Barra
-    ;ImpFechaDB horaDB
-    ;EscribirArchivo Barra
-    ;EscribirArchivo Jugador1
-    ;EscribirArchivo Barra
-    ;EscribirArchivo Jugador2
-    ;EscribirArchivo Barra
-    ;EscribirArchivo espacio
-    ;EscribirArchivo espacio
-    ;EscribirArchivo espacio
-    ;EscribirArchivo espacio
-    ;EscribirArchivo espacio
-    ;EscribirArchivo espacio
-    ;EscribirArchivo espacio
-    ;EscribirArchivo espacio
-    ;EscribirArchivo espacio
-    ;EscribirArchivo espacio
-    ;EscribirArchivo espacio
-    ;EscribirArchivo espacio
-    ;EscribirArchivo Barra
-    ;EscribirArchivo Jugador2
-    ;EscribirArchivo Barra
-    ;EscribirArchivo Jugador1
-    ;EscribirArchivo Barra
-    ;EscribirArchivo Salto
-    ;CerrarArchivo
+    EscribirArchivo Jugador2
+    EscribirArchivo Barra
+    EscribirArchivo Jugador1
+    EscribirArchivo Barra
+    EscribirArchivo Salto
+    CerrarArchivo
 
     ImprimirCadenasColor Winer, colorRojoTexto
     ImprimirCadenasColor Jugador2, colorVerdeClaroTexto

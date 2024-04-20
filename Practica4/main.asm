@@ -5,6 +5,7 @@ INCLUDE macros2.ASM
 .DATA
 salto db 10,13, "$"
 espacio db " ", "$"
+espacio11 db "            ", "$"
 DosPuntos db ":", "$"
 espacio20 db 10, 13, "                 ", "$"
 Prueba db 10 ,13, "Hola mundo", 10 ,13, "$"
