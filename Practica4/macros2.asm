@@ -144,6 +144,8 @@ empate:
     EscribirArchivo Barra
     EscribirArchivo espacio12
     EscribirArchivo Barra
+    EscribirArchivo espacio
+    EscribirArchivo espacio
     EscribirArchivo Salto
     CerrarArchivo
 
@@ -189,6 +191,8 @@ w1:
     EscribirArchivo Barra
     EscribirArchivo Jugador2
     EscribirArchivo Barra
+    EscribirArchivo espacio
+    EscribirArchivo espacio
     EscribirArchivo Salto
     CerrarArchivo
 
@@ -204,6 +208,8 @@ w2:
     EscribirArchivo Barra
     EscribirArchivo Jugador1
     EscribirArchivo Barra
+    EscribirArchivo espacio
+    EscribirArchivo espacio
     EscribirArchivo Salto
     CerrarArchivo
 
@@ -313,7 +319,7 @@ LOCAL inicio, fin
     mov bl, "$"
 
 inicio:
-    cmp si, 100h
+    cmp si, 400h
     je fin
     mov bh, dataTXT[si]
     cmp bh, bl
@@ -933,6 +939,11 @@ ImprimirReporte MACRO
     ImprimirCadenasColor REPORTE1, colorAmarilloTexto
     ImprimirCadenasColor REPORTE2, colorAmarilloTexto
     ImprimirCadenasColor REPORTE3, colorAmarilloTexto
+
+    AbrirArchivo
+
+    ImprimirCadenasColor dataTXT, colorAmarilloTexto
+
     ImprimirCadenasColor REPORTE4, colorAmarilloTexto
     PresioneTeclaParaContinuar
 ENDM
