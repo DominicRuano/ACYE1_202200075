@@ -1,21 +1,10 @@
 
 NameJ2CPU MACRO
+    CleanNameVar Jugador2
+
     Mov Jugador2, "C"
     Mov Jugador2, "P"
     Mov Jugador2, "U"
-    Mov Jugador2, " "
-    Mov Jugador2, " "
-    Mov Jugador2, " "
-    Mov Jugador2, " "
-    Mov Jugador2, " "
-    Mov Jugador2, " "
-    Mov Jugador2, " "
-    Mov Jugador2, " "
-    Mov Jugador2, " "
-    Mov Jugador2, " "
-    Mov Jugador2, " "
-    Mov Jugador2, " "
-    
 ENDM
 
 ValidarWin MACRO
@@ -177,6 +166,18 @@ GetMov MACRO
     obtenerMovNum PosY
 ENDM
 
+GetMov2 MACRO
+    generateRandomNumber PosX
+    ;ImprimirCadenas PosX
+
+    ;ImprimirCadenas DosPuntos
+
+    Sleep2 1
+    generateRandomNumber PosY
+    ;ImprimirCadenas PosY
+    Sleep2 1
+ENDM
+
 EscribirMov MACRO params
 Local salto1, salto2, fin
     xor ax, ax
@@ -216,6 +217,49 @@ salto2:
     je Turnoj2
 
     Jmp TurnoJ1
+
+fin:
+ENDM
+
+EscribirMov2 MACRO params
+Local salto1, salto2, fin
+    xor ax, ax
+    xor bx, bx
+    
+    mov al, PosX
+    mov bl, PosY
+    sub al, 30h
+    sub bl, 30h
+
+    dec al
+    mov cl, 03h
+    mul cl
+    add al, bl
+    dec al
+    mov ah, 0h
+    mov si, ax
+    mov cl, params
+
+    cmp Tablero[si], "o"
+    je salto1
+
+    cmp Tablero[si], "x"
+    je salto2
+
+    mov Tablero[si], cl
+    jmp fin
+
+salto1:
+    cmp Turno, "o"
+    je GMovs2
+
+    Jmp TurnoJ1CPU
+
+salto2:
+    cmp Turno, "o"
+    je GMovs2
+
+    Jmp TurnoJ1CPU
 
 fin:
 ENDM
@@ -533,6 +577,13 @@ Sleep MACRO params
     int 15h            ; llama a la interrupción del BIOS
 ENDM
 
+Sleep2 MACRO params
+    mov cx, 0 ; tiempo de espera alto
+    mov dx, params          ; tiempo de espera bajo
+    mov ah, 86h        ; función de espera del BIOS
+    int 15h            ; llama a la interrupción del BIOS
+ENDM
+
 DrawSprite MACRO sprite_ptr, x, y, width, height
 LOCAL draw_lines
     pusha                   ; Guardar todos los registros para restaurarlos después
@@ -836,4 +887,27 @@ PresioneTeclaParaContinuar MACRO
     ImprimirCadenasColor PParaContinuar, colorCianTexto
     obtenerOpcion opcion
 ENDM
+
+generateRandomNumber MACRO numVar
+LOCAL skip
+    ; Inicialización del generador de números aleatorios
+skip:
+    mov ah, 2Ch     
+    int 21h         ; obtiene la fecha y la hora del sistema.
+
+    xor dx, dx      ; Limpia el registro dx estableciéndolo en 0.
+
+    mov ah, 0       ; Establece el valor de ah en 0. Esta es una función de la interrupción 1Ah que obtiene el contador de tiempo del sistema.
+    int 1Ah         ; Llama a la interrupción 1Ah, que es la interrupción de BIOS. En este caso, obtiene el contador de tiempo del sistema.
+
+    and dx, 3       ; Realiza una operación AND bit a bit en dx y 3. Esto tiene el efecto de limitar dx al rango 0-3, lo que es útil para generar un número aleatorio en el rango.
+
+    cmp dl, 0       ; Compara dl con 0.
+    je skip         ; Si dl es igual a 0, salta a la etiqueta skip.
+
+    add dl, 30h
+
+    mov numVar, dl  ; Mueve el valor de dl (la parte baja de dx) a numVar. Esto almacena el número aleatorio generado en numVar.
+ENDM
+
 

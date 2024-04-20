@@ -5,6 +5,7 @@ INCLUDE macros2.ASM
 .DATA
 salto db 10,13, "$"
 espacio db " ", "$"
+DosPuntos db ":", "$"
 espacio20 db 10, 13, "                 ", "$"
 Prueba db 10 ,13, "Hola mundo", 10 ,13, "$"
 opcion db 1 dup(?)
@@ -317,7 +318,35 @@ String4 db 00h, 00h, 00h, 00h, 00h
                 JMP NuevoJuevo
                 
                 JVZCPU:
-                    jmp NuevoJuevo
+                    CleanTab
+                    mov Turno, "x"
+                    InicializarContador
+                    LimpiarConsola
+                    GetName IngreseNameP1, Jugador1
+                    NameJ2CPU
+                    TurnoJ1CPU:
+                        LimpiarConsola
+                        PrintTablero
+                        ImprimirCadenas espacio20
+                        GetMov
+                        EscribirMov2 Turno
+                        Sleep 1eh
+                        ValidarWin
+
+                    Turnoj2CPU:
+                        LimpiarConsola
+                        PrintTablero
+                        ImprimirCadenas espacio20
+                    GMovs2:
+                        GetMov2
+                        EscribirMov2 Turno
+                        ImprimirCadenas PosX
+                        ImprimirCadenas DosPuntos
+                        ImprimirCadenas PosY
+                        Sleep 1eh
+                        ValidarWin
+                        
+                        jmp TurnoJ1CPU
                 
                 JVZ1:
                     CleanTab
