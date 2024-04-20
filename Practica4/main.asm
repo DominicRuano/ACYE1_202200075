@@ -28,10 +28,11 @@ Espacio4 db "$"
 PosY db 1 dup(32)
 Espacio5 db "$"
 IA db "IA", "$"
-Apuntaddor db "Tablero --> ", "$"
 Tablero db 9 dup(32)
 Turno db 1 dup("o")
 Contador db 1 dup(9)
+Apuntaddor db "-->"
+Contador2 db 1 dup(0ffh)
 
 
 colorNegroTexto db 00h ; Negro sobre negro
@@ -335,6 +336,7 @@ String4 db 00h, 00h, 00h, 00h, 00h
 
                     Turnoj2CPU:
                         LimpiarConsola
+                        Contador1
                         PrintTablero
                         ImprimirCadenas espacio20
                     GMovs2:
@@ -344,6 +346,7 @@ String4 db 00h, 00h, 00h, 00h, 00h
                         ImprimirCadenas DosPuntos
                         ImprimirCadenas PosY
                         Sleep 1eh
+                    MMov2:
                         ValidarWin
                         
                         jmp TurnoJ1CPU

@@ -1,10 +1,15 @@
 
+
+Contador1 MACRO
+    mov Contador2, 0ffh
+ENDM
+
 NameJ2CPU MACRO
     CleanNameVar Jugador2
 
-    Mov Jugador2, "C"
-    Mov Jugador2, "P"
-    Mov Jugador2, "U"
+    Mov Jugador2[00h], "C"
+    Mov Jugador2[01h], "P"
+    Mov Jugador2[02h], "U"
 ENDM
 
 ValidarWin MACRO
@@ -141,18 +146,44 @@ Local w1, w2
     jmp w2
 
 w1:
-LimpiarConsola
-ImprimirCadenasColor Winer, colorRojoTexto
-ImprimirCadenasColor Jugador1, colorVerdeClaroTexto
-PresioneTeclaParaContinuar
-jmp NuevoJuevo
+    LimpiarConsola
+
+    ;AbrirArchivo
+    ;AbrirArchivo3
+    ;Addtextoanterior
+    ;EscribirArchivo salto
+    ;EscribirArchivo params
+    ;EscribirArchivo barra
+    ;getMinSeg2 horaSTRInicio, hora, minuto, segundos
+    ;EscribirArchivo horaSTRInicio
+    ;EscribirArchivo barra2
+    ;EscribirArchivo temp
+    ;CerrarArchivo
+
+    ImprimirCadenasColor Winer, colorRojoTexto
+    ImprimirCadenasColor Jugador1, colorVerdeClaroTexto
+    PresioneTeclaParaContinuar
+    jmp NuevoJuevo
 
 w2:
-LimpiarConsola
-ImprimirCadenasColor Winer, colorRojoTexto
-ImprimirCadenasColor Jugador2, colorVerdeClaroTexto
-PresioneTeclaParaContinuar
-jmp NuevoJuevo
+    LimpiarConsola
+
+    ;AbrirArchivo
+    ;AbrirArchivo3
+    ;Addtextoanterior
+    ;EscribirArchivo salto
+    ;EscribirArchivo params
+    ;EscribirArchivo barra
+    ;getMinSeg2 horaSTRInicio, hora, minuto, segundos
+    ;EscribirArchivo horaSTRInicio
+    ;EscribirArchivo barra2
+    ;EscribirArchivo temp
+    ;CerrarArchivo
+
+    ImprimirCadenasColor Winer, colorRojoTexto
+    ImprimirCadenasColor Jugador2, colorVerdeClaroTexto
+    PresioneTeclaParaContinuar
+    jmp NuevoJuevo
 
 ENDM
 
@@ -168,14 +199,7 @@ ENDM
 
 GetMov2 MACRO
     generateRandomNumber PosX
-    ;ImprimirCadenas PosX
-
-    ;ImprimirCadenas DosPuntos
-
-    Sleep2 1
     generateRandomNumber PosY
-    ;ImprimirCadenas PosY
-    Sleep2 1
 ENDM
 
 EscribirMov MACRO params
@@ -222,7 +246,7 @@ fin:
 ENDM
 
 EscribirMov2 MACRO params
-Local salto1, salto2, fin
+Local salto1, salto2, fin, movFake
     xor ax, ax
     xor bx, bx
     
@@ -250,16 +274,53 @@ Local salto1, salto2, fin
     jmp fin
 
 salto1:
+    dec Contador2
+
+    cmp Contador2, 0h
+    je movFake
+
     cmp Turno, "o"
     je GMovs2
 
     Jmp TurnoJ1CPU
 
 salto2:
+    dec Contador2
+
+    cmp Contador2, 0h
+    je movFake
+
     cmp Turno, "o"
     je GMovs2
 
     Jmp TurnoJ1CPU
+
+movFake:
+    FAkemov
+
+fin:
+ENDM
+
+FAkemov MACRO
+Local Inicio, incre, fin
+    xor ax, ax
+    xor bx, bx
+
+    mov si, 0h
+Inicio:
+    cmp Tablero[si], "o"
+    je incre
+
+    cmp Tablero[si], "x"
+    je incre
+
+    mov Tablero[si], "o"
+    jmp MMov2
+
+
+incre:
+    inc si
+    jmp Inicio
 
 fin:
 ENDM
