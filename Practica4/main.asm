@@ -19,9 +19,9 @@ OpcionYN2 db "es correcto? (y/n): ", "$"
 IngMovTotito db "Ingrese movimiento: $"
 Winer db "Ganador: ", "$"
 WinerEmpate db "Ganador: Empate", "$"
-Jugador1 db 16 dup(32)
+Jugador1 db 11 dup(32)
 Espacio1 db "$"
-Jugador2 db 16 dup(32)
+Jugador2 db 11 dup(32)
 Espacio2 db "$"
 PosX db 1 dup(32)
 Espacio4 db "$"
@@ -33,6 +33,13 @@ Turno db 1 dup("o")
 Contador db 1 dup(9)
 Apuntaddor db "-->"
 Contador2 db 1 dup(0ffh)
+filehandle dw ?
+bytesRead dw ?
+dataTXT db 256 dup("$")
+segundos db 2 dup("$")
+Barra db "|", "$"
+horaDB db 18 dup("$")
+nombreDB db "DB.txt", 0
 
 
 colorNegroTexto db 00h ; Negro sobre negro
