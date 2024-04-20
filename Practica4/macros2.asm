@@ -125,6 +125,28 @@ salto8:
 
 empate:
     LimpiarConsola
+
+    AbrirArchivo
+    AbrirArchivo3
+    Addtextoanterior
+    EscribirArchivo espacio
+    EscribirArchivo espacio
+    EscribirArchivo Barra
+    ImpFechaDB horaDB
+    EscribirArchivo Barra
+    EscribirArchivo Jugador1
+    EscribirArchivo Barra
+    EscribirArchivo Jugador2
+    EscribirArchivo Barra
+    EscribirArchivo WinerEmpate2
+    EscribirArchivo Barra
+    EscribirArchivo espacio12
+    EscribirArchivo Barra
+    EscribirArchivo espacio12
+    EscribirArchivo Barra
+    EscribirArchivo Salto
+    CerrarArchivo
+
     ImprimirCadenasColor WinerEmpate, colorRojoTexto
     PresioneTeclaParaContinuar
     jmp NuevoJuevo
@@ -1132,5 +1154,3 @@ skip:
 
     mov numVar, dl  ; Mueve el valor de dl (la parte baja de dx) a numVar. Esto almacena el número aleatorio generado en numVar.
 ENDM
-
-

@@ -6,6 +6,7 @@ INCLUDE macros2.ASM
 salto db 10,13, "$"
 espacio db " ", "$"
 espacio11 db "            ", "$"
+espacio12 db "          ", "$"
 DosPuntos db ":", "$"
 espacio20 db 10, 13, "                 ", "$"
 Prueba db 10 ,13, "Hola mundo", 10 ,13, "$"
@@ -20,6 +21,7 @@ OpcionYN2 db "es correcto? (y/n): ", "$"
 IngMovTotito db "Ingrese movimiento: $"
 Winer db "Ganador: ", "$"
 WinerEmpate db "Ganador: Empate", "$"
+WinerEmpate2 db "Empate      ", "$"
 Jugador1 db 11 dup(32)
 Espacio1 db "$"
 Jugador2 db 11 dup(32)
@@ -36,7 +38,7 @@ Apuntaddor db "-->"
 Contador2 db 1 dup(0ffh)
 filehandle dw ?
 bytesRead dw ?
-dataTXT db 256 dup("$")
+dataTXT db 1024 dup("$")
 segundos db 2 dup("$")
 Barra db "|", "$"
 horaDB db 18 dup("$")
