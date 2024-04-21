@@ -377,6 +377,33 @@ read_file:
     mov bytesRead, ax  ; Guardar el número de bytes leídos
 ENDM
 
+AbrirArchivo2 MACRO 
+LOCAL file_not_found, read_file, fin
+    mov ah, 3Dh  ; Función 3Dh: Abrir archivo existente
+    mov al, 0    ; Modo de acceso: lectura
+    lea dx, nombreDB  ; Nombre del archivo
+    int 21h      ; Llamar a DOS
+    jc file_not_found  ; Saltar si el archivo no se encuentra
+
+    ; El archivo existe, leer su contenido
+    mov filehandle, ax  ; Guardar manejador de archivo
+    jmp read_file
+
+file_not_found:
+    ImprimirCadenasColor REPORTE5, colorAmarilloTexto
+    jmp fin
+
+read_file:
+    ; Leer el contenido del archivo en el buffer
+    mov ah, 3Fh  ; Función 3Fh: Leer de archivo
+    mov bx, filehandle  ; Manejador de archivo
+    lea dx, dataTXT      ; Buffer para leer el contenido
+    mov cx, sizeof dataTXT  ; Tamaño del buffer
+    int 21h      ; Llamar a DOS
+    mov bytesRead, ax  ; Guardar el número de bytes leídos
+fin:
+ENDM
+
 InicializarContador MACRO
     mov Contador, 09h
 ENDM
@@ -940,7 +967,7 @@ ImprimirReporte MACRO
     ImprimirCadenasColor REPORTE2, colorAmarilloTexto
     ImprimirCadenasColor REPORTE3, colorAmarilloTexto
 
-    AbrirArchivo
+    AbrirArchivo2
 
     ImprimirCadenasColor dataTXT, colorAmarilloTexto
 
