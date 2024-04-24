@@ -8,7 +8,7 @@ INCLUDE macros.ASM
     Info2 db "  Primer semestre 2024", 10, 13
     Info3 db "  Dominic Juan Pablo Ruano Perez", 10, 13
     Info4 db "  202200075", 10, 13
-    Info5 db "  Proyecto 2 Assembler", 10, 13, 10, 13, "$"
+    Info5 db "  Proyecto 2 Assembler", 10, 13, "$"
 
     info6 db "  Aun no existe una funcion para genera reportes.", 10, 13, "$"
 
@@ -51,6 +51,8 @@ INCLUDE macros.ASM
     msgEncabezadoTabla  db "-> Valor    -> Frecuencia", "$"
     salto               db 10, 13, "$"
     espacios            db 32, 32, 32, 32, 32, "$"
+    espacio             db 32, "$"
+    coma                db ",", "$"
     numCSV              db 3 dup(?)
     cadenaResult        db 6 dup("$")
     tablaFrecuencias    db 100 dup(?)
@@ -68,7 +70,14 @@ cantDecimal         db 0
     MSGConsola db 10, 13, "ConsolaPF2> $"
     MSGConsola1 db "    Operacion: $"
     MSGConsola2 db "    Resultado: $"
-    Placeholder db "PLACEHOLDER$"
+    Placeholder0 db "Contador$"
+    Placeholder1 db "Maximo$"
+    Placeholder2 db "Minimo$"
+    Placeholder3 db "Moda$"
+    Placeholder4 db "Mediana$"
+    Placeholder5 db "Promedio$"
+    Placeholder6 db "PLACEHOLDER$"
+
     CAbre db "[$"
     CCierra db "]$"
 

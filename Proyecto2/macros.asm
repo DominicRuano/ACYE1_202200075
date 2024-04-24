@@ -8,23 +8,21 @@ PrintConsola MACRO
 
 ENDM
 
-comando MACRO
+comando MACRO params, params2
     PrintCadena MSGConsola1
-    PrintCadena opcion
+    PrintCadena params
     PrintCadena salto
 
     PrintCadena MSGConsola2
-    PrintCadena Placeholder
-    PrintCadena espacios
+    PrintCadena espacio
     PrintCadena CAbre
-    PrintCadena Placeholder
+    PrintCadena params2
     PrintCadena CCierra
-    PrintCadena salto
     PrintCadena salto
 ENDM
 
 GetComando MACRO
-LOCAL comando1, comando2, comando3
+LOCAL comando1, comando2, comando3, comando4, comando5
     cmp opcion[0], "s"
     jne comando1
 
@@ -142,6 +140,145 @@ comando4:
     jmp Menu
 
 comando5:
+    cmp opcion[0], "c"
+    jne comando6
+
+    cmp opcion[1], "o"
+    jne comando6
+
+    cmp opcion[2], "n"
+    jne comando6
+
+    cmp opcion[3], "t"
+    jne comando6
+
+    cmp opcion[4], "a"
+    jne comando6
+
+    cmp opcion[5], "d"
+    jne comando6
+
+    cmp opcion[6], "o"
+    jne comando6
+
+    cmp opcion[7], "r"
+    jne comando6
+
+    ; * Contador De Datos
+    ContadorDatos
+    MOV base, 10000
+
+    jmp Menu
+
+comando6:
+    cmp opcion[0], "m"
+    jne comando7
+
+    cmp opcion[1], "i"
+    jne comando7
+
+    cmp opcion[2], "n"
+    jne comando7
+
+    ; * Minimo
+    Minimo
+    MOV base, 10000
+
+    jmp Menu
+
+comando7:
+    cmp opcion[0], "m"
+    jne comando8
+
+    cmp opcion[1], "a"
+    jne comando8
+
+    cmp opcion[2], "x"
+    jne comando8
+
+    ; * Maximo
+    Maximo
+    MOV base, 10000
+
+    jmp Menu
+
+comando8:
+    cmp opcion[0], "m"
+    jne comando9
+
+    cmp opcion[1], "o"
+    jne comando9
+
+    cmp opcion[2], "d"
+    jne comando9
+
+    cmp opcion[3], "a"
+    jne comando9
+
+    ; * Construir Tabla De Frecuencias
+    BuildTablaFrecuencias
+    OrderFrecuencies
+    MOV base, 10000
+
+    PrintCadena MSGConsola1
+    PrintCadena Placeholder3
+    PrintCadena salto
+
+    ; * Moda
+    Moda
+    MOV base, 10000
+
+    jmp Menu
+
+comando9:
+    cmp opcion[0], "m"
+    jne comando10
+
+    cmp opcion[1], "e"
+    jne comando10
+
+    cmp opcion[2], "d"
+    jne comando10
+
+    cmp opcion[3], "i"
+    jne comando10
+
+    cmp opcion[4], "a"
+    jne comando10
+
+    cmp opcion[5], "n"
+    jne comando10
+
+    cmp opcion[6], "a"
+    jne comando10
+
+    ; * Mediana
+    Mediana
+    MOV base, 10000
+
+    jmp Menu
+
+comando10:
+    cmp opcion[0], "p"
+    jne comando11
+
+    cmp opcion[1], "r"
+    jne comando11
+
+    cmp opcion[2], "o"
+    jne comando11
+
+    cmp opcion[3], "m"
+    jne comando11
+
+    ; * Promedio
+    Promedio
+    MOV base, 10000
+
+    jmp Menu
+
+comando11:
+
     PrintCadena MSGComandoInvalido
     jmp Menu
 
@@ -440,9 +577,9 @@ Promedio MACRO
 
     ContinuarProm:
         MOV cantDecimal, 0
-        PrintCadena salto
-        PrintCadena msgPromedio
-        PrintCadena cadenaResult
+
+        comando Placeholder5, cadenaResult
+
 ENDM
 
 CrearCadena MACRO valor, cadena
@@ -500,9 +637,7 @@ Maximo MACRO
     INC SI
     MOV cadenaResult[SI], 36
 
-    PrintCadena salto
-    PrintCadena msgMaximo
-    PrintCadena cadenaResult
+    comando Placeholder1, cadenaResult
 ENDM
 
 Minimo MACRO
@@ -520,9 +655,7 @@ Minimo MACRO
     INC SI
     MOV cadenaResult[SI], 36
 
-    PrintCadena salto
-    PrintCadena msgMinimo
-    PrintCadena cadenaResult
+    comando Placeholder2, cadenaResult
 ENDM
 
 Mediana MACRO
@@ -604,9 +737,7 @@ Mediana MACRO
 
     ExitCalcMediana:
         MOV cantDecimal, 0
-        PrintCadena salto
-        PrintCadena msgMediana
-        PrintCadena cadenaResult
+        comando Placeholder4, cadenaResult
 
 ENDM
 
@@ -620,9 +751,8 @@ ContadorDatos MACRO
 
     MOV cadenaResult[SI], 36
 
-    PrintCadena salto
-    PrintCadena msgContadorDatos
-    PrintCadena cadenaResult
+    comando Placeholder0, cadenaResult
+
 ENDM
 
 BuildTablaFrecuencias MACRO
@@ -739,9 +869,11 @@ Moda MACRO
         CrearCadena entero, cadenaResult
         MOV cadenaResult[SI], 36
 
-        PrintCadena salto
-        PrintCadena msgModa1
-        PrintCadena cadenaResult
+    PrintCadena MSGConsola2
+    PrintCadena espacio
+    PrintCadena CAbre
+    PrintCadena cadenaResult
+
         POP AX
         MOV entero, AX
         
@@ -752,9 +884,10 @@ Moda MACRO
         CrearCadena entero, cadenaResult
         MOV cadenaResult[SI], 36
 
-        PrintCadena salto
-        PrintCadena msgModa2
-        PrintCadena cadenaResult
+    PrintCadena coma
+    PrintCadena cadenaResult
+    PrintCadena CCierra
+    PrintCadena salto
 
         POP AX
         
