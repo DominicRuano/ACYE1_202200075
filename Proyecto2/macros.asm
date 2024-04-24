@@ -1,3 +1,153 @@
+
+PrintConsola MACRO
+    PrintCadena MSGConsola
+    obtenerString opcion, 40h
+    PrintCadena salto
+
+    GetComando
+
+ENDM
+
+comando MACRO
+    PrintCadena MSGConsola1
+    PrintCadena opcion
+    PrintCadena salto
+
+    PrintCadena MSGConsola2
+    PrintCadena Placeholder
+    PrintCadena espacios
+    PrintCadena CAbre
+    PrintCadena Placeholder
+    PrintCadena CCierra
+    PrintCadena salto
+    PrintCadena salto
+ENDM
+
+GetComando MACRO
+LOCAL comando1, comando2, comando3
+    cmp opcion[0], "s"
+    jne comando1
+
+    cmp opcion[1], "a"
+    jne comando1
+
+    cmp opcion[2], "l"
+    jne comando1
+
+    cmp opcion[3], "i"
+    jne comando1
+
+    cmp opcion[4], "r"
+    jne comando1
+
+    jmp Salir
+
+comando1:
+    cmp opcion[0], "i"
+    jne comando2
+
+    cmp opcion[1], "n"
+    jne comando2
+
+    cmp opcion[2], "f"
+    jne comando2
+
+    cmp opcion[3], "o"
+    jne comando2
+
+    PrintCadena Info1
+
+    jmp Menu
+
+comando2:
+    cmp opcion[0], "r"
+    jne comando3
+
+    cmp opcion[1], "e"
+    jne comando3
+
+    cmp opcion[2], "p"
+    jne comando3
+
+    cmp opcion[3], "o"
+    jne comando3
+
+    cmp opcion[4], "r"
+    jne comando3
+
+    cmp opcion[5], "t"
+    jne comando3
+
+    cmp opcion[6], "e"
+    jne comando3
+
+    PrintCadena Info6
+
+    jmp Menu
+
+comando3:
+    cmp opcion[0], "l"
+    jne comando4
+
+    cmp opcion[1], "i"
+    jne comando4
+
+    cmp opcion[2], "m"
+    jne comando4
+
+    cmp opcion[3], "p"
+    jne comando4
+
+    cmp opcion[4], "i"
+    jne comando4
+
+    cmp opcion[5], "a"
+    jne comando4
+
+    cmp opcion[6], "r"
+    jne comando4
+
+    LimpiarConsola
+
+    jmp Menu
+
+comando4:
+    cmp opcion[0], "a"
+    jne comando5
+
+    cmp opcion[1], "b"
+    jne comando5
+
+    cmp opcion[2], "r"
+    jne comando5
+
+    cmp opcion[3], "i"
+    jne comando5
+
+    cmp opcion[4], "r"
+    jne comando5
+
+    cmp opcion[5], "_"
+    jne comando5
+
+    CleanNameCSV
+
+    OpenFile
+    GetSizeFile handlerFile
+    ReadCSV handlerFile, numCSV
+    CloseFile handlerFile
+
+    OrderData
+
+    jmp Menu
+
+comando5:
+    PrintCadena MSGComandoInvalido
+    jmp Menu
+
+
+ENDM
+
 PrintCadena MACRO cadena
     MOV AH, 09h
     LEA DX, cadena
@@ -7,27 +157,27 @@ ENDM
 OpenFile MACRO
     LOCAL ErrorToOpen, ExitOpenFile
     MOV AL, 2
-    MOV DX, OFFSET filename + 2
+    MOV DX, OFFSET opcion + 6
     MOV AH, 3Dh
     INT 21h
 
     JC ErrorToOpen
 
     MOV handlerFile, AX
-    PrintCadena salto
-    PrintCadena exitOpenFileMsg
+    ;PrintCadena salto
+    ;PrintCadena exitOpenFileMsg
     JMP ExitOpenFile
 
     ErrorToOpen:
         MOV errorCode, AL
         ADD errorCode, 48
 
-        PrintCadena salto
         PrintCadena errorOpenFile
 
         MOV AH, 02h
         MOV DL, errorCode
         INT 21h
+        jmp Menu
 
     ExitOpenFile:
 ENDM
@@ -40,8 +190,8 @@ CloseFile MACRO handler
 
     JC ErrorToClose
 
-    PrintCadena salto
-    PrintCadena exitCloseFileMsg
+    ;PrintCadena salto
+    ;PrintCadena exitCloseFileMsg
     JMP ExitCloseFile
 
     ErrorToClose:
@@ -154,8 +304,8 @@ GetSizeFile MACRO handler
     obtenerPosApuntador handler, 0, posApuntador
     JC ErrorGetSize
 
-    PrintCadena salto
-    PrintCadena exitSizeFileMsg
+    ;PrintCadena salto
+    ;PrintCadena exitSizeFileMsg
     JMP ExitGetSize
 
     ErrorGetSize:
@@ -694,26 +844,34 @@ LOCAL read_char_loop, end_read
     INT 10h         ; Interrupción de video
 
     ; Bucle para leer caracteres
-    read_char_loop:
-        ; Leer un carácter sin eco
-        mov ah, 01h
-        int 21h
+read_char_loop:
+    ; Leer un carácter sin eco
+    mov ah, 01h
+    int 21h
 
-        ; Verificar si es un enter (carácter ASCII 13)
-        cmp al, 13
-        je end_read
+    ; Verificar si es un enter (carácter ASCII 13)
+    cmp al, 13
+    je end_read
 
-        ; Almacenar el carácter en el buffer
-        mov [regBuffer + si], al
+    cmp al, 08h
+    je retorno_de_carro
 
-        ; Incrementar índice y contador de longitud
-        inc si
-        cmp si, maxLength
-        jb read_char_loop
+    ; Almacenar el carácter en el buffer
+    mov [regBuffer + si], al
 
-    end_read:
-        ; Agregar el carácter de fin de cadena
-        mov byte ptr [regBuffer + si], "$"
+    ; Incrementar índice y contador de longitud
+    inc si
+    cmp si, maxLength
+    jb read_char_loop
+    jmp end_read
+
+retorno_de_carro:
+    dec si
+    jmp read_char_loop
+
+end_read:
+    ; Agregar el carácter de fin de cadena
+    mov [regBuffer + si], "$"
 ENDM
 
 CleanNameVar MACRO params
@@ -723,6 +881,19 @@ Inicio:
     mov params[si], 32
     inc si
 
-    cmp si, 0Ah
+    cmp si, 100h
     jne Inicio
+ENDM
+
+CleanNameCSV MACRO
+LOCAL Inicio, Fin
+    mov si, 0h
+Inicio:
+    cmp opcion[si], "$"
+    je Fin
+
+    inc si
+    jmp Inicio
+Fin:
+    mov opcion[si], 0
 ENDM

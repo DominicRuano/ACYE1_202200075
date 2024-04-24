@@ -4,6 +4,14 @@ INCLUDE macros.ASM
 .STACK 100h
 .DATA
 
+    Info1 db "  Arquitectura de computadores y ensambladores 1  A", 10, 13
+    Info2 db "  Primer semestre 2024", 10, 13
+    Info3 db "  Dominic Juan Pablo Ruano Perez", 10, 13
+    Info4 db "  202200075", 10, 13
+    Info5 db "  Proyecto 2 Assembler", 10, 13, 10, 13, "$"
+
+    info6 db "  Aun no existe una funcion para genera reportes.", 10, 13, "$"
+
     colorNegroTexto db 00h ; Negro sobre negro
     colorAzulTexto db 01h ; Azul sobre negro
     colorVerdeTexto db 02h ; Verde sobre negro
@@ -54,16 +62,18 @@ INCLUDE macros.ASM
     base                dw 10000
     entero              dw ?
     decimal             dw ?
-    cantDecimal         db 0
+cantDecimal         db 0
 
-    MSGConsola db "ConsolaPF2> $"
+    MSGComandoInvalido db "Comando Invalido", 10, 13, "$"
+    MSGConsola db 10, 13, "ConsolaPF2> $"
     MSGConsola1 db "    Operacion: $"
     MSGConsola2 db "    Resultado: $"
     Placeholder db "PLACEHOLDER$"
     CAbre db "[$"
     CCierra db "]$"
 
-    opcion db 101 dup("$")
+    opcion db 68 dup("$")
+    operacion db 68 dup("$")
 
 .CODE
     MOV AX, @data
@@ -73,25 +83,9 @@ INCLUDE macros.ASM
     Main PROC
             LimpiarConsola
         Menu:
-            PrintCadena MSGConsola
-            obtenerString opcion, 100
-            PrintCadena salto
-
-            PrintCadena MSGConsola1
-            PrintCadena opcion
-            PrintCadena salto
-
-            PrintCadena MSGConsola2
-            PrintCadena Placeholder
-            PrintCadena espacios
-            PrintCadena CAbre
-            PrintCadena Placeholder
-            PrintCadena CCierra
-            PrintCadena salto
+            PrintConsola
 
             jmp Menu
-
-
 
         Salir:
             ;PrintCadena salto
