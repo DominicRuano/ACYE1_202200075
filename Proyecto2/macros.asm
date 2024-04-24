@@ -82,7 +82,74 @@ comando2:
     cmp BooleanValor[0], "0"
     je bool
 
-    PrintCadena Info6
+    ImpFechaHora
+
+    AbrirArchivo3
+    EscribirArchivo StrToPrint1
+
+    ; * Mediana
+    Mediana
+    EscribirArchivo cadenaResult
+
+    EscribirArchivo salto
+    EscribirArchivo StrToPrint2
+
+    ; * Promedio
+    Promedio
+    EscribirArchivo cadenaResult
+
+    EscribirArchivo salto
+    EscribirArchivo StrToPrint3
+
+    XOR AX, AX
+    XOR BX, BX
+    MOV AL, numEntradas
+    MOV BL, 2
+    MUL BL
+    MOV DI, AX
+    DEC DI
+
+    MOV AL, tablaFrecuencias[DI] ; ? Frecuencia
+    dec DI
+    MOV BL, tablaFrecuencias[DI] ; ? Valor
+
+    ;EscribirArchivo al
+    EscribirArchivo coma
+    ;EscribirArchivo bl
+
+    EscribirArchivo salto
+    EscribirArchivo StrToPrint4
+
+    ; * Maximo
+    Maximo
+    EscribirArchivo cadenaResult
+
+    EscribirArchivo salto
+    EscribirArchivo StrToPrint5
+
+    ; * Minimo
+    Minimo
+    EscribirArchivo cadenaResult
+
+    EscribirArchivo salto
+    EscribirArchivo StrToPrint6
+
+
+    EscribirArchivo salto
+    EscribirArchivo StrToPrint7
+
+
+    EscribirArchivo salto
+    EscribirArchivo StrToPrint8
+    EscribirArchivo fecha
+    EscribirArchivo salto
+    EscribirArchivo StrToPrint9
+    EscribirArchivo hora
+    EscribirArchivo salto
+    EscribirArchivo StrToPrint10
+    EscribirArchivo salto
+    EscribirArchivo StrToPrint11
+    CerrarArchivo
 
     jmp Menu
 
@@ -199,6 +266,7 @@ comando6:
 
     ; * Minimo
     Minimo
+    comando Placeholder2, cadenaResult
     MOV base, 10000
 
     jmp Menu
@@ -218,6 +286,7 @@ comando7:
 
     ; * Maximo
     Maximo
+    comando Placeholder1, cadenaResult
     MOV base, 10000
 
     jmp Menu
@@ -275,6 +344,7 @@ comando9:
 
     ; * Mediana
     Mediana
+    comando Placeholder4, cadenaResult
     MOV base, 10000
 
     jmp Menu
@@ -297,6 +367,7 @@ comando10:
 
     ; * Promedio
     Promedio
+    comando Placeholder5, cadenaResult
     MOV base, 10000
 
     jmp Menu
@@ -601,9 +672,6 @@ Promedio MACRO
 
     ContinuarProm:
         MOV cantDecimal, 0
-
-        comando Placeholder5, cadenaResult
-
 ENDM
 
 CrearCadena MACRO valor, cadena
@@ -660,8 +728,6 @@ Maximo MACRO
     MOV cadenaResult[SI], 48
     INC SI
     MOV cadenaResult[SI], 36
-
-    comando Placeholder1, cadenaResult
 ENDM
 
 Minimo MACRO
@@ -678,8 +744,6 @@ Minimo MACRO
     MOV cadenaResult[SI], 48
     INC SI
     MOV cadenaResult[SI], 36
-
-    comando Placeholder2, cadenaResult
 ENDM
 
 Mediana MACRO
@@ -761,8 +825,6 @@ Mediana MACRO
 
     ExitCalcMediana:
         MOV cantDecimal, 0
-        comando Placeholder4, cadenaResult
-
 ENDM
 
 ContadorDatos MACRO
@@ -1053,4 +1115,107 @@ Inicio:
     jmp Inicio
 Fin:
     mov opcion[si], 0
+ENDM
+
+AbrirArchivo3 MACRO 
+    mov ah, 3Ch  ; Función 3Ch: Crear archivo
+    xor cx, cx   ; Atributos de archivo: normal
+    lea dx, nombreDB  ; Nombre del archivo
+    int 21h      ; Llamar a DOS
+    mov filehandle, ax  ; Guardar manejador de archivo
+ENDM
+
+EscribirArchivo MACRO params
+    mov ah, 40h  ; Función 40h: Escribir en archivo
+    mov bx, filehandle  ; Manejador de archivo
+    lea dx, params     ; Mensaje a escribir
+    mov cx, lengthof params  ; Número de bytes a escribir
+    dec cx       ; Excluir el carácter de fin de cadena
+    int 21h      ; Llamar a DOS
+ENDM
+
+ImpFechaHora MACRO
+    ; Obtener la fecha actual
+    mov ah, 2Ah                 ; Servicio para obtener la fecha actual
+    int 21h                     ; Llamar a la interrupción DOS
+
+    xor ax, ax
+    mov bl, 0ah
+
+    mov al, dl
+    div bl
+    add al, 30h
+    add ah, 30h
+    mov [fecha], al         ; Guardar decena día
+    mov [fecha + 1], ah     ; Guardar unidad día
+    mov [fecha + 2], 47
+
+    xor ax, ax
+
+    mov al, dh
+    div bl
+    add al, 30h
+    add ah, 30h
+    mov [fecha + 3], al     ; Guardar decena mes
+    mov [fecha + 4], ah     ; Guardar unidad mes
+    mov [fecha + 5], 47
+
+    mov ax, cx 
+    mov dx, 0h
+    div bx
+    add dl, 30h
+    mov [fecha + 9], dl     ; Guardar unidades año
+    
+    div bl
+    add ah, 30h
+    mov [fecha + 8], ah     ; Guardar decenas año
+    xor ah,ah
+
+    div bl
+    add ah, 30h
+    mov [fecha + 7], ah     ; Guardar centenas año
+    xor ah,ah
+
+    div bl
+    add ah, 30h
+    mov [fecha + 6], ah     ; Guardar millares año
+    xor ah,ah
+
+    mov ah, 2Ch       ; Servicio para obtener la hora actual
+    int 21h           ; Llamar a la interrupción DOS
+
+    mov bl, 0ah
+    xor ax, ax
+    mov al, ch        ; Hora actual
+    div bl
+    add al, 30h
+    add ah, 30h
+    mov [hora], al ; Guardar hora
+    mov [hora + 1], ah
+
+    mov [hora + 2], 58 ; Caracter ':'
+
+    xor ax, ax
+    mov al, cl        ; Minutos actuales
+    div bl
+    add al, 30h
+    add ah, 30h
+    mov [hora + 3], al ; Guardar minutos
+    mov [hora + 4], ah 
+
+    mov [hora + 5], 58 ; Caracter ':'
+
+    xor ax, ax
+    mov al, dh        ; Segundos actuales
+    div bl
+    add al, 30h
+    add ah, 30h
+    mov [hora + 6], al ; Guardar segundos
+    mov [hora + 7], ah
+ENDM
+
+CerrarArchivo MACRO
+    mov ah, 3Eh  ; Función 3Eh: Cerrar archivo
+    mov bx, filehandle  ; Manejador de archivo
+    int 21h      ; Llamar a DOS
 ENDM

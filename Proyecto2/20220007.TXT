@@ -1,0 +1,11 @@
+Mediana: 34.00
+Promedio: Q.660
+Moda: ,
+Maximo: “.00$
+Minimo: 1.00$
+Tabla de distribucion de frecuencias
+|Numero |Frecuencia |
+Fecha: 24/04/2024
+Hora: 12:25:01
+Carnet: 202200075 
+Nombre: Dominic Juan Pablo Ruano Perez

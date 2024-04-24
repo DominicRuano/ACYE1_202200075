@@ -81,8 +81,24 @@ cantDecimal         db 0
     CAbre db "[$"
     CCierra db "]$"
 
-    BooleanValor db 1 dup("0")
+    nombreDB db "202200075.txt", 00h
+    fileHandle dw ?
 
+    StrToPrint1 db "Mediana:  "
+    StrToPrint2 db "Promedio:  "
+    StrToPrint3 db "Moda:  "
+    StrToPrint4 db "Maximo:  "
+    StrToPrint5 db "Minimo:  "
+    StrToPrint6 db "Tabla de distribucion de frecuencias "
+    StrToPrint7 db "|Numero |Frecuencia | "
+    StrToPrint8 db "Fecha:  "
+    StrToPrint9 db "Hora:  "
+    StrToPrint10 db "Carnet: 202200075  "
+    StrToPrint11 db "Nombre: Dominic Juan Pablo Ruano Perez "
+
+    BooleanValor db 1 dup("0")
+    fecha db 11 dup("$")
+    hora db 9 dup("$")
     opcion db 68 dup("$")
     operacion db 68 dup("$")
 
