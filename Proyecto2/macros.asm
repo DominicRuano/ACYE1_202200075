@@ -674,3 +674,55 @@ PrintTablaFrecuencias MACRO
 
     ExitPrintTabla:
 ENDM
+
+LimpiarConsola MACRO
+    MOV AX, 03h
+    INT 10h
+ENDM
+
+obtenerString MACRO regBuffer, maxLength
+LOCAL read_char_loop, end_read
+    ; Inicializar índice y contador de longitud
+    xor si, si
+
+    ; Establecer el color de la letra para la pantalla
+    MOV AH, 09h     ; Función de BIOS para escribir carácter y atributo
+    MOV AL, ' '     ; Carácter a escribir (espacio en este caso)
+    MOV BH, 0       ; Página de video (usualmente 0)
+    MOV BL, colorRojoTexto   ; Color del texto (4 bits de fondo, 4 bits de texto)
+    MOV CX, lengthof regBuffer       ; Número de veces que se escribe el carácter
+    INT 10h         ; Interrupción de video
+
+    ; Bucle para leer caracteres
+    read_char_loop:
+        ; Leer un carácter sin eco
+        mov ah, 01h
+        int 21h
+
+        ; Verificar si es un enter (carácter ASCII 13)
+        cmp al, 13
+        je end_read
+
+        ; Almacenar el carácter en el buffer
+        mov [regBuffer + si], al
+
+        ; Incrementar índice y contador de longitud
+        inc si
+        cmp si, maxLength
+        jb read_char_loop
+
+    end_read:
+        ; Agregar el carácter de fin de cadena
+        mov byte ptr [regBuffer + si], "$"
+ENDM
+
+CleanNameVar MACRO params
+LOCAL Inicio
+    mov si, 0h
+Inicio:
+    mov params[si], 32
+    inc si
+
+    cmp si, 0Ah
+    jne Inicio
+ENDM

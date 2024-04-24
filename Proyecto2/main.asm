@@ -56,56 +56,42 @@ INCLUDE macros.ASM
     decimal             dw ?
     cantDecimal         db 0
 
+    MSGConsola db "ConsolaPF2> $"
+    MSGConsola1 db "    Operacion: $"
+    MSGConsola2 db "    Resultado: $"
+    Placeholder db "PLACEHOLDER$"
+    CAbre db "[$"
+    CCierra db "]$"
+
+    opcion db 101 dup("$")
+
 .CODE
     MOV AX, @data
     MOV DS, AX
 
     ; Metodo Principal (Main)
     Main PROC
+            LimpiarConsola
         Menu:
-            PrintCadena msgToRequestFile
-            PedirCadena filename
+            PrintCadena MSGConsola
+            obtenerString opcion, 100
+            PrintCadena salto
 
-            ; * Extraer Informacion Del CSV
-            OpenFile
-            GetSizeFile handlerFile
-            ReadCSV handlerFile, numCSV
-            CloseFile handlerFile
+            PrintCadena MSGConsola1
+            PrintCadena opcion
+            PrintCadena salto
 
-            ; * Ordenar Datos - Ordenamiento Burbuja
-            OrderData
+            PrintCadena MSGConsola2
+            PrintCadena Placeholder
+            PrintCadena espacios
+            PrintCadena CAbre
+            PrintCadena Placeholder
+            PrintCadena CCierra
+            PrintCadena salto
 
-            ; * Promedio
-            Promedio
-            MOV base, 10000
+            jmp Menu
 
-            ; * Maximo
-            Maximo
-            MOV base, 10000
 
-            ; * Minimo
-            Minimo
-            MOV base, 10000
-
-            ; * Mediana
-            Mediana
-            MOV base, 10000
-
-            ; * Contador De Datos
-            ContadorDatos
-            MOV base, 10000
-
-            ; * Construir Tabla De Frecuencias
-            BuildTablaFrecuencias
-            OrderFrecuencies
-            MOV base, 10000
-
-            ; * Moda
-            Moda
-            MOV base, 10000
-
-            ; * Print Tabla Frecuencias
-            ;PrintTablaFrecuencias
 
         Salir:
             ;PrintCadena salto
