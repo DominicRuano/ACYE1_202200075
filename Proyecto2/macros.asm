@@ -22,7 +22,7 @@ comando MACRO params, params2
 ENDM
 
 GetComando MACRO
-LOCAL comando1, comando2, comando3, comando4, comando5
+LOCAL comando1, comando2, comando3, comando4, comando5, comando6, comando7, comando8, comando9, comando10, comando11
     cmp opcion[0], "s"
     jne comando1
 
@@ -79,6 +79,9 @@ comando2:
     cmp opcion[6], "e"
     jne comando3
 
+    cmp BooleanValor[0], "0"
+    je bool
+
     PrintCadena Info6
 
     jmp Menu
@@ -128,6 +131,8 @@ comando4:
     cmp opcion[5], "_"
     jne comando5
 
+    mov BooleanValor[0], "1"
+
     CleanNameCSV
 
     OpenFile
@@ -135,7 +140,13 @@ comando4:
     ReadCSV handlerFile, numCSV
     CloseFile handlerFile
 
+    ; * Ordenar Datos - Ordenamiento Burbuja
     OrderData
+
+    ; * Construir Tabla De Frecuencias
+    BuildTablaFrecuencias
+    OrderFrecuencies
+    MOV base, 10000
 
     jmp Menu
 
@@ -164,6 +175,9 @@ comando5:
     cmp opcion[7], "r"
     jne comando6
 
+    cmp BooleanValor[0], "0"
+    je bool
+
     ; * Contador De Datos
     ContadorDatos
     MOV base, 10000
@@ -180,6 +194,9 @@ comando6:
     cmp opcion[2], "n"
     jne comando7
 
+    cmp BooleanValor[0], "0"
+    je bool
+
     ; * Minimo
     Minimo
     MOV base, 10000
@@ -195,6 +212,9 @@ comando7:
 
     cmp opcion[2], "x"
     jne comando8
+
+    cmp BooleanValor[0], "0"
+    je bool
 
     ; * Maximo
     Maximo
@@ -215,10 +235,8 @@ comando8:
     cmp opcion[3], "a"
     jne comando9
 
-    ; * Construir Tabla De Frecuencias
-    BuildTablaFrecuencias
-    OrderFrecuencies
-    MOV base, 10000
+    cmp BooleanValor[0], "0"
+    je bool
 
     PrintCadena MSGConsola1
     PrintCadena Placeholder3
@@ -252,6 +270,9 @@ comando9:
     cmp opcion[6], "a"
     jne comando10
 
+    cmp BooleanValor[0], "0"
+    je bool
+
     ; * Mediana
     Mediana
     MOV base, 10000
@@ -270,6 +291,9 @@ comando10:
 
     cmp opcion[3], "m"
     jne comando11
+
+    cmp BooleanValor[0], "0"
+    je bool
 
     ; * Promedio
     Promedio

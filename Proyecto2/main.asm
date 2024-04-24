@@ -66,7 +66,8 @@ INCLUDE macros.ASM
     decimal             dw ?
 cantDecimal         db 0
 
-    MSGComandoInvalido db "Comando Invalido", 10, 13, "$"
+    MSGComandoInvalido db "     Comando Invalido", 10, 13, "$"
+    MSGArchivoNoCargado db "     No se abrio ningun archivo csv...", 10, 13, "$"
     MSGConsola db 10, 13, "ConsolaPF2> $"
     MSGConsola1 db "    Operacion: $"
     MSGConsola2 db "    Resultado: $"
@@ -76,10 +77,11 @@ cantDecimal         db 0
     Placeholder3 db "Moda$"
     Placeholder4 db "Mediana$"
     Placeholder5 db "Promedio$"
-    Placeholder6 db "PLACEHOLDER$"
 
     CAbre db "[$"
     CCierra db "]$"
+
+    BooleanValor db 1 dup("0")
 
     opcion db 68 dup("$")
     operacion db 68 dup("$")
@@ -94,6 +96,10 @@ cantDecimal         db 0
         Menu:
             PrintConsola
 
+            jmp Menu
+
+        bool:
+            PrintCadena MSGArchivoNoCargado
             jmp Menu
 
         Salir:
