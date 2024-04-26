@@ -122,11 +122,10 @@ comando2:
 
     EscribirArchivo salto
     EscribirArchivo StrToPrint6
-
-
     EscribirArchivo salto
     EscribirArchivo StrToPrint7
 
+    PrintTablaFrecuencias
 
     EscribirArchivo salto
     EscribirArchivo StrToPrint8
@@ -139,6 +138,8 @@ comando2:
     EscribirArchivo salto
     EscribirArchivo StrToPrint11
     CerrarArchivo
+
+    PrintCadena StrToPrint12
 
     jmp Menu
 
@@ -203,6 +204,9 @@ comando4:
     BuildTablaFrecuencias
     OrderFrecuencies
     MOV base, 10000
+
+    PrintCadena exitOpenFileMsg
+    PrintCadena salto
 
     jmp Menu
 
@@ -1028,9 +1032,9 @@ ENDM
 
 PrintTablaFrecuencias MACRO
     LOCAL tabla, ExitPrintTabla
-    PrintCadena salto
-    PrintCadena msgEncabezadoTabla
-    PrintCadena salto
+    ;PrintCadena salto
+    ;PrintCadena msgEncabezadoTabla
+    EscribirArchivo2 salto
 
     XOR AX, AX
     XOR BX, BX
@@ -1057,8 +1061,8 @@ PrintTablaFrecuencias MACRO
         MOV base, 10000
         CrearCadena entero, cadenaResult
         MOV cadenaResult[SI], 36
-        PrintCadena espacios
-        PrintCadena cadenaResult
+        EscribirArchivo2 espacios
+        EscribirArchivo2 cadenaResult
 
         POP AX
         MOV entero, AX
@@ -1067,15 +1071,15 @@ PrintTablaFrecuencias MACRO
         MOV base, 10000
         CrearCadena entero, cadenaResult
         MOV cadenaResult[SI], 36
-        PrintCadena espacios
+        EscribirArchivo2 espacios
 
-        MOV AH, 2
-        MOV DL, 124
-        INT 21h
+        ;MOV AH, 2
+        ;MOV DL, 124
+        ;INT 21h
 
-        PrintCadena espacios
-        PrintCadena cadenaResult
-        PrintCadena salto
+        EscribirArchivo2 espacios
+        EscribirArchivo2 cadenaResult
+        EscribirArchivo2 salto
 
         POP CX
         DEC CX

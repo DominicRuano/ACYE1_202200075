@@ -37,7 +37,7 @@ INCLUDE macros.ASM
     errorCloseFile      db "Ocurrio Un Error Al Cerrar El Archivo - ERRCODE: ", "$"
     errorReadFile       db "Ocurrio Un Error Al Leer El CSV - ERRCODE: ", "$"
     errorSizeFile       db "Ocurrio Un Error Obteniendo El Size Del Archivo - ERRCODE: ", "$"
-    exitOpenFileMsg     db "El Archivo Se Abrio Correctamente", "$"
+    exitOpenFileMsg     db "    El Archivo Se Abrio Correctamente...", "$"
     exitCloseFileMsg    db "El Archivo Se Cerro Correctamente", "$"
     exitSizeFileMsg     db "Se Obtuvo La Longitud Correctamente", "$"
     msgToRequestFile    db "Ingrese El Nombre Del Archivo CSV: ", "$"
@@ -96,6 +96,7 @@ cantDecimal         db 0
     StrToPrint9 db "Hora:  "
     StrToPrint10 db "Carnet: 202200075  "
     StrToPrint11 db "Nombre: Dominic Juan Pablo Ruano Perez "
+    StrToPrint12 db "   Reporte generado correctamente...", 10, 13, "$"
 
     BooleanValor db 1 dup("0")
     fecha db 11 dup("$")
