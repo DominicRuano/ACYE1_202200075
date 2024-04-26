@@ -1,12 +1,12 @@
 Mediana: 34.00
-Promedio: 29.87
-Moda: 43,2
-Moda: 34,2
-Maximo: 56.00
+Promedio: 33.66
+Moda: 34,5
+Moda: 23,5
+Maximo: 99.00
 Minimo: 1.00
 Tabla de distribucion de frecuencias
 |Numero |Frecuencia |
 Fecha: 26/04/2024
-Hora: 11:25:08
+Hora: 11:38:31
 Carnet: 202200075 
 Nombre: Dominic Juan Pablo Ruano Perez

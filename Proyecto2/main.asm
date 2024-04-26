@@ -82,7 +82,7 @@ cantDecimal         db 0
     CAbre db "[$"
     CCierra db "]$"
 
-    nombreDB db "202200075.txt", 00h
+    nombreDB db "2022000753.txt", 00h
     fileHandle dw ?
 
     StrToPrint1 db "Mediana:  "
