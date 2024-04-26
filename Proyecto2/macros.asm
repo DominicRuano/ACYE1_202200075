@@ -88,6 +88,7 @@ comando2:
     EscribirArchivo StrToPrint1
 
     ; * Mediana
+    MOV base, 10000
     Mediana
     EscribirArchivo cadenaResult
 
@@ -95,32 +96,17 @@ comando2:
     EscribirArchivo StrToPrint2
 
     ; * Promedio
+    MOV base, 10000
     Promedio
     EscribirArchivo cadenaResult
 
-    EscribirArchivo salto
-    EscribirArchivo StrToPrint3
-
-    XOR AX, AX
-    XOR BX, BX
-    MOV AL, numEntradas
-    MOV BL, 2
-    MUL BL
-    MOV DI, AX
-    DEC DI
-
-    MOV AL, tablaFrecuencias[DI] ; ? Frecuencia
-    dec DI
-    MOV BL, tablaFrecuencias[DI] ; ? Valor
-
-    ;EscribirArchivo al
-    EscribirArchivo coma
-    ;EscribirArchivo bl
+    Moda2
 
     EscribirArchivo salto
     EscribirArchivo StrToPrint4
 
     ; * Maximo
+    MOV base, 10000
     Maximo
     EscribirArchivo cadenaResult
 
@@ -128,8 +114,11 @@ comando2:
     EscribirArchivo StrToPrint5
 
     ; * Minimo
+    MOV base, 10000
     Minimo
     EscribirArchivo cadenaResult
+
+    MOV base, 10000
 
     EscribirArchivo salto
     EscribirArchivo StrToPrint6
@@ -984,6 +973,59 @@ Moda MACRO
     ExitCalcModa:
 ENDM
 
+Moda2 MACRO
+LOCAL CicloModa, ExitCalcModa
+    XOR AX, AX
+    XOR BX, BX
+    MOV AL, numEntradas
+    MOV BL, 2
+    MUL BL
+    MOV DI, AX
+    DEC DI
+
+    CicloModa:
+        EscribirArchivo salto
+        EscribirArchivo StrToPrint3
+
+        XOR AX, AX
+        XOR BX, BX
+
+        MOV AL, tablaFrecuencias[DI] ; ? Frecuencia
+        DEC DI
+        MOV BL, tablaFrecuencias[DI] ; ? Valor
+        DEC DI
+        
+        PUSH AX
+        MOV entero, BX
+        MOV SI, 0
+        MOV base, 10000
+        CrearCadena entero, cadenaResult
+        MOV cadenaResult[SI], 36
+
+    EscribirArchivo2 cadenaResult
+
+        POP AX
+        MOV entero, AX
+        
+        PUSH AX
+        MOV SI, 0
+        MOV base, 10000
+
+        CrearCadena entero, cadenaResult
+        MOV cadenaResult[SI], 36
+
+    EscribirArchivo coma
+    EscribirArchivo2 cadenaResult
+
+        POP AX
+        
+        CMP AL, tablaFrecuencias[DI]
+        JA ExitCalcModa
+        JMP CicloModa
+
+    ExitCalcModa:
+ENDM
+
 PrintTablaFrecuencias MACRO
     LOCAL tabla, ExitPrintTabla
     PrintCadena salto
@@ -1132,6 +1174,26 @@ EscribirArchivo MACRO params
     mov cx, lengthof params  ; Número de bytes a escribir
     dec cx       ; Excluir el carácter de fin de cadena
     int 21h      ; Llamar a DOS
+ENDM
+
+EscribirArchivo2 MACRO params
+LOCAL Inicio, Fin
+    push si
+    mov si, 00h
+Inicio:
+    cmp params[si], "$"
+    inc si
+    je Fin
+    jmp Inicio
+
+Fin:
+    mov ah, 40h  ; Función 40h: Escribir en archivo
+    mov bx, filehandle  ; Manejador de archivo
+    lea dx, params     ; Mensaje a escribir
+    mov cx, si  ; Número de bytes a escribir
+    dec cx       ; Excluir el carácter de fin de cadena
+    int 21h      ; Llamar a DOS
+    pop si
 ENDM
 
 ImpFechaHora MACRO
