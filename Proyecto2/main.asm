@@ -55,6 +55,7 @@ INCLUDE macros.ASM
     coma                db ",", "$"
     numCSV              db 3 dup(?)
     cadenaResult        db 6 dup("$")
+    stop                db "$"
     tablaFrecuencias    db 100 dup(?)
     numEntradas         db 1
     indexDatos          dw 0

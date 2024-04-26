@@ -116,7 +116,7 @@ comando2:
     ; * Minimo
     MOV base, 10000
     Minimo
-    EscribirArchivo cadenaResult
+    EscribirArchivo2 cadenaResult
 
     MOV base, 10000
 
@@ -1182,8 +1182,8 @@ LOCAL Inicio, Fin
     mov si, 00h
 Inicio:
     cmp params[si], "$"
-    inc si
     je Fin
+    inc si
     jmp Inicio
 
 Fin:
@@ -1191,7 +1191,6 @@ Fin:
     mov bx, filehandle  ; Manejador de archivo
     lea dx, params     ; Mensaje a escribir
     mov cx, si  ; Número de bytes a escribir
-    dec cx       ; Excluir el carácter de fin de cadena
     int 21h      ; Llamar a DOS
     pop si
 ENDM
