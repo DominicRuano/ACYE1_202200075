@@ -368,6 +368,151 @@ comando10:
     jmp Menu
 
 comando11:
+    cmp opcion[0], "g"
+    jne comando12
+
+    cmp opcion[1], "r"
+    jne comando12
+
+    cmp opcion[2], "a"
+    jne comando12
+
+    cmp opcion[3], "f"
+    jne comando12
+
+    cmp opcion[4], "_"
+    jne comando12
+
+    cmp opcion[5], "b"
+    jne comando12
+
+    cmp opcion[6], "a"
+    jne comando12
+
+    cmp opcion[7], "r"
+    jne comando12
+
+    cmp opcion[8], "r"
+    jne comando12
+
+    cmp opcion[9], "a"
+    jne comando12
+
+    cmp opcion[10], "_"
+    jne comando12
+
+    cmp opcion[11], "a"
+    jne comando12
+
+    cmp opcion[12], "s"
+    jne comando12
+
+    cmp opcion[13], "c"
+    jne comando12
+
+    cmp BooleanValor[0], "0"
+    je bool
+    
+    PrintCadena grafica_barra_asc
+    PrintCadena salto
+
+    jmp Menu
+
+comando12:
+    cmp opcion[0], "g"
+    jne comando13
+
+    cmp opcion[1], "r"
+    jne comando13
+
+    cmp opcion[2], "a"
+    jne comando13
+
+    cmp opcion[3], "f"
+    jne comando13
+
+    cmp opcion[4], "_"
+    jne comando13
+
+    cmp opcion[5], "b"
+    jne comando13
+
+    cmp opcion[6], "a"
+    jne comando13
+
+    cmp opcion[7], "r"
+    jne comando13
+
+    cmp opcion[8], "r"
+    jne comando13
+
+    cmp opcion[9], "a"
+    jne comando13
+
+    cmp opcion[10], "_"
+    jne comando13
+
+    cmp opcion[11], "d"
+    jne comando13
+
+    cmp opcion[12], "e"
+    jne comando13
+
+    cmp opcion[13], "s"
+    jne comando13   
+
+    cmp opcion[14], "c"
+    jne comando13
+
+    cmp BooleanValor[0], "0"
+    je bool
+    
+    PrintCadena grafica_barra_desc
+    PrintCadena salto
+
+    jmp Menu
+
+comando13:
+
+    cmp opcion[0], "g"
+    jne comando14
+
+    cmp opcion[1], "r"
+    jne comando14
+
+    cmp opcion[2], "a"
+    jne comando14
+
+    cmp opcion[3], "f"
+    jne comando14
+
+    cmp opcion[4], "_"
+    jne comando14
+
+    cmp opcion[5], "l"
+    jne comando14
+
+    cmp opcion[6], "i"
+    jne comando14
+
+    cmp opcion[7], "n"
+    jne comando14
+
+    cmp opcion[8], "e"
+    jne comando14
+
+    cmp opcion[9], "a"
+    jne comando14
+
+    cmp BooleanValor[0], "0"
+    je bool
+    
+    PrintCadena grafica_linea
+    PrintCadena salto
+
+    jmp Menu
+
+comando14:
 
     PrintCadena MSGComandoInvalido
     jmp Menu
