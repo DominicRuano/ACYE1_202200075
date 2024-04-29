@@ -27,7 +27,7 @@ Mediana: 34.00
      3          1
      2          1
 
-Fecha: 26/04/2024
-Hora: 12:39:09
+Fecha: 28/04/2024
+Hora: 21:57:30
 Carnet: 202200075 
 Nombre: Dominic Juan Pablo Ruano Perez

@@ -188,6 +188,8 @@ comando4:
     cmp opcion[5], "_"
     jne comando5
 
+    CleanAgain?
+
     mov BooleanValor[0], "1"
 
     CleanNameCSV
@@ -1283,4 +1285,27 @@ CerrarArchivo MACRO
     mov ah, 3Eh  ; Función 3Eh: Cerrar archivo
     mov bx, filehandle  ; Manejador de archivo
     int 21h      ; Llamar a DOS
+ENDM
+
+CleanAgain? MACRO
+    mov numEntradas, 1
+    mov indexDatos,  0
+    mov extensionArchivo, 0
+    mov posApuntador, 0
+    mov numDatos, 0
+    mov base, 10000
+
+    mov si, 00h
+estoyAburrido:
+    mov tablaFrecuencias[si], "$"
+    inc si
+    cmp si, 100
+    jne estoyAburrido
+
+    mov si, 00h
+estoyAburrido2:
+    mov bufferDatos[si], "$"
+    inc si
+    cmp si, 300
+    jne estoyAburrido2
 ENDM
