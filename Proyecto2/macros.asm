@@ -413,7 +413,7 @@ comando11:
     cmp BooleanValor[0], "0"
     je bool
 
-    ;here
+    printGraf
 
     obtenerOpcion opcion2
     LimpiarConsola
@@ -469,7 +469,7 @@ comando12:
     cmp BooleanValor[0], "0"
     je bool
 
-    ;here
+    printGraf
 
     obtenerOpcion opcion2
     LimpiarConsola
@@ -511,8 +511,7 @@ comando13:
     cmp BooleanValor[0], "0"
     je bool
 
-    ;here
-
+    printGraf
     obtenerOpcion opcion2
     LimpiarConsola
 
@@ -1496,7 +1495,8 @@ draw_lines:                 ; Etiqueta para el bucle que dibuja las líneas
     popa                    ; Restaurar los registros
 ENDM
 
-printGraf MACRO 
+printGraf MACRO
+LOCAL bobleLineas
     mov ax, 13h
     int 10h                 ; Establecer modo gráfico 13h
 

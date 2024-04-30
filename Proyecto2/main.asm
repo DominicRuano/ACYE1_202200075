@@ -316,10 +316,6 @@ INCLUDE macros.ASM
     Main PROC
             LimpiarConsola
         Menu:
-            printGraf
-            obtenerOpcion opcion2
-            jmp Menu
-
             PrintConsola
 
             jmp Menu
