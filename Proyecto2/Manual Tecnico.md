@@ -1,5 +1,5 @@
 # LABORATORIO Arquitectura de Computadores y Ensambladores 1 🖥️
-## Manual de usuario : Juego de Totito y animaciones ascii en Ensamblador 📚
+## Manual de usuario : Proyecto 2 📚
 ### SEGUNDO SEMESTRE 2023 📅
 
 ```js
@@ -11,21 +11,21 @@ Sección A: Jorge Mario Castañeda Cragua
 ```
 ---
 ## Descripción del Proyecto📋
-El proyecto es un desafío de programación en ensamblador que involucra la creación de un menú interactivo para seleccionar entre jugar "Totito" o visualizar animaciones "ascii art". La implementación requiere el uso avanzado de interrupciones del sistema, manejo de la memoria de video, y el dibujo en modo gráfico para una interfaz de usuario amigable y atractiva.
-
-el desarrollo de un programa en lenguaje ensamblador que ofrece dos actividades principales: jugar al juego de "Totito" o realizar una animación con una imagen "ascii art" utilizando el modo video y las interrupciones 10h. El programa comenzará con un menú principal que permite al usuario elegir entre estas opciones y cada opción desencadena una serie de funcionalidades detalladas y requisitos específicos, incluyendo la gestión de errores y la generación de reportes .
+Este proyecto tiene como objetivo desarrollar una plataforma de análisis estadístico para la empresa Wolfram, especializada en datos matemáticos y estadísticos. La plataforma permitirá ejecutar y visualizar diversas métricas estadísticas, facilitando la comprensión y el análisis de datos a través de gráficos y resultados numéricos. Los datos serán cargados desde un archivo CSV, lo que permite un manejo eficiente y flexible de grandes volúmenes de información.
 
 ## Objetivos 🎯
 
 ### General
-
-- Aprender y aplicar el uso de mnemotécnicos en MASM y la utilización de interrupciones para desarrollar aplicaciones interactivas.
-- Entender y manipular el modo video en ensamblador para crear gráficos y animaciones, así como manejar entradas de usuario a través del teclado.
-- Resolver problemas de programación utilizando instrucciones de bajo nivel y desarrollar un manejo eficiente de los recursos del sistema .
+- Desarrollar una plataforma robusta de análisis estadístico que permita la carga, procesamiento, visualización y análisis de datos mediante el uso del lenguaje ensamblador, aprovechando las capacidades de manipulación directa de hardware y optimización de recursos que este lenguaje ofrece.
 
 ### Específicos
+- Implementar la carga de datos desde archivos CSV para facilitar la entrada y manipulación de grandes conjuntos de datos, permitiendo así realizar análisis estadísticos sobre variadas muestras de datos.
+- Desarrollar funciones estadísticas que permitan calcular medidas de tendencia central y dispersión como el promedio, mediana, moda, máximo y mínimo, proporcionando herramientas básicas para el análisis estadístico.
+- Crear visualizaciones gráficas mediante gráficos de barras y líneas que permitan interpretar de manera más sencilla los resultados estadísticos, facilitando la comprensión de los datos y ayudando en la toma de decisiones basada en los análisis realizados.
+- Generar reportes automatizados que resuman los cálculos estadísticos y distribuciones de frecuencia en un formato de texto plano, ofreciendo una forma sencilla y directa de revisar y archivar los resultados obtenidos.
+- Optimizar la interfaz de usuario mediante la programación en ensamblador para gestionar los comandos y las salidas de manera eficiente, garantizando una experiencia de usuario fluida y efectiva.
+- Aplicar prácticas de programación de bajo nivel para manejar el modo de video y otras funcionalidades del sistema operativo, asegurando que la aplicación aproveche al máximo las capacidades del hardware disponible.
 
-- Desarrollar habilidades en lenguaje ensamblador, enfocándose en el manejo de interrupciones y el modo video para crear una interfaz de usuario y funcionalidades gráficas para juegos y animaciones.
 
 ---
 ## Herramientas Principales a Utilizar 🛠️
@@ -59,35 +59,6 @@ Las siguientes herramientas y programas son esenciales para el desarrollo, prueb
 Cada herramienta ha sido seleccionada para maximizar la eficiencia y efectividad en cada etapa del desarrollo del juego, desde la escritura del código hasta su ejecución y depuración.
 
 ---
-##  logica utilizada en las secciones mas importantes del codigo
-
->*   Escribir DB
-    para esta DB se realiza las siguientes acciones
-    1. se intenta leer la DB de existir se abre en modo de lectura y se guarda en ram todo el contenido del mismo.
-    1.2. si no existe se creara el archivo en modo de escritura.
-    2. de haberse leido contenido en el paso 1 este contenido se vuelca de nuevo ya que al abrir el archivo en modo de escritura este mismo se trunca, por lo que es obligatorio que se ingrese el contenido que se tenia en un principio.
-    3. se escribe variable por variable todo el contenido del nuevo registra consecutivamente entre los mismos, y del contenido anterior.
-<img src="./img/9.png" alt=""/>
-<img src="./img/10.png" alt=""/>
----
-
->* Pintar pixeles en pantalla
-    esta es una de las fucniones mas fundamentales de toda la practica, esta vez se opto por mantenes en codigo unas sprites de 8x8 con las cuales mediante la funcion mostrada aqui abajo se puede imprimir una sprite de X dimenciones y al mismo tiempo decir desde que coordenadas se desea iniciar a pintar.
-<img src="./img/11.png" alt=""/>
----
-
->* Pintar tablero de juego
-  se emplea para poder tener el tablero vacio para imprimir en cualquier momento por motivos de espacio en la siguiente imagen se mostrara solo el inicio de la funcion debido a su tamaño pero esta recorre un arreglo guardado en ram pintando X si se encunetra x en se arreglo o O si se encuentra de lo contraro se deja el espacio vacio para que pueda ser ocupado mas delante.
-<img src="./img/12.png" alt=""/>
----
-
->*   Imprimir cadena de color
-  para imprimir cadena de colores especificos se emplearon valores gaurdados en ram para que sea mas facil identificarlos, pero estos son valores fijos con tablas por todo internet, esta macro se llama para cada momento en el que se quiere imprimir un texto en consola enviando como parametros el texto a imprimir y el color que se desea para este.
-<img src="./img/13.png" alt=""/>
-<img src="./img/14.png" alt=""/>
-<img src="./img/15.png" alt=""/>
-
----
 
 ## Enlaces de Utilidad  🔗
 
@@ -114,55 +85,75 @@ Cada herramienta ha sido seleccionada para maximizar la eficiencia y efectividad
 ___
 ## Funciones dentro del codigo
 
->*   Menu principal
-    Muestra el menu principal del proyecto donde se puede observar todas las opciones en las que este consiste.
-    *La consola en todo momento esta esperando una entrada entre 1 - 4 de recibir algun otro tipo de valor simplemento se ignorar *
+# Comandos Disponibles
+- abrir_nombreArchivo.csv: Carga los datos desde el archivo CSV especificado.
+- prom: Calcula y muestra el promedio de los datos.
+- mediana: Calcula y muestra la mediana de los datos.
+- moda: Calcula y muestra la moda de los datos.
+- max: Muestra el valor máximo de los datos.
+- min: Muestra el valor mínimo de los datos.
+- contador: Muestra la cantidad de datos cargados.
+- graf_barra_asc: Muestra un gráfico de barras de la frecuencia de datos en orden ascendente.
+- graf_barra_desc: Muestra un gráfico de barras de la frecuencia de datos en orden descendente.
+- graf_linea: Muestra un gráfico de línea de la frecuencia de datos.
+- limpiar: Limpia la consola y espera nuevos comandos.
+- reporte: Genera un reporte con los resultados estadísticos.
+- info: Muestra información del curso, el estudiante y el proyecto.
+- salir: Cierra el programa.
+# Ejemplos de Uso
+- Cargar Datos: abrir_datos.csv
+- Calcular Promedio: prom
+- Visualizar Gráfico de Barras Ascendente: graf_barra_asc
+
+# Funcionalidades
+- Carga de Datos: Los datos se cargarán a través de un archivo CSV, sin límite en el número de entradas y con valores en el rango de 0 a 99.
+- Operaciones Estadísticas Básicas: Se incluyen funciones para calcular el promedio, mediana, moda, valor máximo y mínimo de los datos cargados.
+- Visualización Gráfica: La plataforma ofrece gráficos de barras (ascendentes y descendentes) y gráficos de línea para visualizar la frecuencia de los datos de manera clara y estética.
+- Generación de Reportes: Capacidad para generar un reporte en texto plano que resume las estadísticas calculadas y la distribución de frecuencias de los datos.
+
+>*   consola
+  aqui podemos observar como la consola nos pide que se ingrse un comentario de los que estan disponibles
+
 <img src="./img/1.png" alt="Menu Principal"/>
 ---
 
->*   Seleccion de modo de juego
-    en este sub menu la consola esta esperando a que se ingrese un valor entre 1 - 4 se no ser asi no se monstrara nada o consecuentemente se ira a donde se seleccione si esta en el rango.
+>*   Leer un archivo .csv
+  aqui podemos ver como debemos ingresar el nombre del archivo a leer y nos indicara si se ha leido correctamente el mismo.
 <img src="./img/2.png" alt=""/>
 ---
 
->*   Ingresar nombre
-  esta pantalla se muestra multiples veces en toda la ejecucion del juego, en el modo de 1 vz CPU se debe ingresar el nombre del jugador 1 y por defecto el nombre del jugador 2 sera CPU, en cambio en el modo de 1 vz 1 se debera ingresar el nombre tanto del jugador 1 como del jugador 2.
+>*   Ejemplo de algunos comandos
+  podemos ver como se debe ingresar los comando como puede ser min, max o prom
 <img src="./img/3.png" alt=""/>
 ---
 
->*   confirmacion al ingresar nombre
-  en esta pantalla luego de ingresar el nombre nos pedira que ingresemos si el nombre esta correctamente ingresado y/o guardado en la memoria del programa. debemos ingresar y para si y n para no.
+>*   Comando salir 
+  este comando cerrara la consola terminando el programa.
 <img src="./img/4.png" alt=""/>
 ---
 
->*   Modo de juego Totito
-    para el modo de juego del totito podemos observar que tenemos una flecha luego de la grase ingrese movimiento, al presionar una tecla de estar en el rango 1 - 3 y en el segundo char ser un : se mostrara en pantalla y se ingresara en memoria. tambien podemos observar el turno, el cual se muestra con el simbolo que se encuentra a la derecha del tablero.
+>*   Info
+  mostrara la informacion del estudiante que realizo este proyecto.
 <img src="./img/5.png" alt=""/>
 ---
 
->*   Ganador
-    La pantalla de ganador, se muestra al momento de que un jugador gane la partida, esta guardara en una DB la informacion en formato tabla para que esta pueda ser mostrada en el menu de reportes. se muestra en color verde el jugador que ha ganado la partida o en caso de empate lo indica y al ingresar una tecla se regresara al menu para seleccionar un modo de juego.
+>*   ejecutar un comando si no se cargo csv
+  de esta forma se muestra cuando se ingresa un comando sin haber antes leido un archivo.
 <img src="./img/6.png" alt=""/>
 ---
 
 >*   Mostrar Reportes
-    esta pantalla leera el archivo de texto DB que contiene el historial de las partidas ganadas, podemos observar que genera la fecha y la hora actuales , muestra el ganador y el perdedor, tambien muestra en caso de empate.
+  esto generara un archivo .txt con la informacion leida del csv
+
 <img src="./img/7.png" alt=""/>
 ---
 
->*   Informacion personal
-    este menu es donde se encuentra toda la informacion personal del estudiante que creo el sistema. como se indica en el enunciado esta pantalla se encuentra estilizada al igual que todas las demas con arte ascii
+>*   Generacion del txt
+  de esta forma se mostrara el txt
 <img src="./img/8.png" alt=""/>
 ---
 
-___
-##  posibles errores que se pueden presentar en la ejecucion del programa y solucion a estos
-
->*   Ingresar mal un movimiento
-    si se ingresa mal un movimiento la solucion es terminar el movimiento intentando caer sobre una celda la cual ya este ocupada.
-    esto se debe a que el sistema no tiene la capacidad de interrumpir el ingreso de un movimiento a la mitad del mismo y si se ingresa una celda la cual ya se encuentra ocupada el sistema si tiene la capacidad de ignorar ese movimiento, por lo que es lo mas aconsejable para realizar la cancelacion de un movimiento.
----
-
->*   Reoprte sin color
-    debido a las limitaciones del lenguaje ensamblador al momento de leer los caracteres se limita a una variable tipo word y no esa capaz de pintar cuando el reporte tiene alrededor de 6 registros, sin embargo esto no comprende ningun problema para seguir ejecutando ccualquier funcion del sistema.
+>*   Graficas
+  funcion incompleta del proyecto se muestra como estas simplemente genera las bases pero no muestra informacion de las graficas.
+<img src="./img/9.png" alt=""/>
 ---
