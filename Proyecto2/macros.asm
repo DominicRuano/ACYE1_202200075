@@ -412,9 +412,11 @@ comando11:
 
     cmp BooleanValor[0], "0"
     je bool
-    
-    PrintCadena grafica_barra_asc
-    PrintCadena salto
+
+    ;here
+
+    obtenerOpcion opcion2
+    LimpiarConsola
 
     jmp Menu
 
@@ -466,9 +468,11 @@ comando12:
 
     cmp BooleanValor[0], "0"
     je bool
-    
-    PrintCadena grafica_barra_desc
-    PrintCadena salto
+
+    ;here
+
+    obtenerOpcion opcion2
+    LimpiarConsola
 
     jmp Menu
 
@@ -506,9 +510,11 @@ comando13:
 
     cmp BooleanValor[0], "0"
     je bool
-    
-    PrintCadena grafica_linea
-    PrintCadena salto
+
+    ;here
+
+    obtenerOpcion opcion2
+    LimpiarConsola
 
     jmp Menu
 
@@ -1453,4 +1459,77 @@ estoyAburrido2:
     inc si
     cmp si, 300
     jne estoyAburrido2
+ENDM
+
+obtenerOpcion MACRO regOpcion
+    MOV AH, 01h
+    INT 21h
+
+    MOV regOpcion, AL
+ENDM
+
+DrawSprite MACRO sprite_ptr, x, y, width, height
+LOCAL draw_lines
+    pusha                   ; Guardar todos los registros para restaurarlos después
+    mov ax, 0A000h          ; Segmento de memoria de video para modo 13h
+    mov es, ax              ; Establece ES al segmento de memoria de video
+
+    mov si, offset sprite_ptr      ; SI apunta a los datos del sprite en la sección .data
+    mov bx, y               ; BX es la posición Y
+    mov dx, x               ; DX es la posición X
+
+    ; Calcular el offset inicial en la memoria de video
+    mov ax, 320             ; Ancho de la pantalla en píxeles
+    mul bx                  ; AX = 320 * Y
+    add ax, x               ; AX = 320 * Y + X
+    mov di, ax              ; DI = desplazamiento en el segmento de video
+
+    mov bx, height          ; BX = Altura del sprite
+draw_lines:                 ; Etiqueta para el bucle que dibuja las líneas
+    mov cx, width           ; CX = Ancho del sprite
+    rep movsb               ; Mover línea del sprite a la memoria de video
+    add di, 320             ; Saltar al inicio de la siguiente línea en el buffer de pantalla
+    sub di, width           ; Ajustar DI al inicio correcto de la siguiente línea
+    dec bx                  ; Decrementar contador de altura
+    jnz draw_lines          ; Continuar si aún quedan líneas por dibujar
+
+    popa                    ; Restaurar los registros
+ENDM
+
+printGraf MACRO 
+    mov ax, 13h
+    int 10h                 ; Establecer modo gráfico 13h
+
+    mov bx, 0h
+bobleLineas:
+    DrawSprite linea, 000Ah, bx, 01Eh, 01h
+    DrawSprite linea, 0028h, bx, 01Eh, 01h
+    DrawSprite linea, 0046h, bx, 01Eh, 01h
+    DrawSprite linea, 0064h, bx, 01Eh, 01h
+    DrawSprite linea, 0082h, bx, 01Eh, 01h
+    DrawSprite linea, 00A0h, bx, 01Eh, 01h
+    DrawSprite linea, 00BEh, bx, 01Eh, 01h
+    DrawSprite linea, 00DCh, bx, 01Eh, 01h
+    DrawSprite linea, 00FAh, bx, 01Eh, 01h
+    DrawSprite linea, 0118h, bx, 01Eh, 01h
+
+    add bx, 0Ah
+
+    cmp bx, 0BEh
+    Jb bobleLineas
+
+    DrawSprite linea2, 000Ah, 0BEh, 01Eh, 01h
+    DrawSprite linea2, 0028h, 0BEh, 01Eh, 01h
+    DrawSprite linea2, 0046h, 0BEh, 01Eh, 01h
+    DrawSprite linea2, 0064h, 0BEh, 01Eh, 01h
+    DrawSprite linea2, 0082h, 0BEh, 01Eh, 01h
+    DrawSprite linea2, 00A0h, 0BEh, 01Eh, 01h
+    DrawSprite linea2, 00BEh, 0BEh, 01Eh, 01h
+    DrawSprite linea2, 00DCh, 0BEh, 01Eh, 01h
+    DrawSprite linea2, 00FAh, 0BEh, 01Eh, 01h
+    DrawSprite linea2, 0118h, 0BEh, 01Eh, 01h
+
+
+    DrawSprite linea3, 000Ah, 0000h, 01h, 0BEh
+
 ENDM

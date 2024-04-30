@@ -38,9 +38,9 @@ INCLUDE macros.ASM
     errorReadFile       db "Ocurrio Un Error Al Leer El CSV - ERRCODE: ", "$"
     errorSizeFile       db "Ocurrio Un Error Obteniendo El Size Del Archivo - ERRCODE: ", "$"
     exitOpenFileMsg     db "    El Archivo Se Abrio Correctamente...", "$"
-    grafica_barra_asc   db "    Grafica de barras ascendente generada Correctamente...", "$"
-    grafica_barra_desc  db "    Grafica de barras descendente generada Correctamente...", "$"
-    grafica_linea       db "    Grafica de linea generada Correctamente...", "$"
+    grafica_barra_desc  db " Grafica generada correctamente, presione una tecla para regresar a consola.", "$"
+    grafica_barra_asc   db " Grafica generada correctamente, presione una tecla para regresar a consola.", "$"
+    grafica_linea       db " Grafica generada correctamente, presione una tecla para regresar a consola.", "$"
     exitCloseFileMsg    db "El Archivo Se Cerro Correctamente", "$"
     exitSizeFileMsg     db "Se Obtuvo La Longitud Correctamente", "$"
     msgToRequestFile    db "Ingrese El Nombre Del Archivo CSV: ", "$"
@@ -54,6 +54,8 @@ INCLUDE macros.ASM
     msgEncabezadoTabla  db "-> Valor    -> Frecuencia", "$"
     salto               db 10, 13, "$"
     espacios            db 32, 32, 32, 32, 32, "$"
+    saltos              db 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13
+    saltos2             db 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, "$"
     espacio             db 32, "$"
     coma                db ",", "$"
     numCSV              db 3 dup(?)
@@ -68,7 +70,8 @@ INCLUDE macros.ASM
     base                dw 10000
     entero              dw ?
     decimal             dw ?
-cantDecimal         db 0
+    cantDecimal         db 0
+    opcion2              db 1 dup("$")
 
     MSGComandoInvalido db "     Comando Invalido", 10, 13, "$"
     MSGArchivoNoCargado db "     No se abrio ningun archivo csv...", 10, 13, "$"
@@ -107,6 +110,204 @@ cantDecimal         db 0
     opcion db 68 dup("$")
     operacion db 68 dup("$")
 
+    linea       db 07h,07h,00h,07h,07h,00h,07h,07h,00h,07h,07h,00h,07h,07h,00h,07h,07h,00h,07h,07h,00h,07h,07h,00h,07h,07h,00h,07h,07h,00h
+    linea2      db 07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h,07h
+    linea3      db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+                db 07h
+
+    cuadro      db 01h, 01h, 01h, 01h, 01h 
+                db 01h, 01h, 01h, 01h, 01h
+                db 01h, 01h, 01h, 01h, 01h
+                db 01h, 01h, 01h, 01h, 01h
+                db 01h, 01h, 01h, 01h, 01h
 .CODE
     MOV AX, @data
     MOV DS, AX
@@ -115,6 +316,10 @@ cantDecimal         db 0
     Main PROC
             LimpiarConsola
         Menu:
+            printGraf
+            obtenerOpcion opcion2
+            jmp Menu
+
             PrintConsola
 
             jmp Menu
