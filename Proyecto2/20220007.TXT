@@ -1,33 +1,211 @@
-Mediana: 34.00
-Promedio: 33.66
-Moda: 34,5
-Moda: 23,5
+Mediana: 50.00
+Promedio: 49.56
+Moda: 99,1
+Moda: 98,1
+Moda: 97,1
+Moda: 96,1
+Moda: 95,1
+Moda: 94,1
+Moda: 93,1
+Moda: 92,1
+Moda: 91,1
+Moda: 90,1
+Moda: 89,1
+Moda: 88,1
+Moda: 87,1
+Moda: 86,1
+Moda: 85,1
+Moda: 84,1
+Moda: 83,1
+Moda: 82,1
+Moda: 81,1
+Moda: 80,1
+Moda: 79,1
+Moda: 78,1
+Moda: 77,1
+Moda: 76,1
+Moda: 75,1
+Moda: 74,1
+Moda: 73,1
+Moda: 72,1
+Moda: 71,1
+Moda: 70,1
+Moda: 69,1
+Moda: 68,1
+Moda: 67,1
+Moda: 66,1
+Moda: 65,1
+Moda: 64,1
+Moda: 63,1
+Moda: 62,1
+Moda: 61,1
+Moda: 60,1
+Moda: 59,1
+Moda: 58,1
+Moda: 57,1
+Moda: 56,1
+Moda: 55,1
+Moda: 54,1
+Moda: 53,1
+Moda: 52,1
+Moda: 51,1
+Moda: 50,1
+Moda: 49,1
+Moda: 48,1
+Moda: 47,1
+Moda: 46,1
+Moda: 45,1
+Moda: 44,1
+Moda: 42,1
+Moda: 41,1
+Moda: 40,1
+Moda: 39,1
+Moda: 38,1
+Moda: 37,1
+Moda: 36,1
+Moda: 35,1
+Moda: 34,1
+Moda: 33,1
+Moda: 32,1
+Moda: 31,1
+Moda: 30,1
+Moda: 29,1
+Moda: 28,1
+Moda: 27,1
+Moda: 26,1
+Moda: 25,1
+Moda: 24,1
+Moda: 23,1
+Moda: 22,1
+Moda: 21,1
+Moda: 20,1
+Moda: 19,1
+Moda: 18,1
+Moda: 17,1
+Moda: 16,1
+Moda: 15,1
+Moda: 14,1
+Moda: 13,1
+Moda: 12,1
+Moda: 11,1
+Moda: 10,1
+Moda: 9,1
+Moda: 8,1
+Moda: 7,1
+Moda: 6,1
+Moda: 5,1
+Moda: 4,1
+Moda: 3,1
+Moda: 2,1
+Moda: 1,1
+Moda: 0,1
+Moda: 36,36
+Moda: 53,54
 Maximo: 99.00
-Minimo: 1.00
+Minimo: 0.00
 Tabla de distribucion de frecuencias
 |Numero |Frecuencia |
-     34          5
-     23          5
-     1          3
-     54          2
-     44          2
-     43          2
      99          1
+     98          1
+     97          1
+     96          1
+     95          1
+     94          1
+     93          1
+     92          1
+     91          1
+     90          1
+     89          1
+     88          1
+     87          1
+     86          1
+     85          1
+     84          1
+     83          1
+     82          1
+     81          1
+     80          1
+     79          1
+     78          1
      77          1
      76          1
      75          1
+     74          1
+     73          1
+     72          1
+     71          1
+     70          1
+     69          1
+     68          1
+     67          1
+     66          1
+     65          1
+     64          1
+     63          1
+     62          1
+     61          1
+     60          1
+     59          1
+     58          1
+     57          1
      56          1
+     55          1
+     54          1
+     53          1
+     52          1
+     51          1
+     50          1
+     49          1
+     48          1
+     47          1
+     46          1
      45          1
+     44          1
+     42          1
+     41          1
+     40          1
+     39          1
+     38          1
+     37          1
+     36          1
+     35          1
+     34          1
      33          1
      32          1
+     31          1
+     30          1
+     29          1
+     28          1
+     27          1
+     26          1
+     25          1
+     24          1
+     23          1
      22          1
+     21          1
+     20          1
+     19          1
+     18          1
+     17          1
+     16          1
+     15          1
+     14          1
+     13          1
      12          1
+     11          1
+     10          1
+     9          1
+     8          1
+     7          1
+     6          1
      5          1
      4          1
      3          1
      2          1
+     1          1
+     0          1
 
 Fecha: 30/04/2024
-Hora: 17:28:07
+Hora: 23:52:24
 Carnet: 202200075 
 Nombre: Dominic Juan Pablo Ruano Perez

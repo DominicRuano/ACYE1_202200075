@@ -1449,14 +1449,14 @@ CleanAgain? MACRO
 estoyAburrido:
     mov tablaFrecuencias[si], "$"
     inc si
-    cmp si, 100
+    cmp si, 400
     jne estoyAburrido
 
     mov si, 00h
 estoyAburrido2:
     mov bufferDatos[si], "$"
     inc si
-    cmp si, 300
+    cmp si, 1200
     jne estoyAburrido2
 ENDM
 
@@ -1531,5 +1531,7 @@ bobleLineas:
 
 
     DrawSprite linea3, 000Ah, 0000h, 01h, 0BEh
+
+
 
 ENDM

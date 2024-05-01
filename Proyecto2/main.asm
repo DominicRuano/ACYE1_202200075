@@ -31,7 +31,7 @@ INCLUDE macros.ASM
 
     handlerFile         dw ?
     filename            db 30 dup(32)
-    bufferDatos         db 300 dup ("$")
+    bufferDatos         db 1200 dup ("$")
     errorCode           db ?
     errorOpenFile       db "Ocurrio Un Error Al Abrir El Archivo - ERRCODE: ", "$"
     errorCloseFile      db "Ocurrio Un Error Al Cerrar El Archivo - ERRCODE: ", "$"
@@ -61,7 +61,7 @@ INCLUDE macros.ASM
     numCSV              db 3 dup(?)
     cadenaResult        db 6 dup("$")
     stop                db "$"
-    tablaFrecuencias    db 100 dup("$")
+    tablaFrecuencias    db 400 dup("$")
     numEntradas         db 1
     indexDatos          dw 0
     extensionArchivo    dw 0
